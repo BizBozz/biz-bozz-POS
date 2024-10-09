@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import Sidebar from "./components/Sidebar";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import MenuPage from "./pages/MenuPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [isOpen, setIsOpen] = useState(true);
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="flex">
+        <div className="p-2 bg-accent w-full">
+          <button
+            onClick={toggleSidebar}
+            className="px-5 py-2 transition duration-300 bg-primary font-semibold text-black rounded-md flex gap-4 items-center hover:text-primary hover:border hover:border-blue-500 hover:bg-black"
+          >
+            <span>Create Account</span>
+          </button>
+        </div>
+
+        <div
+          className={`fixed left-0 z-10 top-0 w-200 h-full shadow-lg transform transition-transform ${
+            isOpen ? "-translate-x-full" : "translate-x-0" // This means sliding in from left when open
+          }`}
+        >
+          <div
+            style={{
+              // borderRadius: "20px 0 0 20px",
+              overflow: "hidden",
+              borderTop: "none",
+              borderBottom: "none",
+              borderRight: "none",
+              // background:"black"
+            }}
+          >
+            <Sidebar closeSidebar={toggleSidebar} />
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/menu" element={<MenuPage />} />
+        </Routes>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;

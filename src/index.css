@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Satoshi";
+  src: local("Satoshi-Regular"),
+    url("./assets/Font/Satoshi-Regular.otf") format("truetype");
+}
+
+body {
+  font-family: "Satoshi", sans-serif;
+}
