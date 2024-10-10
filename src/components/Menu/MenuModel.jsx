@@ -1,5 +1,5 @@
 // CreateMenu.js
-import React, { useState } from "react";
+import { useState } from "react";
 
 const MenuModel = ({ isOpen, onClose }) => {
   const [dishCategory, setDishCategory] = useState("Western");

@@ -3,6 +3,8 @@ import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
+import TestingPage from "./pages/TestingPage";
+import { MdOutlineMenu } from "react-icons/md";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);
@@ -12,12 +14,12 @@ function App() {
   return (
     <Router>
       <div className="flex">
-        <div className="p-2 bg-accent w-full">
+        <div className="p-2 border-b-2 w-full">
           <button
             onClick={toggleSidebar}
-            className="px-5 py-2 transition duration-300 bg-primary font-semibold text-black rounded-md flex gap-4 items-center hover:text-primary hover:border hover:border-blue-500 hover:bg-black"
+            className="px-5 py-2 transition duration-300 bg-white font-semibold text-black rounded-md flex gap-4 items-center hover:text-white hover:border hover:bg-black"
           >
-            <span>Create Account</span>
+            <MdOutlineMenu className="text-3xl" />
           </button>
         </div>
 
@@ -44,6 +46,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/menu" element={<MenuPage />} />
+          <Route path="/testing" element={<TestingPage />} />
         </Routes>
       </div>
     </Router>

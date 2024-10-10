@@ -1,45 +1,8 @@
-import React, { useState } from "react";
-import MenuModel from "./MenuModel";
+import { useState } from "react";
+import MenuModel from "./../Menu/MenuModel";
 import MenuCard from "./MenuCard";
-// import Modal from "./Modal"; // Import the Modal component
 
-export const menus = [
-  {
-    id: 1,
-    name: "Chinese Foods",
-    description: "Chinese Foods",
-    price: 12000,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 2,
-    name: "Thai Foods",
-    category: "Thai",
-    price: 5000,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 3,
-    name: "Myanmar Foods",
-    category: "Myanmar",
-    price: 4000,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 4,
-    name: "Chinese Foods",
-    category: "Chinese",
-    price: 12000,
-    image: "https://via.placeholder.com/150",
-  },
-  {
-    id: 5,
-    name: "Thai Foods",
-    category: "Thai",
-    price: 5000,
-    image: "https://via.placeholder.com/150",
-  },
-];
+import { menus } from "../Menu/MenuList";
 
 const MenuList = ({ category }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
