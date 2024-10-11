@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CategoryModal from "../components/Menu/CategoryModel";
 import MenuList from "../components/Menu/MenuList";
 
