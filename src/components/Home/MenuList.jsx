@@ -9,7 +9,7 @@ const MenuList = ({ category }) => {
 
   if (menus.length === 0) {
     return (
-      <div className="flex w-full h-screen justify-center items-center">
+      <div className="flex w-full justify-center items-center">
         <div className="text-center">
           <p className="font-mediun text-3xl">No Menu at the Moment!</p>
           <p className="font-medium text-3xl">Set Up your Shop Menu</p>

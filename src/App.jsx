@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
 import TestingPage from "./pages/TestingPage";
 import { MdOutlineMenu } from "react-icons/md";
+import "./App.css";
 
 function App() {
   const [isOpen, setIsOpen] = useState(true);

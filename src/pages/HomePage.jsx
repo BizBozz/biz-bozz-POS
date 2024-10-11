@@ -2,8 +2,6 @@ import { useState } from "react";
 import MenuList from "../components/Home/MenuList";
 import { categorys } from "./MenuPage";
 import TableSelection from "../components/Home/TableModel";
-import { useSelector } from "react-redux";
-import { menus } from "../components/Menu/MenuList";
 import Receipt from "../components/Home/Receipt";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
@@ -17,7 +15,7 @@ function HomePage() {
     <div className="px-5 pt-2">
       <div className="flex">
         {/* Menu*/}
-        <div className="w-2/3 ">
+        <div className="w-2/3 overflow-y-auto h-screen">
           <div className="flex justify-between items-center">
             <p className="text-2xl font-bold mb-5">Menu</p>
             <button
@@ -49,8 +47,10 @@ function HomePage() {
           <MenuList category={selectedCategory} />
         </div>
         {/* Receipt */}
-        <div className="w-1/3 border-l border-black">
-          <Receipt />
+        <div className="w-1/3 border-l border-black ">
+          <div className="sticky top-0">
+            <Receipt />
+          </div>
         </div>
       </div>
       {/* Table Model */}
