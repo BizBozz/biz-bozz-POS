@@ -9,7 +9,6 @@ export const categorys = [
   "Western",
   "Snack",
   "Drinks",
-  "Dessert",
 ];
 
 function MenuPage() {

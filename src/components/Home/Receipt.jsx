@@ -4,6 +4,7 @@ import { CiSquareMinus } from "react-icons/ci";
 import { removeItemFromReceipt } from "../../redux/receiptSlice";
 import { useState } from "react";
 import CalculatorModal from "./CalculatorModel";
+import { removeTable } from "./../../redux/receiptSlice";
 import "./../input.css";
 
 function Receipt() {
@@ -14,6 +15,10 @@ function Receipt() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentReceipt = receipts[selectedTable] || [];
+
+  const cancelAllItem = () => {
+    dispatch(removeTable(selectedTable));
+  };
 
   // Function to calculate total price and item counts
   const calculateTotalAndCounts = () => {
@@ -72,7 +77,10 @@ function Receipt() {
               </div>
             </div>
             <div className="flex gap-5 mt-5">
-              <button className="bg-white w-full text-black text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-black focus:outline-none focus:scale-105">
+              <button
+                className="bg-white w-full text-black text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-black focus:outline-none focus:scale-105"
+                onClick={() => cancelAllItem()}
+              >
                 Cancel
               </button>
 

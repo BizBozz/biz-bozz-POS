@@ -3,11 +3,7 @@ const MenuCard = ({ menu }) => {
     <div className="max-w-sm bg-white border border-black rounded-lg shadow-lg overflow-hidden">
       <div className="p-1 rounded-t-lg">
         <div className="">
-          <img
-            className="w-48 h-32 object-cover"
-            src="https://via.placeholder.com/150"
-            alt="Food"
-          />
+          <img className="w-48 h-32 object-cover" src={menu.image} alt="Food" />
         </div>
       </div>
       <div className="p-1 text-center">
