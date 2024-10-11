@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeTable } from "./../../redux/receiptSlice";
 import { toast } from "sonner";
 
 const CalculatorModal = ({ totalPrice, table, onClose }) => {
   const dispatch = useDispatch();
-  const [paidPrice, setPaidPrice] = useState("");
+  const [paidPrice, setPaidPrice] = useState(totalPrice);
   const [extraChange, setExtraChange] = useState(0);
 
   const removeSelectedTable = (table) => {
@@ -15,9 +15,20 @@ const CalculatorModal = ({ totalPrice, table, onClose }) => {
   const handleCalculate = () => {
     const change = parseFloat(paidPrice) - totalPrice;
     setExtraChange(change >= 0 ? change : 0);
-    removeSelectedTable(table);
-    onClose();
-    toast.success("Payment Successful");
+  };
+
+  useEffect(() => {
+    handleCalculate();
+  }, [paidPrice]);
+
+  const confirmPayment = () => {
+    if (parseFloat(paidPrice) >= totalPrice) {
+      removeSelectedTable(table);
+      onClose();
+      toast.success("Payment Successful");
+    } else {
+      toast.error("Pleae Checkout Again");
+    }
   };
 
   return (
@@ -61,7 +72,7 @@ const CalculatorModal = ({ totalPrice, table, onClose }) => {
           </button>
           <button
             className="bg-black text-xl font-bold w-full text-white rounded py-2 px-4"
-            onClick={handleCalculate}
+            onClick={confirmPayment}
           >
             ConFirm
           </button>
