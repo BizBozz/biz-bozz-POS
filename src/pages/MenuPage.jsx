@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CategoryModal from "../components/Menu/CategoryModel";
 import MenuList from "../components/Menu/MenuList";
+import getMenu from "../api/Menu/getMenu";
 
 export const categorys = [
   "Chinese",
@@ -13,9 +14,22 @@ export const categorys = [
 
 function MenuPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categoryss, setCategorys] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [id, setId] = useState("");
 
-  if (categorys.length === 0) {
+  const getAllCategory = async () => {
+    const res = await getMenu();
+    // console.log(res.data.categories[0]._id);
+    setCategorys(res.data.categories[0].categories);
+    setId(res.data.categories[0]._id);
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, [isModalOpen]);
+
+  if (categoryss.length === 0) {
     return (
       <div className="flex w-full h-screen justify-center items-center overflow-y-auto">
         <div className="text-center">
@@ -44,7 +58,7 @@ function MenuPage() {
       <div className="p-5 relative">
         <div className="flex gap-5">
           <div className="flex flex-wrap gap-5 me-[200px]">
-            {categorys.map((category, index) => (
+            {categoryss.map((category, index) => (
               <div
                 key={index}
                 className="flex items-center gap-2 cursor-pointer"
@@ -62,7 +76,10 @@ function MenuPage() {
               </div>
             ))}
             <div className="flex items-center gap-2 cursor-pointer">
-              <button className="bg-black text-white px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105">
+              <button
+                className="bg-black text-white px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105"
+                onClick={() => setIsModalOpen(true)}
+              >
                 <p className="font-bold">+</p>
               </button>
             </div>
@@ -74,6 +91,11 @@ function MenuPage() {
             <p className="font-bold">Add Menu</p>
           </button>
         </div>
+        <CategoryModal
+          isOpen={isModalOpen}
+          id={id}
+          onClose={() => setIsModalOpen(false)}
+        />
       </div>
     </>
   );

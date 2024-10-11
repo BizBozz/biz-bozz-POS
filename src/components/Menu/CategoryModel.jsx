@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import addCategories from "../../api/Menu/addCategory";
 
-const CategoryModal = ({ isOpen, onClose }) => {
+const CategoryModal = ({ isOpen, onClose, id }) => {
+  // console.log(id);
   const [categoryName, setCategoryName] = useState("");
 
-  const handleCreate = () => {
-    // Handle the create action here
-    console.log("Category Created:", categoryName);
-    onClose(); // Close the modal after creating
+  const handleCreate = async () => {
+    const data = {
+      categoryName: categoryName,
+      categoryId: id,
+    };
+    const res = await addCategories(data);
+    console.log(res.code);
+    if (res.code === 200) {
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
