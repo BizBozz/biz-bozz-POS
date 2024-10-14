@@ -1,7 +1,9 @@
 // CreateMenu.js
 import { useState } from "react";
+import addMenu from "../../api/Menu/addMenu";
+import PropTypes from "prop-types";
 
-const MenuModel = ({ isOpen, onClose }) => {
+const MenuModel = ({ isOpen, onClose, category }) => {
   const [dishCategory, setDishCategory] = useState("Western");
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
@@ -15,7 +17,20 @@ const MenuModel = ({ isOpen, onClose }) => {
     setImage(null); // Clear the image state
   };
 
-  const handleAddDish = () => {
+  const handleAddDish = async () => {
+    const formData = new FormData();
+    formData.append("categoryName", dishCategory);
+    formData.append("dishName", dishName);
+    formData.append("price", price);
+    formData.append("dishImage", image);
+    console.log(formData);
+    const res = await addMenu(formData);
+    console.log(res);
+    onClose();
+    setDishCategory("");
+    setDishName("");
+    setPrice("");
+    setImage(null);
     // Handle adding the dish here
     console.log("Dish Added:", { dishCategory, dishName, price, image });
     onClose(); // Close the modal after adding the dish
@@ -58,7 +73,7 @@ const MenuModel = ({ isOpen, onClose }) => {
                       className="absolute top-2 right-2 bg-black text-white rounded-md px-3 hover:bg-red-700"
                       aria-label="Remove Image"
                     >
-                      &times;
+                      ×
                     </button>
                   </>
                 ) : (
@@ -88,16 +103,17 @@ const MenuModel = ({ isOpen, onClose }) => {
               <label className="block text-sm font-medium mb-1">
                 Select Dish Category
               </label>
+
               <select
                 value={dishCategory}
                 onChange={(e) => setDishCategory(e.target.value)}
                 className="border border-gray-300 rounded-md p-2 w-full"
               >
-                <option value="Western">Western</option>
-                <option value="Chinese">Chinese</option>
-                <option value="Thai">Thai</option>
-                <option value="Traditional">Traditional</option>
-                <option value="Snack">Snack</option>
+                {category.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
               </select>
             </div>
             <div className="mb-4">
@@ -132,6 +148,12 @@ const MenuModel = ({ isOpen, onClose }) => {
       </div>
     </div>
   );
+};
+
+MenuModel.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  category: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MenuModel;

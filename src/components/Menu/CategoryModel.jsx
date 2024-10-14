@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import addCategories from "../../api/Menu/addCategory";
+import PropTypes from "prop-types";
 
 const CategoryModal = ({ isOpen, onClose, id }) => {
   // console.log(id);
@@ -49,6 +50,12 @@ const CategoryModal = ({ isOpen, onClose, id }) => {
       </div>
     </div>
   );
+};
+
+CategoryModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default CategoryModal;

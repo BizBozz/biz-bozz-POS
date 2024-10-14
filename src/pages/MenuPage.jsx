@@ -2,34 +2,37 @@ import { useEffect, useState } from "react";
 import CategoryModal from "../components/Menu/CategoryModel";
 import MenuList from "../components/Menu/MenuList";
 import getMenu from "../api/Menu/getMenu";
+import MenuModel from "../components/Menu/MenuModel";
 
-export const categorys = [
-  "Chinese",
-  "Thai",
-  "Myanmar",
-  "Western",
-  "Snack",
-  "Drinks",
-];
+// export const categorys = [
+//   "Chinese",
+//   "Thai",
+//   "Myanmar",
+//   "Western",
+//   "Snack",
+//   "Drinks",
+// ];
 
 function MenuPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [categoryss, setCategorys] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [categorys, setCategorys] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState();
   const [id, setId] = useState("");
 
   const getAllCategory = async () => {
     const res = await getMenu();
-    // console.log(res.data.categories[0]._id);
+    // console.log(res.data.categories[0].categories[0]);
     setCategorys(res.data.categories[0].categories);
     setId(res.data.categories[0]._id);
+    setSelectedCategory(res.data.categories[0].categories[0]);
   };
 
   useEffect(() => {
     getAllCategory();
   }, [isModalOpen]);
 
-  if (categoryss.length === 0) {
+  if (categorys.length === 0) {
     return (
       <div className="flex w-full h-screen justify-center items-center overflow-y-auto">
         <div className="text-center">
@@ -58,7 +61,7 @@ function MenuPage() {
       <div className="p-5 relative">
         <div className="flex gap-5">
           <div className="flex flex-wrap gap-5 me-[200px]">
-            {categoryss.map((category, index) => (
+            {categorys.map((category, index) => (
               <div
                 key={index}
                 className="flex items-center gap-2 cursor-pointer"
@@ -87,7 +90,10 @@ function MenuPage() {
         </div>
         <MenuList category={selectedCategory} />
         <div className="absolute top-0 right-0 m-2">
-          <button className="bg-black w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105">
+          <button
+            className="bg-black w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105"
+            onClick={() => setIsModalOpen2(true)}
+          >
             <p className="font-bold">Add Menu</p>
           </button>
         </div>
@@ -95,6 +101,11 @@ function MenuPage() {
           isOpen={isModalOpen}
           id={id}
           onClose={() => setIsModalOpen(false)}
+        />
+        <MenuModel
+          isOpen={isModalOpen2}
+          onClose={() => setIsModalOpen2(false)}
+          category={categorys}
         />
       </div>
     </>

@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuList from "../components/Home/MenuList";
-import { categorys } from "./MenuPage";
+// import { categorys } from "./MenuPage";
 import TableSelection from "../components/Home/TableModel";
 import Receipt from "../components/Home/Receipt";
+import getMenu from "../api/Menu/getMenu";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
 function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categorys, setCategorys] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
   const tables = [1, 2, 3, 4, 5];
+
+  const getAllCategory = async () => {
+    const res = await getMenu();
+    // console.log(res.data.categories[0].categories[0]);
+    setCategorys(res.data.categories[0].categories);
+    setSelectedCategory(res.data.categories[0].categories[0]);
+  };
+
+  useEffect(() => {
+    getAllCategory();
+  }, []);
 
   return (
     <div className="px-5 pt-2">

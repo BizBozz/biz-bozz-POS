@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuModel from "./MenuModel";
 import MenuCard from "./MenuCard";
+import getItems from "../../api/Menu/getItems";
+import PropTypes from "prop-types";
 // import Modal from "./Modal"; // Import the Modal component
 
 export const menus = [
@@ -80,7 +82,18 @@ export const menus = [
 ];
 
 const MenuList = ({ category }) => {
+  const [menuLists, setMenuList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const getMenuList = async () => {
+    const res = await getItems();
+    // console.log("item List", res.data[0].categoryName);
+    setMenuList(res.data);
+  };
+
+  useEffect(() => {
+    getMenuList();
+  }, [isModalOpen]);
 
   if (menus.length === 0) {
     return (
@@ -93,7 +106,7 @@ const MenuList = ({ category }) => {
                      transition duration-200 hover:text-primary hover:bg-black hover:border hover:border-primary"
             onClick={() => setIsModalOpen(true)}
           >
-            Create Menu Category
+            Create Menu
           </button>
         </div>
         <div className="">
@@ -108,17 +121,18 @@ const MenuList = ({ category }) => {
 
   return (
     <div className="flex flex-wrap gap-5 mt-5">
-      {menus.map((menu) => {
-        if (category) {
-          return (
-            menu.category === category && <MenuCard key={menu.id} menu={menu} />
-          );
-        } else {
-          return <MenuCard key={menu.id} menu={menu} />;
-        }
+      {menuLists.map((menu) => {
+        return (
+          menu.categoryName === category &&
+          menu.items.map((item) => <MenuCard key={item._id} menu={item} />)
+        );
       })}
     </div>
   );
+};
+
+MenuList.propTypes = {
+  category: PropTypes.string.isRequired,
 };
 
 export default MenuList;
