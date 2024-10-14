@@ -8,7 +8,7 @@ const addCategories = async (data) => {
     const res = await axios.post(`api/v1/categories/list/${data.categoryId}`, {
       categories: [data.categoryName],
     });
-    toast.success(res.message, {
+    toast.success("Category Added Successfully", {
       id: toastId,
       autoClose: 500,
     });
