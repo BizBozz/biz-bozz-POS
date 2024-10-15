@@ -1,20 +1,36 @@
 import { useDispatch, useSelector } from "react-redux";
-import { menus } from "./../../components/Menu/MenuList";
+
 import { CiSquareMinus } from "react-icons/ci";
 import { removeItemFromReceipt } from "../../redux/receiptSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CalculatorModal from "./CalculatorModel";
 import { removeTable } from "./../../redux/receiptSlice";
 import "./../input.css";
+import getItems from "../../api/Menu/getItems";
 
 function Receipt() {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
+  console.log("receipts", receipts);
+  const [menus, setMenuList] = useState([]);
+  // console.log("menu", menus);
 
+  const getMenuList = async () => {
+    const res = await getItems();
+    // console.log("item List", res.data[0].categoryName);
+    setMenuList(res.data);
+  };
+
+  useEffect(() => {
+    getMenuList();
+  }, []);
+
+  // console.log(receipts);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const currentReceipt = receipts[selectedTable] || [];
+  // console.log(currentReceipt);
 
   const cancelAllItem = () => {
     dispatch(removeTable(selectedTable));
@@ -23,14 +39,17 @@ function Receipt() {
   // Function to calculate total price and item counts
   const calculateTotalAndCounts = () => {
     const counts = {};
+    let price = 0;
     let total = 0;
 
     currentReceipt.forEach((item) => {
-      counts[item.name] = (counts[item.name] || 0) + 1;
+      console.log("item", item);
+      counts[item.dishName] = (counts[item.dishName] || 0) + 1;
+      price = item.price;
       total += item.price;
     });
 
-    return { counts, total };
+    return { counts, total, price };
   };
 
   const handleRemoveItem = (itemName) => {
@@ -39,7 +58,9 @@ function Receipt() {
     }
   };
 
-  const { counts, total } = calculateTotalAndCounts();
+  const { counts, total, price } = calculateTotalAndCounts();
+  console.log("count", counts);
+  console.log("price", price);
 
   return (
     <div>
@@ -52,6 +73,7 @@ function Receipt() {
             </p>
             <div className="receipt">
               {Object.keys(counts).map((itemName) => (
+                // console.log("name", itemName),
                 <div key={itemName} className="font-medium mb-2 flex">
                   <span className="w-1/3">{itemName}</span>{" "}
                   <span className="w-1/3 flex items-center">
@@ -66,7 +88,12 @@ function Receipt() {
                   </span>
                   <span className="w-1/3 text-right">
                     {counts[itemName] *
-                      menus.find((item) => item.name === itemName).price}{" "}
+                      receipts[selectedTable].find(
+                        (item) => item.dishName === itemName
+                      ).price}
+                    {/* {counts[itemName] *
+                          menus.find((item) => item.dishName === itemName)
+                            .price}{" "} */}
                     MMK
                   </span>
                 </div>

@@ -55,7 +55,7 @@ const CategoryModal = ({ isOpen, onClose, id }) => {
 CategoryModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  // id: PropTypes.string.isRequired,
 };
 
 export default CategoryModal;
