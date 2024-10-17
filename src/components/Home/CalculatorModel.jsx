@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeTable } from "./../../redux/receiptSlice";
 import { toast } from "sonner";
+import confirmPayment from "../../api/Menu/confirmPayment";
+import SuccessModel from "./SuccessModel";
 
-const CalculatorModal = ({ totalPrice, table, onClose }) => {
+const CalculatorModal = ({ totalPrice, table, onClose, id }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const [paidPrice, setPaidPrice] = useState(totalPrice);
   const [extraChange, setExtraChange] = useState(0);
@@ -21,11 +24,20 @@ const CalculatorModal = ({ totalPrice, table, onClose }) => {
     handleCalculate();
   }, [paidPrice]);
 
-  const confirmPayment = () => {
+  const confirmPaymentClick = async () => {
     if (parseFloat(paidPrice) >= totalPrice) {
-      removeSelectedTable(table);
-      onClose();
-      toast.success("Payment Successful");
+      const data = {
+        paymentType: "Card",
+        paidPrice: parseFloat(paidPrice),
+        extraChange: parseFloat(extraChange),
+      };
+
+      const res = await confirmPayment({ data, id });
+      console.log("res", res);
+      if (res.code === 200) {
+        setIsModalOpen(true);
+        // onClose();
+      }
     } else {
       toast.error("Pleae Checkout Again");
     }
@@ -72,12 +84,20 @@ const CalculatorModal = ({ totalPrice, table, onClose }) => {
           </button>
           <button
             className="bg-black text-xl font-bold w-full text-white rounded py-2 px-4"
-            onClick={confirmPayment}
+            onClick={confirmPaymentClick}
           >
             ConFirm
           </button>
         </div>
       </div>
+      <SuccessModel
+        isOpen={isModalOpen}
+        onClose={() => {
+          removeSelectedTable(table);
+          setIsModalOpen(false);
+          onClose();
+        }}
+      />
     </div>
   );
 };

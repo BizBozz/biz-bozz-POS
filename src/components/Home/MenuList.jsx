@@ -4,7 +4,6 @@ import MenuCard from "./MenuCard";
 
 import { menus } from "../Menu/MenuList";
 import getItems from "../../api/Menu/getItems";
-import PropTypes from "prop-types";
 
 const MenuList = ({ category }) => {
   const [menuLists, setMenuList] = useState([]);
@@ -54,10 +53,6 @@ const MenuList = ({ category }) => {
       })}
     </div>
   );
-};
-
-MenuList.propTypes = {
-  category: PropTypes.string.isRequired,
 };
 
 export default MenuList;

@@ -6,19 +6,16 @@ import { useState } from "react";
 import CalculatorModal from "./CalculatorModel";
 import { removeTable } from "./../../redux/receiptSlice";
 import "./../input.css";
+import confirmOrder from "../../api/Menu/confrimOrder";
 
 function Receipt() {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
-  console.log("receipts", receipts);
-  // console.log("menu", menus);
-
-  // console.log(receipts);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [id, setId] = useState(null);
 
   const currentReceipt = receipts[selectedTable] || [];
-  // console.log(currentReceipt);
 
   const cancelAllItem = () => {
     dispatch(removeTable(selectedTable));
@@ -27,29 +24,51 @@ function Receipt() {
   // Function to calculate total price and item counts
   const calculateTotalAndCounts = () => {
     const counts = {};
-    let price = 0;
     let total = 0;
 
     currentReceipt.forEach((item) => {
-      console.log("item", item);
       counts[item.dishName] = (counts[item.dishName] || 0) + 1;
-      price = item.price;
+
       total += item.price;
     });
 
-    return { counts, total, price };
+    return { counts, total };
+  };
+
+  const confirmOrderClick = async () => {
+    const orders = Object.entries(counts).map(([dishName, quantity]) => ({
+      dishName,
+      price:
+        counts[dishName] *
+        receipts[selectedTable].find((item) => item.dishName === dishName)
+          .price,
+      quantity,
+    }));
+
+    const orderData = {
+      table: selectedTable,
+      orderType: "Dine In",
+      orders,
+      totalPrice: total,
+    };
+
+    // console.log("Order Data:", orderData);
+    const res = await confirmOrder(orderData);
+    console.log("Order Confirmation Response:", res.data._id);
+    setId(res.data._id);
+
+    if (res.code === 201) {
+      setIsModalOpen(true);
+    }
   };
 
   const handleRemoveItem = (itemName) => {
-    console.log("itemName", itemName);
     if (selectedTable !== null) {
       dispatch(removeItemFromReceipt({ table: selectedTable, itemName }));
     }
   };
 
-  const { counts, total, price } = calculateTotalAndCounts();
-  console.log("count", counts);
-  console.log("price", price);
+  const { counts, total } = calculateTotalAndCounts();
 
   return (
     <div>
@@ -80,9 +99,6 @@ function Receipt() {
                       receipts[selectedTable].find(
                         (item) => item.dishName === itemName
                       ).price}
-                    {/* {counts[itemName] *
-                          menus.find((item) => item.dishName === itemName)
-                            .price}{" "} */}
                     MMK
                   </span>
                 </div>
@@ -101,7 +117,7 @@ function Receipt() {
               </button>
 
               <button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => confirmOrderClick()}
                 className="bg-black w-full text-white text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-black focus:outline-none focus:scale-105"
               >
                 ConFirm Order
@@ -114,6 +130,7 @@ function Receipt() {
             totalPrice={total}
             table={selectedTable}
             onClose={() => setIsModalOpen(false)}
+            id={id}
           />
         )}
       </div>
