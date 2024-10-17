@@ -31,7 +31,7 @@ const MenuCard = ({ menu }) => {
       </div>
       <div className="border-t border-gray-300">
         <button
-          className="w-full text-indigo-700 font-semibold py-2"
+          className="w-full text-indigo-700 font-semibold py-2 hover:bg-black hover:text-white focus:scale-105 transition duration-200"
           onClick={() => handleMenuSelect(menu)}
         >
           +

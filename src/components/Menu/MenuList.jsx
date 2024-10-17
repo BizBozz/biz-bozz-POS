@@ -124,7 +124,9 @@ const MenuList = ({ category }) => {
       {menuLists.map((menu) => {
         return (
           menu.categoryName === category &&
-          menu.items.map((item) => <MenuCard key={item._id} menu={item} />)
+          menu.items.map((item) => (
+            <MenuCard key={item._id} menu={item} refreshMenu={getMenuList} />
+          ))
         );
       })}
     </div>

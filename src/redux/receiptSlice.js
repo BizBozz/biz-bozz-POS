@@ -25,7 +25,7 @@ const receiptSlice = createSlice({
       const { table, itemName } = action.payload;
       if (state.receipts[table]) {
         const index = state.receipts[table].findIndex(
-          (item) => item.name === itemName
+          (item) => item.dishName === itemName
         );
         if (index !== -1) {
           state.receipts[table].splice(index, 1); // Remove one instance of the item

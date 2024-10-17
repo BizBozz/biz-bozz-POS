@@ -2,29 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { CiSquareMinus } from "react-icons/ci";
 import { removeItemFromReceipt } from "../../redux/receiptSlice";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CalculatorModal from "./CalculatorModel";
 import { removeTable } from "./../../redux/receiptSlice";
 import "./../input.css";
-import getItems from "../../api/Menu/getItems";
 
 function Receipt() {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
   console.log("receipts", receipts);
-  const [menus, setMenuList] = useState([]);
   // console.log("menu", menus);
-
-  const getMenuList = async () => {
-    const res = await getItems();
-    // console.log("item List", res.data[0].categoryName);
-    setMenuList(res.data);
-  };
-
-  useEffect(() => {
-    getMenuList();
-  }, []);
 
   // console.log(receipts);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -53,6 +41,7 @@ function Receipt() {
   };
 
   const handleRemoveItem = (itemName) => {
+    console.log("itemName", itemName);
     if (selectedTable !== null) {
       dispatch(removeItemFromReceipt({ table: selectedTable, itemName }));
     }

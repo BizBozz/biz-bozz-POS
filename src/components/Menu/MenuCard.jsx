@@ -1,5 +1,16 @@
 import PropTypes from "prop-types";
-const MenuCard = ({ menu }) => {
+import EditMenuModel from "./EditMenuModel";
+import { useEffect, useState } from "react";
+const MenuCard = ({ menu, refreshMenu }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleAction = () => {
+    refreshMenu();
+  };
+
+  useEffect(() => {
+    handleAction();
+  }, [isModalOpen]);
   // console.log(menu);
   return (
     <div className="max-w-sm bg-white border border-black rounded-lg shadow-lg overflow-hidden">
@@ -16,10 +27,19 @@ const MenuCard = ({ menu }) => {
         <h2 className="text-lg font-semibold text-gray-800">{menu.dishName}</h2>
       </div>
       <div className="border-t border-gray-300">
-        <button className="w-full text-indigo-700 font-semibold py-2">
+        <button
+          className="w-full text-indigo-700 font-semibold py-2 hover:bg-black hover:text-white focus:scale-105 transition duration-200"
+          onClick={() => setIsModalOpen(true)}
+        >
           Edit Menu
         </button>
       </div>
+
+      <EditMenuModel
+        isOpen={isModalOpen}
+        menu={menu}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 };
