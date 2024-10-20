@@ -22,13 +22,13 @@ const OrdersPage = () => {
   }, []);
 
   return (
-    <div className="mx-auto p-4 h-[500px] overflow-hidden">
+    <div className="mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">Orders</h1>
-      <div className="bg-white shadow-md rounded-lg p-4 h-full overflow-y-auto">
+      <div className="bg-white shadow-md rounded-lg p-4 h-[500px] overflow-y-auto">
         {orders.length === 0 ? (
           <p>No orders available.</p>
         ) : (
-          <table className="min-w-full divide-y divide-gray-200 ">
+          <table className="min-w-full divide-y divide-gray-200 py-10 ">
             <thead className="bg-gray-100">
               <tr>
                 <th className="px-6 py-3 text-left text-md font-semibold text-gray-500 uppercase tracking-wider">

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { selectTable } from "./../../redux/receiptSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -5,6 +6,7 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
+  const [type, setType] = useState();
   //   console.log(receipts);
 
   const handleTableSelect = (table) => {
@@ -41,6 +43,7 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
                 id="takeAway"
                 name="diningType"
                 className="mr-2"
+                onClick={() => setType("takeAway")}
               />
               <label htmlFor="takeAway">Take Away</label>
             </div>

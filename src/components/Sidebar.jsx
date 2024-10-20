@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Home, Menu, Receipt, LogOut, ChevronLeft } from "lucide-react";
 
 const Sidebar = ({ closeSidebar }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -45,7 +45,7 @@ const Sidebar = ({ closeSidebar }) => {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors ${
+                `flex items-center space-x-2 rounded-lg px-3 py-2 transition duration-500 transition-colors ${
                   isActive
                     ? "bg-gray-800 text-white"
                     : "text-gray-400 hover:bg-gray-800 hover:text-white"
