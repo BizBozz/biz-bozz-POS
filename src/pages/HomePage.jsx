@@ -25,10 +25,10 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="px-5 pt-2">
+    <div className="">
       <div className="flex">
         {/* Menu*/}
-        <div className="w-2/3 overflow-y-auto h-screen">
+        <div className="w-2/3 overflow-y-auto h-screen px-5 pt-2">
           <div className="flex justify-between items-center">
             <p className="text-2xl font-bold mb-5">Menu</p>
             <button
@@ -61,7 +61,7 @@ function HomePage() {
         </div>
         {/* Receipt */}
         <div className="w-1/3 border-l border-black ">
-          <div className="sticky top-0">
+          <div className="">
             <Receipt />
           </div>
         </div>
