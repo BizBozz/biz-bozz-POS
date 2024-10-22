@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Home, Menu, Receipt, LogOut, ChevronLeft } from "lucide-react";
+import { useAuth } from "../hook/auth/AuthContext";
 
 const Sidebar = ({ closeSidebar }) => {
+  const { user, logout } = useAuth();
+  console.log(user);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -59,25 +62,24 @@ const Sidebar = ({ closeSidebar }) => {
           ))}
         </nav>
         <div className="p-4">
-          <button
+          <NavLink
+            to="/login"
             className="w-full flex items-center justify-start space-x-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg px-3 py-2 transition-colors"
-            onClick={closeSidebar}
+            onClick={() => {
+              logout();
+            }}
           >
             <LogOut className="h-5 w-5" />
             {!isCollapsed && <span>Logout</span>}
-          </button>
+          </NavLink>
         </div>
         <div className="border-t border-gray-800 p-4">
-          <div className="flex items-center space-x-3">
-            <img
-              src="/placeholder.svg?height=40&width=40"
-              alt="User avatar"
-              className="h-10 w-10 rounded-full"
-            />
+          <div className="">
+            <p className="font-medium">{user?.business}</p>
+
             {!isCollapsed && (
               <div>
-                <p className="font-medium">John Doe</p>
-                <p className="text-sm text-gray-400">john@example.com</p>
+                <p className="text-sm text-gray-400">{user?.email}</p>
               </div>
             )}
           </div>

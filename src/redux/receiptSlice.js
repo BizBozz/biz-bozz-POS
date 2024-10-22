@@ -17,19 +17,27 @@ const receiptSlice = createSlice({
     addItemToReceipt(state, action) {
       const { table, item } = action.payload;
       if (!state.receipts[table]) {
-        state.receipts[table] = [];
+        state.receipts[table] = { items: [], orderType: "Dine In" };
       }
-      state.receipts[table].push(item);
+      state.receipts[table].items.push(item);
     },
     removeItemFromReceipt(state, action) {
       const { table, itemName } = action.payload;
       if (state.receipts[table]) {
-        const index = state.receipts[table].findIndex(
+        const index = state.receipts[table].items.findIndex(
           (item) => item.dishName === itemName
         );
         if (index !== -1) {
-          state.receipts[table].splice(index, 1); // Remove one instance of the item
+          state.receipts[table].items.splice(index, 1); // Remove one instance of the item
         }
+      }
+    },
+    setOrderType(state, action) {
+      const { table, orderType } = action.payload;
+      if (!state.receipts[table]) {
+        state.receipts[table] = { items: [], orderType: orderType }; // Initialize if not present
+      } else {
+        state.receipts[table].orderType = orderType; // Update order type for the specific table
       }
     },
   },
@@ -40,5 +48,6 @@ export const {
   removeTable,
   addItemToReceipt,
   removeItemFromReceipt,
+  setOrderType,
 } = receiptSlice.actions;
 export default receiptSlice.reducer;

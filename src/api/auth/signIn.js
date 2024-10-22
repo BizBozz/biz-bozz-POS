@@ -1,8 +1,8 @@
-import axios, { setAuthToken } from "../axios";
+import axios from "../axios";
 import { toast } from "sonner";
-import { jwtDecode } from "jwt-decode";
+// import { jwtDecode } from "jwt-decode";
 
-const handleLogin = async (data) => {
+const handleSignIn = async (data) => {
   const toastId = toast.loading("Logging in...");
   try {
     const response = await axios.post("api/v1/auth/login", data);
@@ -11,11 +11,6 @@ const handleLogin = async (data) => {
       id: toastId,
       autoClose: 500, // Auto-close the toast after 5 seconds
     });
-    const changanToken = response.data.data.token;
-    setAuthToken(changanToken);
-    localStorage.setItem("bizbozz", changanToken);
-    let decodedToken = jwtDecode(changanToken);
-    localStorage.setItem("piper-token", decodedToken.iat * 1000);
 
     return response.data;
   } catch (error) {
@@ -26,4 +21,4 @@ const handleLogin = async (data) => {
   }
 };
 
-export default handleLogin;
+export default handleSignIn;

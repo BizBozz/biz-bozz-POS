@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeTable } from "./../../redux/receiptSlice";
 import { toast } from "sonner";
-import confirmPayment from "../../api/Menu/confirmPayment";
+// import confirmPayment from "../../api/Menu/confirmPayment";
 import SuccessModel from "./SuccessModel";
+import confirmOrder from "../../api/Order/confrimOrder";
 
-const CalculatorModal = ({ totalPrice, table, onClose, id }) => {
+const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
+  // console.log("orderData", orderData);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const [paidPrice, setPaidPrice] = useState(totalPrice);
@@ -27,19 +29,20 @@ const CalculatorModal = ({ totalPrice, table, onClose, id }) => {
   const confirmPaymentClick = async () => {
     if (parseFloat(paidPrice) >= totalPrice) {
       const data = {
-        paymentType: "Card",
+        ...orderData,
+        paymentType: "Cash",
         paidPrice: parseFloat(paidPrice),
         extraChange: parseFloat(extraChange),
       };
 
-      const res = await confirmPayment({ data, id });
+      console.log("data", data);
+      const res = await confirmOrder(data);
       console.log("res", res);
-      if (res.code === 200) {
+      if (res.code === 201) {
         setIsModalOpen(true);
-        // onClose();
       }
     } else {
-      toast.error("Pleae Checkout Again");
+      toast.error("Pls Checkout Again");
     }
   };
 

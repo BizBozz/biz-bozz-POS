@@ -5,17 +5,18 @@ import { useState } from "react";
 import CalculatorModal from "./CalculatorModel";
 import { removeTable } from "./../../redux/receiptSlice";
 import "./../input.css";
-import confirmOrder from "../../api/Menu/confrimOrder";
 
 function Receipt() {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [id, setId] = useState(null);
   const [taxPercentage, setTaxPercentage] = useState(5); // Default tax is 5%
+  const [orderData, setOrderData] = useState(null);
 
-  const currentReceipt = receipts[selectedTable] || [];
+  // Access the current table's receipt items and orderType
+  const currentReceipt = receipts[selectedTable]?.items || [];
+  const orderType = receipts[selectedTable]?.orderType || "Dine In";
 
   const cancelAllItem = () => {
     dispatch(removeTable(selectedTable));
@@ -42,25 +43,21 @@ function Receipt() {
       dishName,
       price:
         counts[dishName] *
-        receipts[selectedTable].find((item) => item.dishName === dishName)
-          .price,
+        currentReceipt.find((item) => item.dishName === dishName).price,
       quantity,
     }));
 
     const orderData = {
       table: selectedTable,
-      orderType: "Dine In",
+      orderType, // Use the stored orderType for the table
       orders,
       totalPrice: total,
+      finalPrice: totalWithTax,
+      tax,
     };
 
-    const res = await confirmOrder(orderData);
-    console.log("Order Confirmation Response:", res.data._id);
-    setId(res.data._id);
-
-    if (res.code === 201) {
-      setIsModalOpen(true);
-    }
+    setOrderData(orderData);
+    setIsModalOpen(true);
   };
 
   const handleRemoveItem = (itemName) => {
@@ -71,15 +68,12 @@ function Receipt() {
 
   const handleTaxInputChange = (e) => {
     let value = e.target.value;
-    // console.log(value.length);
 
     // Remove leading zeros
     if (value.length > 1 && value.startsWith(0)) {
-      console.log("prev", value);
       value = value.replace(/^0+/, "");
     }
 
-    console.log(value);
     setTaxPercentage(value ? value : 0); // Handle empty input case
   };
 
@@ -87,12 +81,12 @@ function Receipt() {
 
   return (
     <div className="bg-gray-100 h-screen overflow-y-auto pt-2">
-      <div className="px-5  ">
+      <div className="px-5">
         <p className="text-2xl font-bold mb-5">Receipt</p>
         {selectedTable && (
           <div>
             <p className="text-lg font-semibold mb-5">
-              Table {selectedTable} Order Dish
+              Table {selectedTable} - {orderType} Order
             </p>
             <div className="receipt">
               {Object.keys(counts).map((itemName, index) => (
@@ -110,16 +104,15 @@ function Receipt() {
                   </span>
                   <span className="w-1/3 text-right">
                     {counts[itemName] *
-                      receipts[selectedTable].find(
-                        (item) => item.dishName === itemName
-                      ).price}
+                      currentReceipt.find((item) => item.dishName === itemName)
+                        .price}
                     MMK
                   </span>
                 </div>
               ))}
               <div className="font-medium mb-5 flex border-b-4"></div>
               <div className="flex justify-between items-center font-bold text-lg">
-                <span>Subtotal</span> <span>{total} MMK</span>
+                <span>Subtotal</span> <span>{total.toFixed(2)} MMK</span>
               </div>
               <div className="flex justify-between items-center font-bold text-lg">
                 <div>
@@ -163,8 +156,8 @@ function Receipt() {
           <CalculatorModal
             totalPrice={totalWithTax}
             table={selectedTable}
+            orderData={orderData}
             onClose={() => setIsModalOpen(false)}
-            id={id}
           />
         )}
       </div>

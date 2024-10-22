@@ -1,19 +1,19 @@
-import { useEffect } from "react";
+// import React from "react";
 import { useNavigate } from "react-router-dom";
-// import handleTokenExpiration from "./TokenExpired";
+import { useAuth } from "./../hook/auth/AuthContext.jsx";
+import { useEffect } from "react";
 
-function PrivateRoute({ children }) {
+const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
-  //   handleTokenExpiration();
-  const token = localStorage.getItem("piper-token");
-  if (token) {
-    return children;
-  } else {
-    console.log("error");
+  const { isAuthenticated } = useAuth(); // Get authentication state from context
+
+  if (!isAuthenticated) {
     return useEffect(() => {
       navigate("/login");
     }, []);
+  } else {
+    return children;
   }
-}
+};
 
 export default PrivateRoute;

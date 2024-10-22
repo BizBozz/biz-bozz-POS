@@ -7,19 +7,59 @@ import OrderPage from "./pages/OrderPage";
 import OrderDetail from "./pages/OrderDetail";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
+import { useAuth } from "./hook/auth/AuthContext";
+import PrivateRoute from "./components/PrivateRoute";
+import PageNotFound from "./components/PageNotFound";
 
 export default function App() {
+  const { isAuthenticated } = useAuth();
   return (
     <div className="flex">
-      <Sidebar />
+      {isAuthenticated && <Sidebar />}
       <div className="flex-1">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="/menu" element={<MenuPage />} />
-          <Route path="/testing" element={<TestingPage />} />
-          <Route path="/orders" element={<OrderPage />} />
-          <Route path="/order/:id" element={<OrderDetail />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/menu"
+            element={
+              <PrivateRoute>
+                <MenuPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/testing"
+            element={
+              <PrivateRoute>
+                <TestingPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <PrivateRoute>
+                <OrderPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <PrivateRoute>
+                <OrderDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </div>

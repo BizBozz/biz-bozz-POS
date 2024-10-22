@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { selectTable } from "./../../redux/receiptSlice";
+import { selectTable, setOrderType } from "./../../redux/receiptSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const TableSelection = ({ isOpen, onClose, tables }) => {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
-  const [type, setType] = useState();
+  const orderType = useSelector(
+    (state) => state.receipts.receipts[selectedTable]?.orderType || "Dine In"
+  );
+
+  const handleOrderTypeChange = (type) => {
+    if (selectedTable) {
+      dispatch(setOrderType({ table: selectedTable, orderType: type }));
+    }
+  };
   //   console.log(receipts);
 
   const handleTableSelect = (table) => {
@@ -43,25 +51,31 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
                 id="takeAway"
                 name="diningType"
                 className="mr-2"
-                onClick={() => setType("takeAway")}
+                checked={orderType === "Take Away"}
+                onChange={() => handleOrderTypeChange("Take Away")}
               />
               <label htmlFor="takeAway">Take Away</label>
             </div>
-            <div className="flex items-center mb-2">
-              <input
-                type="radio"
-                id="delivery"
-                name="diningType"
-                className="mr-2"
-              />
-              <label htmlFor="delivery">Delivery</label>
-            </div>
+            {/* Uncomment if Delivery type is needed */}
+            {/* <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="delivery"
+              name="diningType"
+              className="mr-2"
+              checked={orderType === "Delivery"}
+              onChange={() => handleOrderTypeChange("Delivery")}
+            />
+            <label htmlFor="delivery">Delivery</label>
+          </div> */}
             <div className="flex items-center mb-2">
               <input
                 type="radio"
                 id="dineIn"
                 name="diningType"
                 className="mr-2"
+                checked={orderType === "Dine In"}
+                onChange={() => handleOrderTypeChange("Dine In")}
               />
               <label htmlFor="dineIn">Dine In</label>
             </div>

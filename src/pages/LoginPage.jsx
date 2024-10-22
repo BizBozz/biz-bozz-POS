@@ -1,7 +1,12 @@
 import { useState } from "react";
 import EyeToggle from "../components/EyeToggle";
+import handleSignIn from "../api/auth/signIn";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hook/auth/AuthContext";
 
 const LoginPage = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -20,11 +25,17 @@ const LoginPage = () => {
     });
   };
 
-  console.log(formData);
+  // console.log(formData);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission console.log('Form Data:', formData);
+    const res = await handleSignIn(formData);
+    // console.log(res.data.user);
+    if (res.code === 200) {
+      login(res.data.user);
+      navigate("/");
+    }
   };
 
   return (
