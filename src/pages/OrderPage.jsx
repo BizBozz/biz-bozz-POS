@@ -65,7 +65,7 @@ const OrdersPage = () => {
                     {order.orderType}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    {new Date(order.orderTime).toLocaleString()}
+                    {new Date(order.createdAt).toLocaleString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {order.orders.length}

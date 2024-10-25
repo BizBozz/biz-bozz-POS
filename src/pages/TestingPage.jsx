@@ -1,90 +1,60 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectTable,
-  addItemToReceipt,
-  removeItemFromReceipt,
-} from "./../redux/receiptSlice"; // Import actions from the slice
+import React, { useState } from "react";
+import { DateRange } from "react-date-range";
+import "react-date-range/dist/styles.css"; // Main CSS file
+import "react-date-range/dist/theme/default.css"; // Default theme CSS file
+import { format } from "date-fns";
+import "tailwindcss/tailwind.css";
 
-const TestingPage = () => {
-  const dispatch = useDispatch();
+const DateRangePickerComponent = () => {
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
 
-  // Selectors
-  const selectedTable = useSelector((state) => state.receipts.selectedTable);
-  const receipts = useSelector((state) => state.receipts.receipts);
+  const [showCalendar, setShowCalendar] = useState(false);
 
-  const tables = [1, 2, 3, 4, 5];
-  const menuItems = [
-    { name: "Fried Chicken", price: 12000 },
-    { name: "Orange Chicken", price: 12000 },
-  ];
-
-  const handleTableSelect = (table) => {
-    dispatch(selectTable(table));
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar);
   };
-
-  const handleMenuSelect = (item) => {
-    if (selectedTable !== null) {
-      dispatch(addItemToReceipt({ table: selectedTable, item }));
-    }
-  };
-
-  const handleRemoveItem = (itemName) => {
-    if (selectedTable !== null) {
-      dispatch(removeItemFromReceipt({ table: selectedTable, itemName }));
-    }
-  };
-
-  const currentReceipt = receipts[selectedTable] || [];
-
-  // Function to calculate total price and item counts
-  const calculateTotalAndCounts = () => {
-    const counts = {};
-    let total = 0;
-
-    currentReceipt.forEach((item) => {
-      counts[item.name] = (counts[item.name] || 0) + 1;
-      total += item.price;
-    });
-
-    return { counts, total };
-  };
-
-  const { counts, total } = calculateTotalAndCounts();
 
   return (
-    <div className="flex">
-      <div className="menu">
-        <h2>Menu Testing</h2>
-        {menuItems.map((item) => (
-          <div key={item.name} className="menu-item">
-            <span>{item.name}</span>
-            <button onClick={() => handleMenuSelect(item)}>+</button>
-          </div>
-        ))}
-      </div>
-      <div className="tables">
-        {tables.map((table) => (
-          <button key={table} onClick={() => handleTableSelect(table)}>
-            Table {table}
-          </button>
-        ))}
-      </div>
-      <div className="receipt">
-        <h2>Receipt</h2>
-        {Object.keys(counts).map((itemName) => (
-          <div key={itemName}>
-            {itemName} - {counts[itemName]} pcs -{" "}
-            {counts[itemName] *
-              menuItems.find((item) => item.name === itemName).price}{" "}
-            MMK
-            <button onClick={() => handleRemoveItem(itemName)}>-</button>
-          </div>
-        ))}
-        <div>Total: {total} MMK</div>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="bg-white p-5 shadow-lg rounded-lg">
+        <h2 className="text-xl font-semibold mb-4">Select Date Range</h2>
+
+        {/* Button to toggle the calendar */}
+        <button
+          className="bg-blue-500 text-dark px-4 py-2 rounded-lg hover:bg-blue-600"
+          onClick={toggleCalendar}
+        >
+          {showCalendar ? "Hide Calendar" : "Pick Date Range"}
+        </button>
+
+        {/* Conditionally show the calendar */}
+        {showCalendar && (
+          <DateRange
+            editableDateInputs={true}
+            onChange={(item) => setState([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={state}
+            className="mt-4 rounded-lg"
+          />
+        )}
+
+        <div className="mt-4">
+          <p className="text-lg">
+            Start Date: {format(state[0].startDate, "MM/dd/yyyy")}
+          </p>
+          <p className="text-lg">
+            End Date: {format(state[0].endDate, "MM/dd/yyyy")}
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default TestingPage;
+export default DateRangePickerComponent;

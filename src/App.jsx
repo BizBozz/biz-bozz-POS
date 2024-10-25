@@ -59,6 +59,14 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/testing"
+            element={
+              <PrivateRoute>
+                <OrderDetail />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
