@@ -27,7 +27,7 @@ const DateRangePickerComponent = () => {
 
         {/* Button to toggle the calendar */}
         <button
-          className="bg-blue-500 text-dark px-4 py-2 rounded-lg hover:bg-blue-600"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
           onClick={toggleCalendar}
         >
           {showCalendar ? "Hide Calendar" : "Pick Date Range"}
@@ -46,10 +46,10 @@ const DateRangePickerComponent = () => {
 
         <div className="mt-4">
           <p className="text-lg">
-            Start Date: {format(state[0].startDate, "MM/dd/yyyy")}
+            Start Date: {format(state[0].startDate, "yyyy-MM-dd")}
           </p>
           <p className="text-lg">
-            End Date: {format(state[0].endDate, "MM/dd/yyyy")}
+            End Date: {format(state[0].endDate, "dd/MM/yy")}
           </p>
         </div>
       </div>
