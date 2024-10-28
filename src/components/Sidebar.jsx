@@ -4,8 +4,13 @@ import { Home, Menu, Receipt, LogOut, ChevronLeft } from "lucide-react";
 import { useAuth } from "../hook/auth/AuthContext";
 
 const Sidebar = ({ closeSidebar }) => {
-  const { user, logout } = useAuth();
-  console.log(user);
+  const { logout } = useAuth();
+  const user = localStorage.getItem("biz-bozz-user");
+  const userData = JSON.parse(user);
+  console.log(userData);
+  // const res = JSON.parse(sessionStorage.getItem("biz-bozz"));
+  // console.log("res", res);
+  // console.log(user);
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -76,11 +81,11 @@ const Sidebar = ({ closeSidebar }) => {
         </div>
         <div className="border-t border-gray-800 p-4">
           <div className="">
-            <p className="font-medium">{user?.business}</p>
+            <p className="font-medium">{userData?.businessName}</p>
 
             {!isCollapsed && (
               <div>
-                <p className="text-sm text-gray-400">{user?.email}</p>
+                <p className="text-sm text-gray-400">{userData?.email}</p>
               </div>
             )}
           </div>

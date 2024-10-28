@@ -34,7 +34,10 @@ const LoginPage = () => {
     // console.log(res.data.user);
     if (res.code === 200) {
       login(res.data.user);
+      // console.log(res.data.user);
       navigate("/");
+      sessionStorage.setItem("biz-bozz", res.token);
+      localStorage.setItem("biz-bozz-user", JSON.stringify(res.data.user));
     }
   };
 

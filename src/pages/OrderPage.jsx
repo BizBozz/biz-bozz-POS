@@ -4,6 +4,7 @@ import getAllOrders from "../api/Order/getAllOrders";
 
 const OrdersPage = () => {
   const [orders, setOrders] = useState([]);
+  console.log(orders.length);
 
   const getOrders = async () => {
     const res = await getAllOrders();
@@ -12,7 +13,7 @@ const OrdersPage = () => {
     //   const dateB = new Date(b.createdAt);
     //   return dateB - dateA;
     // });
-    if (res.code === 200) {
+    if (res.code === 200 && res.status !== "error") {
       setOrders(res.data);
     }
   };
@@ -25,7 +26,7 @@ const OrdersPage = () => {
     <div className="mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">Orders</h1>
       <div className="bg-white shadow-md rounded-lg p-4 h-[500px] overflow-y-auto">
-        {orders.length === 0 ? (
+        {orders && orders.length === 0 ? (
           <p>No orders available.</p>
         ) : (
           <table className="min-w-full divide-y divide-gray-200 py-10 ">

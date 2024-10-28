@@ -18,6 +18,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
+    sessionStorage.removeItem("biz-bozz");
+    localStorage.removeItem("biz-bozz-user");
     setIsAuthenticated(false); // Set user as logged out
   };
 

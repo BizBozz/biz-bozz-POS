@@ -10,9 +10,18 @@ import LoginPage from "./pages/LoginPage";
 import { useAuth } from "./hook/auth/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import PageNotFound from "./components/PageNotFound";
+import { useEffect } from "react";
 
 export default function App() {
-  const { isAuthenticated } = useAuth();
+  const token = sessionStorage.getItem("biz-bozz");
+  const { isAuthenticated, login } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      login();
+    }
+  });
+
   return (
     <div className="flex">
       {isAuthenticated && <Sidebar />}

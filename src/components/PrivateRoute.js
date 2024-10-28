@@ -5,9 +5,12 @@ import { useEffect } from "react";
 
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth(); // Get authentication state from context
+  const token = sessionStorage.getItem("biz-bozz");
+  // console.log(token);
+  // const { isAuthenticated } = useAuth();
+  // Get authentication state from context
 
-  if (!isAuthenticated) {
+  if (!token) {
     return useEffect(() => {
       navigate("/login");
     }, []);
