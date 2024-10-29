@@ -53,7 +53,7 @@ function Receipt() {
       orders,
       totalPrice: total,
       finalPrice: totalWithTax,
-      tax,
+      tax: taxPercentage / 100,
     };
 
     setOrderData(orderData);
