@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
-import MenuModel from "./../Menu/MenuModel";
+// import MenuModel from "./../Menu/MenuModel";
 import MenuCard from "./MenuCard";
 import getItems from "../../api/Menu/getItems";
 
-const MenuList = ({ category }) => {
+const MenuList = ({ category, getItem }) => {
   const [menuLists, setMenuList] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getMenuList = async () => {
     const res = await getItems();
     // console.log("item List", res.data[0].categoryName);
     setMenuList(res.data);
+  };
+
+  const sentItem = (item) => {
+    // console.log("item sent", item);
+    getItem(item);
   };
 
   useEffect(() => {
@@ -23,19 +28,6 @@ const MenuList = ({ category }) => {
         <div className="text-center">
           <p className="font-mediun text-3xl">No Menu at the Moment!</p>
           <p className="font-medium text-3xl">Set Up your Shop Menu</p>
-          <button
-            className=" mt-5 bg-primary text-xl text-black py-2 px-10 rounded-md
-                     transition duration-200 hover:text-primary hover:bg-black hover:border hover:border-primary"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Create Menu Category
-          </button>
-        </div>
-        <div className="">
-          <MenuModel
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-          />
         </div>
       </div>
     );
@@ -46,7 +38,9 @@ const MenuList = ({ category }) => {
       {menuLists.map((menu) => {
         return (
           menu.categoryName === category &&
-          menu.items.map((item) => <MenuCard key={item._id} menu={item} />)
+          menu.items.map((item) => (
+            <MenuCard key={item._id} menu={item} sentItem={sentItem} />
+          ))
         );
       })}
     </div>

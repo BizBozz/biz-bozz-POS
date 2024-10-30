@@ -1,12 +1,15 @@
 import TimestampFormatter from "./TimestampFormatter";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { FaRegTrashAlt } from "react-icons/fa";
 
-function OrderTable({ sendData, orders }) {
+function OrderTable({ sendData, orders, deleteOrder }) {
   // const [orderId, setOrderId] = useState("");
 
   const handleSendData = (orderId) => {
     // Send data to the parent using the callback function
     sendData(orderId);
   };
+
   return (
     <div>
       <table className="min-w-full divide-y divide-gray-200 py-10 ">
@@ -53,13 +56,20 @@ function OrderTable({ sendData, orders }) {
                 {order.totalPrice} MMK
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                <button
-                  // to={`/order/${order._id}`}
-                  className="bg-black text-white px-4 py-2 me-5 rounded-md transition duration-200 border border-black hover:bg-white hover:text-black focus:outline-none focus:scale-105"
-                  onClick={() => handleSendData(order._id)}
-                >
-                  View Details
-                </button>
+                <div className="flex space-x-4 items-center">
+                  <button
+                    className="text-blue-500 font-bold hover:text-blue-700"
+                    onClick={() => handleSendData(order._id)}
+                  >
+                    <MdOutlineRemoveRedEye size={25} />
+                  </button>
+                  <button
+                    className="text-black hover:text-gray-700"
+                    onClick={() => deleteOrder(order._id)}
+                  >
+                    <FaRegTrashAlt size={23} />
+                  </button>
+                </div>
               </td>
             </tr>
           ))}

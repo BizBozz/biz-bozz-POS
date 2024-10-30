@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { format, isSameDay } from "date-fns";
+import { format } from "date-fns";
 import getAllOrders from "../api/Order/getAllOrders";
 import OrderTable from "../components/Orders/OrderTable";
-import OrderDetail from "../components/Orders/OrderDetail";
+import OrderDetail from "./OrderDetail";
 import Calendar from "../components/Calender";
+import deleteOrders from "../api/Order/deleteOrder";
+import EditOrder from "./EditOrder";
 
 const OrdersPage = () => {
   const date = new Date();
@@ -26,14 +28,21 @@ const OrdersPage = () => {
     setDataFromCalendar(childData);
   };
 
-  console.log(dataFromCalendar);
-
   const openOrderDetails = () => {
     setOpen(true);
   };
 
   const closeOrderDetails = () => {
     setOpen(false);
+  };
+
+  const handleDeleteOrder = async (id) => {
+    console.log("delete", id);
+    const res = await deleteOrders(id);
+    console.log(res.code);
+    if (res.code === 200) {
+      getOrders();
+    }
   };
   // console.log(orders.length);
 
@@ -42,6 +51,8 @@ const OrdersPage = () => {
 
     if (res.code === 200 && res.status !== "error") {
       setOrders(res.data);
+    } else {
+      setOrders([]);
     }
   };
 
@@ -61,15 +72,20 @@ const OrdersPage = () => {
             <p className="text-gray-500">No orders found.</p>
           </div>
         ) : (
-          <OrderTable orders={orders} sendData={handleDataFromChild} />
+          <OrderTable
+            orders={orders}
+            sendData={handleDataFromChild}
+            deleteOrder={handleDeleteOrder}
+          />
         )}
       </div>
       {open && (
         <div className="fixed inset-0 flex items-center justify-end z-50">
-          <OrderDetail
+          {/* <OrderDetail
             id={dataFromChild}
             closeOrderDetails={closeOrderDetails}
-          />
+          /> */}
+          <EditOrder closeOrderDetails={closeOrderDetails} id={dataFromChild} />
         </div>
       )}
     </div>

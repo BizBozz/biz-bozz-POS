@@ -4,13 +4,13 @@ import MenuPage from "./pages/MenuPage";
 import { Route, Routes } from "react-router-dom";
 import TestingPage from "./pages/TestingPage";
 import OrderPage from "./pages/OrderPage";
-import OrderDetail from "./pages/OrderDetail";
-import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import { useAuth } from "./hook/auth/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import PageNotFound from "./components/PageNotFound";
 import { useEffect } from "react";
+import "./App.css";
+import EditOrder from "./pages/EditOrder";
 
 export default function App() {
   const token = sessionStorage.getItem("biz-bozz");
@@ -44,14 +44,14 @@ export default function App() {
               </PrivateRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/testing"
             element={
               <PrivateRoute>
                 <TestingPage />
               </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="/orders"
             element={
@@ -60,19 +60,19 @@ export default function App() {
               </PrivateRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/order/:id"
             element={
               <PrivateRoute>
                 <OrderDetail />
               </PrivateRoute>
             }
-          />
+          /> */}
           <Route
             path="/testing"
             element={
               <PrivateRoute>
-                <OrderDetail />
+                <EditOrder />
               </PrivateRoute>
             }
           />
