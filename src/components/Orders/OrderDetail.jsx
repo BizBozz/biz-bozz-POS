@@ -1,21 +1,34 @@
 import { useEffect, useState } from "react";
 import getAOrders from "./../../api/Order/getAOrder";
 import TimestampFormatter from "./../../components/Orders/TimestampFormatter";
+import editOrderData from "../../api/Order/editOrder";
+import { IoMdTrash } from "react-icons/io";
 
-function OrderDetail({ id, closeOrderDetails, menuItem, editClick }) {
-  console.log("add menuItem", menuItem);
+function OrderDetail({
+  id,
+  closeOrderDetails,
+  menuItem,
+  editClick,
+  editedOrderClick,
+}) {
+  // console.log("add menuItem", menuItem);
   const [order, setOrder] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedOrder, setEditedOrder] = useState([]);
   // State for new item
+  const [taxRate, setTaxRate] = useState(order ? order.tax * 100 : 0); // Initialize with order tax if available
 
   const getOrder = async () => {
     const res = await getAOrders(id);
     if (res.code === 200 && res.status !== "error") {
       setOrder(res.data);
       setEditedOrder(res.data.orders);
+      // setOriginalOrder(res.data.orders);
+      setTaxRate(res.data.tax * 100); // Set initial tax rate in percentage
     }
   };
+
+  // console.log("Editorder", editedOrder);
 
   useEffect(() => {
     getOrder();
@@ -34,15 +47,25 @@ function OrderDetail({ id, closeOrderDetails, menuItem, editClick }) {
   const handleEditSubmit = async () => {
     const filterOrder = editedOrder.filter((item) => item.quantity > 0);
     const updatedOrderData = {
-      ...order,
+      table: order.table,
+      tax: taxRate / 100, // Store tax as a decimal value
+      orderType: order.orderType,
+      paymentType: order.paymentType,
       orders: filterOrder,
-      totalPrice: calculateTotalPrice(editedOrder),
-      finalPrice: calculateFinalPrice(editedOrder),
+      totalPrice: calculateTotalPrice(filterOrder),
+      finalPrice: calculateFinalPrice(filterOrder), // This now reflects the new tax
+      paidPrice: order.paidPrice,
+      extraChange: order.extraChange,
     };
-    console.log(updatedOrderData);
-    setOrder(updatedOrderData);
-    setIsEditing(false);
-    editClick();
+    console.log("updateOrder", updatedOrderData);
+    const res = await editOrderData({ id, orderData: updatedOrderData });
+    console.log("updateOrder", res);
+    if (res.code === 200 && res.status !== "error") {
+      getOrder();
+      setIsEditing(false);
+      editClick();
+      editedOrderClick();
+    }
   };
 
   const calculateTotalPrice = (orders) => {
@@ -160,7 +183,7 @@ function OrderDetail({ id, closeOrderDetails, menuItem, editClick }) {
                           onClick={() => handleRemoveItem(index)}
                           className="text-red-500"
                         >
-                          Remove
+                          <IoMdTrash size={20} />
                         </button>
                       </td>
                     )}
@@ -168,52 +191,6 @@ function OrderDetail({ id, closeOrderDetails, menuItem, editClick }) {
                 ))}
               </tbody>
             </table>
-
-            {/* {isEditing && (
-              <div className="my-4">
-                <h3 className="font-semibold">Add New Item</h3>
-                <div className="flex justify-between mt-2">
-                  <input
-                    type="text"
-                    placeholder="Dish Name"
-                    value={newItem.dishName}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, dishName: e.target.value })
-                    }
-                    className="border border-gray-300 rounded p-1 w-2/5"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Quantity"
-                    value={newItem.quantity}
-                    min={1}
-                    onChange={(e) =>
-                      setNewItem({
-                        ...newItem,
-                        quantity: Number(e.target.value),
-                      })
-                    }
-                    className="border border-gray-300 rounded p-1 w-1/5"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Unit Price"
-                    value={newItem.price}
-                    onChange={(e) =>
-                      setNewItem({ ...newItem, price: Number(e.target.value) })
-                    }
-                    className="border border-gray-300 rounded p-1 w-1/5"
-                  />
-                  <button
-                    onClick={handleAddItem}
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                  >
-                    Add
-                  </button>
-                </div>
-              </div>
-            )} */}
-
             <div className="flex justify-between w-full mt-2 px-2">
               <p className="font-semibold">Sub Total</p>
               <p className="font-semibold">
@@ -222,11 +199,33 @@ function OrderDetail({ id, closeOrderDetails, menuItem, editClick }) {
             </div>
             <div className="flex justify-between w-full my-2 p-2 border-b">
               <p className="font-semibold">Gov Tax</p>
-              <p className="font-semibold">{(order.tax * 100).toFixed(2)}%</p>
+              {isEditing ? (
+                <input
+                  type="number"
+                  value={taxRate}
+                  min={0}
+                  onChange={(e) => setTaxRate(e.target.value)}
+                  className="border border-gray-300 rounded p-1 w-20"
+                />
+              ) : (
+                <p className="font-semibold">{order.tax * 100}%</p>
+              )}
               <p className="font-semibold">
-                {(calculateTotalPrice(editedOrder) * order.tax).toFixed(2)} MMK
+                {(calculateTotalPrice(editedOrder) / taxRate).toFixed(2)} MMK
               </p>
             </div>
+            {/* <div>
+              <label htmlFor="taxRate">Tax Rate (%): </label>
+              <input
+                type="number"
+                id="taxRate"
+                value={taxRate}
+                min={0}
+                onChange={(e) => setTaxRate(Number(e.target.value))} // Updating tax rate
+                className="border border-gray-300 rounded p-1 w-20"
+                disabled={!isEditing} // Disable input when not editing
+              />
+            </div> */}
             <div className="flex justify-between w-full mt-2 p-2">
               <p className="font-semibold">Final Total</p>
               <p className="font-semibold">
@@ -244,6 +243,7 @@ function OrderDetail({ id, closeOrderDetails, menuItem, editClick }) {
                 </button>
                 <button
                   onClick={() => {
+                    getOrder();
                     setIsEditing(false);
                     editClick();
                   }}

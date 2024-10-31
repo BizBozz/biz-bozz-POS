@@ -44,6 +44,10 @@ const OrdersPage = () => {
       getOrders();
     }
   };
+
+  const handleEditOrder = () => {
+    getOrders();
+  };
   // console.log(orders.length);
 
   const getOrders = async () => {
@@ -81,11 +85,11 @@ const OrdersPage = () => {
       </div>
       {open && (
         <div className="fixed inset-0 flex items-center justify-end z-50">
-          {/* <OrderDetail
-            id={dataFromChild}
+          <EditOrder
             closeOrderDetails={closeOrderDetails}
-          /> */}
-          <EditOrder closeOrderDetails={closeOrderDetails} id={dataFromChild} />
+            id={dataFromChild}
+            editedOrder={handleEditOrder}
+          />
         </div>
       )}
     </div>

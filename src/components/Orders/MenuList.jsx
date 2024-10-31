@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 // import MenuModel from "./../Menu/MenuModel";
 import MenuCard from "./MenuCard";
 import getItems from "../../api/Menu/getItems";
+import { motion } from "framer-motion";
+
+const animationVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: 20 },
+};
 
 const MenuList = ({ category, getItem }) => {
   const [menuLists, setMenuList] = useState([]);
@@ -34,7 +41,14 @@ const MenuList = ({ category, getItem }) => {
   }
 
   return (
-    <div className="flex flex-wrap gap-5 mt-5 pb-40">
+    <motion.div
+      className="flex flex-wrap gap-5 mt-5 pb-40"
+      // variants={animationVariants}
+      // initial="hidden"
+      // animate="visible"
+      // exit="exit"
+      // transition={{ duration: 0.3 }}
+    >
       {menuLists.map((menu) => {
         return (
           menu.categoryName === category &&
@@ -43,7 +57,7 @@ const MenuList = ({ category, getItem }) => {
           ))
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 

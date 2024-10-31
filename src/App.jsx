@@ -2,7 +2,7 @@ import Sidebar from "./components/Sidebar";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
 import { Route, Routes } from "react-router-dom";
-import TestingPage from "./pages/TestingPage";
+// import TestingPage from "./pages/TestingPage";
 import OrderPage from "./pages/OrderPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuth } from "./hook/auth/AuthContext";
@@ -11,6 +11,7 @@ import PageNotFound from "./components/PageNotFound";
 import { useEffect } from "react";
 import "./App.css";
 import EditOrder from "./pages/EditOrder";
+import { AnimatePresence } from "framer-motion";
 
 export default function App() {
   const token = sessionStorage.getItem("biz-bozz");
@@ -23,28 +24,29 @@ export default function App() {
   });
 
   return (
-    <div className="flex">
-      {isAuthenticated && <Sidebar />}
-      <div className="flex-1">
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/"
-            element={
-              <PrivateRoute>
-                <HomePage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/menu"
-            element={
-              <PrivateRoute>
-                <MenuPage />
-              </PrivateRoute>
-            }
-          />
-          {/* <Route
+    <AnimatePresence>
+      <div className="flex">
+        {isAuthenticated && <Sidebar />}
+        <div className="flex-1">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <HomePage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                <PrivateRoute>
+                  <MenuPage />
+                </PrivateRoute>
+              }
+            />
+            {/* <Route
             path="/testing"
             element={
               <PrivateRoute>
@@ -52,15 +54,15 @@ export default function App() {
               </PrivateRoute>
             }
           /> */}
-          <Route
-            path="/orders"
-            element={
-              <PrivateRoute>
-                <OrderPage />
-              </PrivateRoute>
-            }
-          />
-          {/* <Route
+            <Route
+              path="/orders"
+              element={
+                <PrivateRoute>
+                  <OrderPage />
+                </PrivateRoute>
+              }
+            />
+            {/* <Route
             path="/order/:id"
             element={
               <PrivateRoute>
@@ -68,17 +70,18 @@ export default function App() {
               </PrivateRoute>
             }
           /> */}
-          <Route
-            path="/testing"
-            element={
-              <PrivateRoute>
-                <EditOrder />
-              </PrivateRoute>
-            }
-          />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+            <Route
+              path="/testing"
+              element={
+                <PrivateRoute>
+                  <EditOrder />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </AnimatePresence>
   );
 }
