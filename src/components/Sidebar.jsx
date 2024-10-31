@@ -21,7 +21,7 @@ const Sidebar = ({ closeSidebar }) => {
     { to: "/", icon: Home, label: "Dashboard" },
     { to: "/menu", icon: Menu, label: "Menu" },
     { to: "/orders", icon: Receipt, label: "Orders" },
-    { to: "/testing", icon: Receipt, label: "testing" },
+    // { to: "/testing", icon: Receipt, label: "testing" },
   ];
 
   return (

@@ -11,8 +11,8 @@ function OrderTable({ sendData, orders, deleteOrder }) {
   };
 
   return (
-    <div>
-      <table className="min-w-full divide-y divide-gray-200 py-10 ">
+    <div className="shadow-lg h-[75vh] overflow-y-auto border border-gray-200">
+      <table className="min-w-full divide-y bg-black  divide-gray-200 py-10 ">
         <thead className="bg-black">
           <tr>
             <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
