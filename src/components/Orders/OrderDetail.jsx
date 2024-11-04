@@ -17,7 +17,7 @@ function OrderDetail({
   const [editedOrder, setEditedOrder] = useState([]);
   // State for new item
   const [taxRate, setTaxRate] = useState(order ? order.tax * 100 : 0); // Initialize with order tax if available
-
+  console.log("taxRate", taxRate);
   const getOrder = async () => {
     const res = await getAOrders(id);
     if (res.code === 200 && res.status !== "error") {
@@ -175,7 +175,7 @@ function OrderDetail({
                       )}
                     </td>
                     <td className="p-2 text-right">
-                      {calculateItemPrice(item).toFixed(2)} MMK
+                      {calculateItemPrice(item)} MMK
                     </td>
                     {isEditing && (
                       <td className="p-2 text-right">
@@ -194,7 +194,7 @@ function OrderDetail({
             <div className="flex justify-between w-full mt-2 px-2">
               <p className="font-semibold">Sub Total</p>
               <p className="font-semibold">
-                {calculateTotalPrice(editedOrder).toFixed(2)} MMK
+                {calculateTotalPrice(editedOrder)} MMK
               </p>
             </div>
             <div className="flex justify-between w-full my-2 p-2 border-b">
@@ -211,7 +211,7 @@ function OrderDetail({
                 <p className="font-semibold">{order.tax * 100}%</p>
               )}
               <p className="font-semibold">
-                {(calculateTotalPrice(editedOrder) / taxRate).toFixed(2)} MMK
+                {calculateTotalPrice(editedOrder) * (taxRate / 100)} MMK
               </p>
             </div>
             {/* <div>

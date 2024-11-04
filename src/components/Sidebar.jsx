@@ -5,7 +5,8 @@ import { useAuth } from "../hook/auth/AuthContext";
 
 const Sidebar = ({ closeSidebar }) => {
   const { logout } = useAuth();
-  const user = localStorage.getItem("biz-bozz-user");
+  const id = localStorage.getItem("biz-bozz-id");
+  // const user = localStorage.getItem("biz-bozz-user");
   // const userData = JSON.parse(user);
   // console.log(userData);
   // const res = JSON.parse(sessionStorage.getItem("biz-bozz"));
@@ -69,7 +70,7 @@ const Sidebar = ({ closeSidebar }) => {
         </nav>
         <div className="p-4">
           <NavLink
-            to="/login"
+            to={id ? `/login/${id}` : "/login"}
             className="w-full flex items-center justify-start space-x-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-lg px-3 py-2 transition-colors"
             onClick={() => {
               logout();

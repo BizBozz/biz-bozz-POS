@@ -1,10 +1,12 @@
 import { useState } from "react";
 import EyeToggle from "../components/EyeToggle";
 import handleSignIn from "../api/auth/signIn";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hook/auth/AuthContext";
 
 const LoginPage = () => {
+  const { id } = useParams();
+  console.log(id);
   const { login } = useAuth();
   const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -30,14 +32,14 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission console.log('Form Data:', formData);
-    const res = await handleSignIn(formData);
+    const res = await handleSignIn({ formData, id });
     // console.log(res.data.user);
     if (res.status === "success") {
       login();
       // console.log(res.data.user);
       navigate("/");
       sessionStorage.setItem("biz-bozz", res.token);
-      localStorage.setItem("biz-bozz-user", JSON.stringify(res.data.user));
+      localStorage.setItem("biz-bozz-id", id);
     }
   };
 

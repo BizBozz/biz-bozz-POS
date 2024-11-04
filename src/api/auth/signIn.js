@@ -3,11 +3,12 @@ import { toast } from "sonner";
 // import { jwtDecode } from "jwt-decode";
 
 const handleSignIn = async (data) => {
+  console.log(data.formData);
   const toastId = toast.loading("Logging in...");
   try {
     const response = await axios.post(
-      "api/v1/auth/login/a0fb5c0e-a013-4d79-9374-c70171def404",
-      data
+      `api/v1/auth/login/${data.id}`,
+      data.formData
     );
     // console.log(response.data);
     toast.success("Logged in successfully!", {

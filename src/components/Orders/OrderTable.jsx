@@ -4,7 +4,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 
 function OrderTable({ sendData, orders, deleteOrder }) {
   // const [orderId, setOrderId] = useState("");
-
+  console.log(orders);
   const handleSendData = (orderId) => {
     // Send data to the parent using the callback function
     sendData(orderId);

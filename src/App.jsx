@@ -30,7 +30,7 @@ export default function App() {
         {isAuthenticated && <Sidebar />}
         <div className="flex-1">
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/login/:id" element={<LoginPage />} />
             <Route
               path="/"
               element={
