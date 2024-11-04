@@ -6,7 +6,7 @@ import { useAuth } from "../hook/auth/AuthContext";
 const Sidebar = ({ closeSidebar }) => {
   const { logout } = useAuth();
   const user = localStorage.getItem("biz-bozz-user");
-  const userData = JSON.parse(user);
+  // const userData = JSON.parse(user);
   // console.log(userData);
   // const res = JSON.parse(sessionStorage.getItem("biz-bozz"));
   // console.log("res", res);
@@ -79,7 +79,7 @@ const Sidebar = ({ closeSidebar }) => {
             {!isCollapsed && <span>Logout</span>}
           </NavLink>
         </div>
-        <div className="border-t border-gray-800 p-4">
+        {/* <div className="border-t border-gray-800 p-4">
           <div className="">
             <p className="font-medium">{userData?.businessName}</p>
 
@@ -89,7 +89,7 @@ const Sidebar = ({ closeSidebar }) => {
               </div>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

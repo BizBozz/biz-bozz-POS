@@ -32,8 +32,8 @@ const LoginPage = () => {
     // Handle form submission console.log('Form Data:', formData);
     const res = await handleSignIn(formData);
     // console.log(res.data.user);
-    if (res.code === 200) {
-      login(res.data.user);
+    if (res.status === "success") {
+      login();
       // console.log(res.data.user);
       navigate("/");
       sessionStorage.setItem("biz-bozz", res.token);

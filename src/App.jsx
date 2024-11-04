@@ -11,7 +11,7 @@ import PageNotFound from "./components/PageNotFound";
 import { useEffect } from "react";
 import Scoreboard from "./pages/TestingPage";
 import "./App.css";
-import EditOrder from "./pages/EditOrder";
+// import EditOrder from "./pages/EditOrder";
 import { AnimatePresence } from "framer-motion";
 
 export default function App() {
