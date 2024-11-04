@@ -50,7 +50,7 @@ function OrderTable({ sendData, orders, deleteOrder }) {
                 <TimestampFormatter timestamp={order.createdAt} />
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                {order.orders.length}
+                {order.totalQuantity}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {order.totalPrice} MMK

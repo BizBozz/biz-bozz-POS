@@ -93,7 +93,7 @@ function OrderDetail({
         // Item does not exist, add new item
         const updatedItems = [
           ...editedOrder,
-          { ...newItem, _id: Date.now() }, // Assign a temporary ID
+          { ...newItem }, // Assign a temporary ID
         ];
         setEditedOrder(updatedItems);
       }
