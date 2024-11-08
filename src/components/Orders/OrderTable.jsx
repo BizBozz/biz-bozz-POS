@@ -53,7 +53,7 @@ function OrderTable({ sendData, orders, deleteOrder }) {
                 {order.totalQuantity}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                {order.totalPrice} MMK
+                {order.finalPrice} MMK
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex space-x-4 items-center">

@@ -41,9 +41,7 @@ function Receipt() {
   const confirmOrderClick = async () => {
     const orders = Object.entries(counts).map(([dishName, quantity]) => ({
       dishName,
-      price:
-        counts[dishName] *
-        currentReceipt.find((item) => item.dishName === dishName).price,
+      price: currentReceipt.find((item) => item.dishName === dishName).price,
       quantity,
     }));
 
