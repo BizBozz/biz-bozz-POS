@@ -27,7 +27,7 @@ const MenuModel = ({ isOpen, onClose, category }) => {
     const res = await addMenu(formData);
     console.log(res);
     onClose();
-    // setDishCategory("");
+    // setDishCategory("");`
     setDishName("");
     setPrice("");
     setImage(null);
