@@ -34,17 +34,17 @@ export default function App() {
             <Route
               path="/"
               element={
-                <PrivateRoute>
-                  <HomePage />
-                </PrivateRoute>
+                // <PrivateRoute>
+                <HomePage />
+                // </PrivateRoute>
               }
             />
             <Route
               path="/menu"
               element={
-                <PrivateRoute>
-                  <MenuPage />
-                </PrivateRoute>
+                // <PrivateRoute>
+                <MenuPage />
+                // </PrivateRoute>
               }
             />
             {/* <Route
@@ -58,9 +58,9 @@ export default function App() {
             <Route
               path="/orders"
               element={
-                <PrivateRoute>
-                  <OrderPage />
-                </PrivateRoute>
+                // <PrivateRoute>
+                <OrderPage />
+                // </PrivateRoute>
               }
             />
             {/* <Route

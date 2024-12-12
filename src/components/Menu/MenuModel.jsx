@@ -27,12 +27,12 @@ const MenuModel = ({ isOpen, onClose, category }) => {
     const res = await addMenu(formData);
     console.log(res);
     onClose();
-    // setDishCategory("");`
+    // setDishCategory("");
     setDishName("");
     setPrice("");
     setImage(null);
     // Handle adding the dish here
-    console.log("Dish Added:", { dishCategory, dishName, price, image });
+    // console.log("Dish Added:", { dishCategory, dishName, price, image });
     onClose(); // Close the modal after adding the dish
   };
 
