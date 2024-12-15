@@ -27,7 +27,7 @@ export default function App() {
   return (
     <AnimatePresence>
       <div className="flex">
-        {isAuthenticated && <Sidebar />}
+        {<Sidebar />}
         <div className="flex-1">
           <Routes>
             <Route path="/login/:id" element={<LoginPage />} />

@@ -28,11 +28,11 @@ function HomePage() {
     <div className="">
       <div className="flex">
         {/* Menu*/}
-        <div className="w-2/3 overflow-y-auto h-screen px-5 pt-2">
+        <div className="w-2/3 overflow-y-auto h-screen px-5 pt-2 ">
           <div className="flex justify-between items-center">
-            <p className="text-2xl font-bold mb-5">Menu</p>
+            <p className="sub-header mb-5">Menu</p>
             <button
-              className="bg-black text-white px-4 py-2 me-5 rounded-md transition duration-200 border border-black hover:bg-white hover:text-black focus:outline-none focus:scale-105"
+              className="bg-primary font-bold text-white px-4 py-2 me-5 rounded-md border border-primary transition duration-200 hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
               onClick={() => setIsOpen(true)}
             >
               Select Table
@@ -47,9 +47,9 @@ function HomePage() {
                 <button
                   className={`${
                     selectedCategory === category
-                      ? "bg-black text-white"
+                      ? "bg-prilight text-primary"
                       : "bg-white text-black"
-                  } px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105`}
+                  } font-bold text-[14px] px-5 py-2 rounded-3xl transition duration-200 hover:bg-prilight hover:text-primary focus:outline-none focus:scale-105`}
                   onClick={() => setSelectedCategory(category)}
                 >
                   <p className="font-bold">{category}</p>

@@ -3,12 +3,31 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Satoshi";
-  src: local("Satoshi-Regular"),
-    url("./assets/Font/Satoshi-Regular.otf") format("truetype");
+  font-family: "Futura";
+  src: local("Futura"), url("./assets/Font/Futura.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Open-sans";
+  src: local("OpenSans-Regular"),
+    url("./assets/Font/OpenSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: local("Raleway"),
+    url("./assets/Font/Raleway-VariableFont_wght.ttf") format("truetype");
 }
 
 body {
-  font-family: "Satoshi", sans-serif;
+  font-family: "Open-sans", sans-serif;
   /* overflow: hidden; */
+}
+
+.sub-header {
+  @apply text-[36px] font-medium font-futura;
+}
+
+input[type="radio"] {
+  accent-color: #232323;
 }

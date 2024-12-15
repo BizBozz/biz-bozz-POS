@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { selectTable, setOrderType } from "./../../redux/receiptSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,9 +18,6 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
 
   const handleTableSelect = (table) => {
     dispatch(selectTable(table));
-    setTimeout(() => {
-      onClose();
-    }, 300);
   };
 
   //   console.log("tables", tables);
@@ -31,19 +27,13 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[600px]">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Table</h2>
-          <button
-            className="bg-black text-white py-2 px-4 rounded"
-            onClick={onClose}
-          >
-            Hide Tables
-          </button>
+      <div className="bg-white p-6 rounded-lg shadow-lg w-[800px]">
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="sub-header">Table</h2>
         </div>
 
         <div className="mb-4 ">
-          <p className="font-medium mb-2">Select Dining Type</p>
+          <p className="font-semibold text-[20px] mb-2">Select Dining Type</p>
           <div className="flex items-center mb-2 gap-2">
             <div className="flex items-center mb-2">
               <input
@@ -56,18 +46,7 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
               />
               <label htmlFor="takeAway">Take Away</label>
             </div>
-            {/* Uncomment if Delivery type is needed */}
-            {/* <div className="flex items-center mb-2">
-            <input
-              type="radio"
-              id="delivery"
-              name="diningType"
-              className="mr-2"
-              checked={orderType === "Delivery"}
-              onChange={() => handleOrderTypeChange("Delivery")}
-            />
-            <label htmlFor="delivery">Delivery</label>
-          </div> */}
+
             <div className="flex items-center mb-2">
               <input
                 type="radio"
@@ -83,32 +62,38 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
         </div>
 
         <div className="mb-4">
-          <p className="font-medium">Select Table</p>
-          <div className="grid grid-cols-3 gap-4">
+          <p className="text-[20px] font-semibold mb-2">Select Table</p>
+          <div className="grid grid-cols-7 gap-4">
             {tables.map((table) => (
               <button
                 key={table}
                 className={`${
                   receipts[table] || selectedTable === table
-                    ? "bg-black text-white"
-                    : "bg-white text-black"
-                } border border-black py-2 px-4 rounded`}
+                    ? "bg-white text-primary"
+                    : "bg-primary text-white"
+                } border border-gray-300 p-2 rounded font-bold`}
                 onClick={() => handleTableSelect(table)}
               >
-                {table}
+                Table {table}
               </button>
             ))}
           </div>
         </div>
 
-        {/* <div className="flex gap-4 my-4 justify-end">
-          <button className="border border-black text-black py-2 px-4 rounded">
+        <div className="flex gap-4 my-4 justify-end mt-20">
+          <button
+            className="border border-gray-300 shadow-md text-primary py-2 px-4 rounded"
+            onClick={onClose}
+          >
             Cancel
           </button>
-          <button className="bg-black text-white py-2 px-4 rounded">
+          <button
+            className="bg-primary text-white py-2 px-4 rounded"
+            onClick={onClose}
+          >
             Confirm Table
           </button>
-        </div> */}
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { removeItemFromReceipt } from "../../redux/receiptSlice";
 import { useState } from "react";
 import CalculatorModal from "./CalculatorModel";
 import { removeTable } from "./../../redux/receiptSlice";
+import box from "./../../assets/box.png";
 import "./../input.css";
 
 function Receipt() {
@@ -78,9 +79,18 @@ function Receipt() {
   const { counts, total, tax, totalWithTax } = calculateTotalAndCounts();
 
   return (
-    <div className="bg-gray-100 h-screen overflow-y-auto pt-2">
+    <div className="bg-white h-screen overflow-y-auto pt-2">
       <div className="px-5">
-        <p className="text-2xl font-bold mb-5">Receipt</p>
+        <p className="sub-header font-bold mb-5">Receipt</p>
+        {!selectedTable && (
+          <div className="flex flex-col items-center justify-center h-[70vh]">
+            <img src={box} alt="box" />
+            <p className="sub-header">There is no order yet!</p>
+            <span className="text-gray-500">
+              Please select table and take order from customer.
+            </span>
+          </div>
+        )}
         {selectedTable && (
           <div>
             <p className="text-lg font-semibold mb-5">
@@ -90,8 +100,8 @@ function Receipt() {
               {Object.keys(counts).map((itemName, index) => (
                 <div key={itemName} className="font-medium mb-2 flex">
                   <span className="me-2">{index + 1}.</span>{" "}
-                  <span className="w-1/3">{itemName}</span>{" "}
-                  <span className="w-1/3 flex items-center">
+                  <span className="w-1/3 font-bold">{itemName}</span>{" "}
+                  <span className="w-1/3 flex items-center font-semibold">
                     {counts[itemName]} pcs{" "}
                     <button
                       className="mx-5"
@@ -109,14 +119,12 @@ function Receipt() {
                 </div>
               ))}
               <div className="font-medium mb-5 flex border-b-4"></div>
-              <div className="flex justify-between items-center font-bold text-lg">
+              <div className="flex justify-between items-center font-bold text-md">
                 <span>Subtotal</span> <span>{total.toFixed(2)} MMK</span>
               </div>
-              <div className="flex justify-between items-center font-bold text-lg">
-                <div>
-                  <label className="font-semibold text-lg">
-                    Gov Tax Percentage:
-                  </label>
+              <div className="flex justify-between items-center font-bold text-md">
+                <div className="flex w-2/3">
+                  <label className="font-semibold text-md w-1/2">Gov Tax</label>
                   <input
                     type="number"
                     value={taxPercentage}
@@ -126,7 +134,7 @@ function Receipt() {
                     max="100"
                   />
                 </div>
-                <span>{tax.toFixed(2)} MMK</span>
+                <span className="w-1/3 text-right">{tax.toFixed(2)} MMK</span>
               </div>
               <div className="font-medium mt-5 flex border-b-4"></div>
               <div className="flex justify-between items-center mt-5 font-bold text-xl">
@@ -135,7 +143,7 @@ function Receipt() {
             </div>
             <div className="flex gap-5 mt-5">
               <button
-                className="bg-white w-full text-black text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-black focus:outline-none focus:scale-105"
+                className="bg-white w-full text-primary text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-gray-300 focus:outline-none focus:scale-105"
                 onClick={() => cancelAllItem()}
               >
                 Cancel
@@ -143,7 +151,7 @@ function Receipt() {
 
               <button
                 onClick={() => confirmOrderClick()}
-                className="bg-black w-full text-white text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-black focus:outline-none focus:scale-105"
+                className="bg-primary w-full text-white text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-primary focus:outline-none focus:scale-105"
               >
                 Confirm Order
               </button>
