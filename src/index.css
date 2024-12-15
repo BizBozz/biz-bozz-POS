@@ -31,3 +31,45 @@ body {
 input[type="radio"] {
   accent-color: #232323;
 }
+
+.multi-line-truncate {
+  display: -webkit-box; /* Fallback for old browsers */
+  -webkit-box-orient: vertical; /* Specifies vertical orientation */
+  -webkit-line-clamp: 2; /* Number of lines to display */
+  overflow: hidden; /* Hides the overflowed text */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* For WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+  height: 5px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background of the scrollbar track */
+  border-radius: 2px; /* Rounded corners for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fd8e39; /* Color of the scrollbar thumb */
+  border-radius: 2px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6f00; /* Color of the thumb on hover */
+}
+
+/* For Firefox */
+.scrollable {
+  scrollbar-width: thin; /* Use a thin scrollbar */
+  scrollbar-color: #ff6f00 #fd8e39; /* thumb color and track color */
+}

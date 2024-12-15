@@ -27,7 +27,7 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-[800px]">
+      <div className="bg-white p-6 rounded-lg border border-gray-300 shadow-lg mx-5 md:mx-0 w-full md:w-[800px]">
         <div className="flex justify-between items-center mb-2">
           <h2 className="sub-header">Table</h2>
         </div>
@@ -63,7 +63,7 @@ const TableSelection = ({ isOpen, onClose, tables }) => {
 
         <div className="mb-4">
           <p className="text-[20px] font-semibold mb-2">Select Table</p>
-          <div className="grid grid-cols-7 gap-4">
+          <div className="grid grid-cols-3 md:grid-cols-7 gap-4">
             {tables.map((table) => (
               <button
                 key={table}

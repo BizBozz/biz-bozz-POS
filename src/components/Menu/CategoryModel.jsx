@@ -22,8 +22,8 @@ const CategoryModal = ({ isOpen, onClose, id }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-white">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h2 className="text-lg font-semibold mb-4">Create Menu Category</h2>
+      <div className="bg-white rounded-lg shadow-lg p-6 md:w-96">
+        <h2 className="sub-header mb-4">Create Menu Category</h2>
         <div className="flex items-center mb-4">
           <input
             type="text"
@@ -36,13 +36,13 @@ const CategoryModal = ({ isOpen, onClose, id }) => {
         <div className="flex justify-end">
           <button
             onClick={onClose}
-            className="border border-gray-300 rounded-md px-4 py-2 mr-2 text-gray-700 hover:bg-gray-100"
+            className="border border-primary rounded-md px-4 py-2 mr-2 text-primary hover:bg-prilight"
           >
             Cancel
           </button>
           <button
             onClick={handleCreate}
-            className="bg-black text-white rounded-md px-4 py-2 hover:bg-blue-700"
+            className="bg-primary border border-primary font-bold text-white rounded-md px-4 py-2 hover:bg-prilight hover:text-primary"
           >
             Create
           </button>

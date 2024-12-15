@@ -38,7 +38,7 @@ function SuccessModel({ isOpen, onClose }) {
                 cx="25"
                 cy="25"
                 r="20"
-                stroke="#22c55e"
+                stroke="#FF6F00"
                 strokeWidth="2"
                 fill="none"
                 initial={{ pathLength: 0 }}
@@ -48,7 +48,7 @@ function SuccessModel({ isOpen, onClose }) {
               <motion.path
                 d="M14 26l8 8 16-16"
                 fill="none"
-                stroke="#22c55e"
+                stroke="#FF6F00"
                 strokeWidth="2"
                 initial={{ pathLength: 0 }}
                 animate={{ pathLength: 1 }}
@@ -60,7 +60,7 @@ function SuccessModel({ isOpen, onClose }) {
           <p className="text-gray-600 mb-6">Your order has been confirmed.</p>
           <button
             onClick={onClose}
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors"
+            className="bg-primary text-white px-4 py-2 rounded hover:bg-prilight transition-colors"
           >
             Close
           </button>

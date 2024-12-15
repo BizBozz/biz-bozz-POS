@@ -42,7 +42,7 @@ const MenuList = ({ category }) => {
   }
 
   return (
-    <div className="flex flex-wrap gap-5 mt-5 pb-40">
+    <div className="flex flex-col md:flex-row md:flex-wrap gap-5 mt-5 pb-40">
       {menuLists.map((menu) => {
         return (
           menu.categoryName === category &&

@@ -58,9 +58,15 @@ function MenuPage() {
 
   return (
     <>
-      <div className="p-5 relative">
-        <div className="flex gap-5">
-          <div className="flex flex-wrap gap-5 me-[200px]">
+      <div className="p-5">
+        <div className="flex flex-col md:flex-row gap-1">
+          <div className="w-screen md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
+            <button
+              className="md:hidden text-primary px-5 rounded-md transition duration-20 hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <p className="font-bold text-xl">+</p>
+            </button>
             {categorys.map((category, index) => (
               <div
                 key={index}
@@ -69,34 +75,33 @@ function MenuPage() {
                 <button
                   className={`${
                     selectedCategory === category
-                      ? "bg-black text-white"
+                      ? "bg-prilight text-primary"
                       : "bg-white text-black"
-                  } px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105`}
+                  } font-bold text-[14px] px-5 py-2 rounded-3xl transition duration-200 hover:bg-prilight hover:text-primary focus:outline-none focus:scale-105`}
                   onClick={() => setSelectedCategory(category)}
                 >
                   <p className="font-bold">{category}</p>
                 </button>
               </div>
             ))}
-            <div className="flex items-center gap-2 cursor-pointer">
-              <button
-                className="bg-black text-white px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105"
-                onClick={() => setIsModalOpen(true)}
-              >
-                <p className="font-bold">+</p>
-              </button>
-            </div>
+            <button
+              className="hidden bg:block bg-primary text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <p className="font-bold">+</p>
+            </button>
+          </div>
+          <div className="">
+            <button
+              className="bg-primary w-full md:w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
+              onClick={() => setIsModalOpen2(true)}
+            >
+              <p className="font-bold">Add Menu</p>
+            </button>
           </div>
         </div>
         <MenuList category={selectedCategory} />
-        <div className="absolute top-0 right-0 m-2">
-          <button
-            className="bg-black w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105"
-            onClick={() => setIsModalOpen2(true)}
-          >
-            <p className="font-bold">Add Menu</p>
-          </button>
-        </div>
+
         <CategoryModal
           isOpen={isModalOpen}
           id={id}

@@ -6,8 +6,9 @@ import Receipt from "../components/Home/Receipt";
 import getMenu from "../api/Menu/getMenu";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
-function HomePage() {
+function HomePage({ isVisible }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
+
   const [categorys, setCategorys] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,9 +27,9 @@ function HomePage() {
 
   return (
     <div className="">
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         {/* Menu*/}
-        <div className="w-2/3 overflow-y-auto h-screen px-5 pt-2 ">
+        <div className="w-full md:w-2/3 overflow-y-auto h-screen px-5 pt-2 ">
           <div className="flex justify-between items-center">
             <p className="sub-header mb-5">Menu</p>
             <button
@@ -38,7 +39,7 @@ function HomePage() {
               Select Table
             </button>
           </div>
-          <div className="flex flex-wrap gap-5 me-[200px]">
+          <div className="w-screen md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
             {categorys.map((category, index) => (
               <div
                 key={index}
@@ -60,10 +61,15 @@ function HomePage() {
           <MenuList category={selectedCategory} />
         </div>
         {/* Receipt */}
-        <div className="w-1/3 border-l border-black ">
-          <div className="">
-            <Receipt />
-          </div>
+        <div className="hidden md:block w-full md:w-1/3 border-l border-gray-300 ">
+          <Receipt />
+        </div>
+        <div
+          className={`md:hidden fixed h-screen bg-primary text-white transition-transform duration-300 transform ${
+            isVisible ? "translate-y-0" : "translate-y-full"
+          }`}
+        >
+          <Receipt />
         </div>
       </div>
       {/* Table Model */}

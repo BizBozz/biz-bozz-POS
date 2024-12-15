@@ -37,8 +37,8 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80">
-      <div className="border border-black py-5 px-10 rounded-md bg-white relative">
-        <h2 className="text-xl font-semibold mb-4">Create Menu</h2>
+      <div className="border border-gray-300 shadow-lg py-5 px-10 rounded-md bg-white h-full md:h-auto overflow-y-auto">
+        {/* <h2 className="text-xl font-semibold mb-4">Create Menu</h2>
         <div className="flex justify-between gap-5 me-5 mt-4 absolute top-0 right-0">
           <button
             onClick={onClose}
@@ -52,11 +52,28 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
           >
             Edit Dish
           </button>
+        </div> */}
+        <div className="flex justify-between">
+          <h2 className="sub-header">Edit Menu</h2>
+          <div className="hidden md:flex justify-between gap-5 me-5 mt-4">
+            <button
+              onClick={onClose}
+              className="border border-primary w-32 rounded-md px-4 py-2 text-primary hover:bg-primary hover:text-white"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleAddDish}
+              className="bg-primary border border-primary text-white w-32 rounded-md px-4 py-2 hover:bg-white hover:text-primary"
+            >
+              Add Dish
+            </button>
+          </div>
         </div>
-        <div className="flex gap-5 mt-10">
-          <div className="w-1/2">
+        <div className="flex flex-col md:flex-row gap-5 mt-5">
+          <div className="w-full md:w-1/2">
             <div className="mb-4">
-              <div className="relative w-[300px] h-48 border border-gray-300 rounded-md p-2 mb-2 flex items-center justify-center">
+              <div className="relative md:w-[300px] h-48 border border-primary rounded-md mb-2 flex items-center justify-center">
                 {image ? (
                   <>
                     <img
@@ -94,35 +111,20 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
                 accept="image/*"
                 className="hidden"
               />
-              <div className="flex justify-between items-center border border-black rounded-md">
-                <p className="ms-2">Uplaod Dish Image</p>
+              <div className="flex justify-between items-center border border-primary rounded-md">
+                <p className="ms-2 font-medium text-primary">
+                  Uplaod Dish Image
+                </p>
                 <label
                   htmlFor="file-upload"
-                  className="cursor-pointer text-black text-sm rounded-md px-4 py-1 m-2 text-center hover:bg-black hover:text-white border boder-black  transition"
+                  className="cursor-pointer text-white bg-primary text-sm rounded-md px-4 py-1 m-2 text-center hover:bg-prilight hover:text-white border boder-primary transition"
                 >
                   Upload
                 </label>
               </div>
             </div>
           </div>
-          <div className="w-1/2">
-            {/* <div className="mb-4">
-              <label className="block text-sm font-medium mb-1">
-                Select Dish Category
-              </label>
-
-              <select
-                value={dishCategory}
-                onChange={(e) => setDishCategory(e.target.value)}
-                className="border border-gray-300 rounded-md p-2 w-full"
-              >
-                {category.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div> */}
+          <div className="w-full md:w-1/2">
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">
                 Dish Name
@@ -132,7 +134,7 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
                 value={dishName}
                 onChange={(e) => setDishName(e.target.value)}
                 placeholder="Enter Your Dish Name"
-                className="ring-black ring-1 rounded-md p-2 w-full focus:ring-black focus:ring-1"
+                className="border border-primary rounded-md p-2 w-full"
               />
             </div>
             <div className="mb-4">
@@ -143,14 +145,28 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="Enter Your Price"
-                  className="ring-black ring-1 rounded-md p-2 flex-grow mr-2 focus:ring-black focus:ring-1"
+                  className="border border-primary rounded-md p-2 flex-grow"
                 />
-                <span className="border border-black rounded-md p-2 ml-2">
+                <span className="border border-primary rounded-md p-2 ml-2">
                   MMK
                 </span>
               </div>
             </div>
           </div>
+        </div>
+        <div className="flex justify-between mt-4 md:hidden">
+          <button
+            onClick={onClose}
+            className="border border-primary w-32 rounded-md px-4 py-2 text-primary hover:bg-primary hover:text-white"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleAddDish}
+            className="bg-primary border border-primary text-white w-32 rounded-md px-4 py-2 hover:bg-white hover:text-primary"
+          >
+            Add Dish
+          </button>
         </div>
       </div>
     </div>

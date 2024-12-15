@@ -50,8 +50,11 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
     <div className="fixed inset-0 flex justify-end items-start bg-black bg-opacity-70">
       <div className="bg-white rounded-lg shadow-lg p-6 w-[400px] mt-10 me-10">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Calculator</h2>
-          <button className="text-gray-500" onClick={onClose}>
+          <h2 className="sub-header">Calculator</h2>
+          <button
+            className="text-gray-500 text-3xl text-primary"
+            onClick={onClose}
+          >
             &times;
           </button>
         </div>
@@ -60,7 +63,7 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
             <label className="font-medium">Total Price</label>
             <span>{totalPrice.toLocaleString()} MMK</span>
           </div>
-          <div className="flex justify-between items-center mb-2 border border-black rounded-md px-4 py-2">
+          <div className="flex justify-between items-center mb-2 border border-primary rounded-md px-4 py-2">
             <label className="font-medium">Paid Price</label>
             <div>
               <input
@@ -80,13 +83,13 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
         </div>
         <div className="flex justify-between gap-5 mt-10">
           <button
-            className="border text-xl font-bold border-black w-full text-gray-700 rounded py-2 px-4"
+            className="border text-xl font-bold border-gray-300 text-primary w-full rounded py-2 px-4"
             onClick={onClose}
           >
             Cancel
           </button>
           <button
-            className="bg-black text-xl font-bold w-full text-white rounded py-2 px-4"
+            className="bg-primary text-xl font-bold w-full text-white rounded py-2 px-4"
             onClick={confirmPaymentClick}
           >
             ConFirm
