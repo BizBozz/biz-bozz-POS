@@ -29,7 +29,7 @@ function HomePage({ isVisible }) {
     <div className="">
       <div className="flex flex-col md:flex-row">
         {/* Menu*/}
-        <div className="w-full md:w-2/3 overflow-y-auto h-screen px-5 pt-2 ">
+        <div className="w-full md:w-2/3 overflow-y-auto h-screen px-5 pt-2 overflow-x-hidden">
           <div className="flex justify-between items-center">
             <p className="sub-header mb-5">Menu</p>
             <button

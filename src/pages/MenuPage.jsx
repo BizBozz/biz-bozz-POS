@@ -60,7 +60,7 @@ function MenuPage() {
     <>
       <div className="p-5">
         <div className="flex flex-col md:flex-row gap-1">
-          <div className="w-screen md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
+          <div className="w-screen md:w-full overflow-x-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
             <button
               className="md:hidden text-primary px-5 rounded-md transition duration-20 hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
               onClick={() => setIsModalOpen(true)}
@@ -100,7 +100,9 @@ function MenuPage() {
             </button>
           </div>
         </div>
-        <MenuList category={selectedCategory} />
+        <div className="overflow-y-auto h-[70vh]">
+          <MenuList category={selectedCategory} />
+        </div>
 
         <CategoryModal
           isOpen={isModalOpen}

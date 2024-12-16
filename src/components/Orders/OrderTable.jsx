@@ -12,8 +12,8 @@ function OrderTable({ sendData, orders, deleteOrder }) {
 
   return (
     <div className="shadow-lg h-[75vh] overflow-y-auto border border-gray-200">
-      <table className="min-w-full divide-y bg-black  divide-gray-200 py-10 ">
-        <thead className="bg-black">
+      <table className="min-w-full divide-y bg-primary divide-gray-200 py-10 ">
+        <thead className="bg-primary">
           <tr>
             <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
               No
@@ -64,7 +64,7 @@ function OrderTable({ sendData, orders, deleteOrder }) {
                     <MdOutlineRemoveRedEye size={25} />
                   </button>
                   <button
-                    className="text-black hover:text-gray-700"
+                    className="text-primary hover:text-gray-700"
                     onClick={() => deleteOrder(order._id)}
                   >
                     <FaRegTrashAlt size={23} />

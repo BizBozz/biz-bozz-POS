@@ -14,7 +14,7 @@ const MenuCard = ({ menu, refreshMenu }) => {
   }, [isModalOpen]);
   // console.log(menu);
   return (
-    <div className="max-w-sm bg-white shadow-lg overflow-hidden">
+    <div className="md:w-[200px] bg-white shadow-lg overflow-hidden">
       <div>
         <img
           className="w-full h-48 md:h-32 object-cover"

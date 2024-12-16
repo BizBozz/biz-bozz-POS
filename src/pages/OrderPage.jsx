@@ -87,15 +87,15 @@ const OrdersPage = () => {
   }, [dataFromCalendar]);
 
   return (
-    <div className="relative">
+    <div className="">
       <div className="p-4">
-        <h1 className="text-3xl font-bold mb-6">Orders</h1>
+        <h1 className="sub-header font-bold mb-6">Orders</h1>
 
         <div className="flex justify-between mb-3">
           <Calendar sendDate={handleDataFromCalendar} />
           <div>
             <button
-              className="bg-black text-white flex items-center gap-3 font-semibold px-4 py-2 rounded-lg"
+              className="bg-primary text-white flex items-center gap-3 font-semibold px-4 py-2 rounded-lg"
               onClick={handleDownload}
             >
               <TbReport size={20} /> Report
