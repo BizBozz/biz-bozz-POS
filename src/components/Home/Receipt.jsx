@@ -79,7 +79,7 @@ function Receipt() {
   const { counts, total, tax, totalWithTax } = calculateTotalAndCounts();
 
   return (
-    <div className="bg-white text-black h-screen overflow-y-auto pt-2">
+    <div className="bg-white text-black h-screen overflow-y-auto pt-2 pb-40">
       <div className="px-5">
         <p className="sub-header font-bold mb-5">Receipt</p>
         {!selectedTable && (
