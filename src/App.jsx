@@ -14,6 +14,7 @@ import Scoreboard from "./pages/TestingPage";
 import "./App.css";
 import { Receipt } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
+import Dashboard from "./pages/Dashboard";
 
 export default function App() {
   const token = sessionStorage.getItem("biz-bozz");
@@ -52,11 +53,16 @@ export default function App() {
           </div>
 
           {/* Sidebar Component */}
-          <Sidebar
-            isVisible={isSidebarVisible}
-            closeSidebar={() => setIsSidebarVisible(false)}
-          />
+
           <div className="flex-1 bg-white border border-gray-300 m-5 rounded-xl shadow-md overflow-hidden">
+            {isSidebarVisible && (
+              <div className="fixed w-64 bg-opacity-50">
+                <div className="bg-white rounded-lg shadow-xl border border-gray-200 max-w-md w-full p-5">
+                  <Sidebar closeSidebar={toggleSidebar} />
+                </div>
+              </div>
+            )}
+
             <Routes>
               <Route path="/login/:id" element={<LoginPage />} />
               <Route
@@ -75,14 +81,14 @@ export default function App() {
                   // </PrivateRoute>
                 }
               />
-              {/* <Route
-            path="/testing"
-            element={
-              <PrivateRoute>
-                <TestingPage />
-              </PrivateRoute>
-            }
-          /> */}
+              <Route
+                path="/dashboard"
+                element={
+                  // <PrivateRoute>
+                  <Dashboard />
+                  // </PrivateRoute>
+                }
+              />
               <Route
                 path="/orders"
                 element={

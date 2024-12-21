@@ -18,10 +18,6 @@ function OrderTable({ sendData, orders, deleteOrder }) {
             <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
               No
             </th>
-            {/* <th className="px-6 py-3 text-left text-md font-semibold text-gray-500 uppercase tracking-wider">
-                  Table
-                </th> */}
-
             <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
               Order Type
             </th>
