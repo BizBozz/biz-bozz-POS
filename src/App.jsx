@@ -15,6 +15,7 @@ import "./App.css";
 import { Receipt } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import Dashboard from "./pages/Dashboard";
+import { FaUser } from "react-icons/fa";
 
 export default function App() {
   const token = sessionStorage.getItem("biz-bozz");
@@ -40,10 +41,20 @@ export default function App() {
           <div className="px-5 pt-5 flex justify-between">
             <button
               onClick={toggleSidebar}
-              className="p-2 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
+              className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
             >
-              <IoMdMenu size={25} />
+              <IoMdMenu size={30} />
             </button>
+
+            <div className="flex items-center gap-8 bg-white px-5 py-2 rounded-lg shadow-md">
+              <div>
+                <p className="font-bold">Anna</p>
+                <span className="text-gray-400">Cashier</span>
+              </div>
+              <div className="text-gray-400 border border-gray-100 rounded-full p-2">
+                <FaUser size={25} />
+              </div>
+            </div>
             <button
               onClick={() => setisVisible(!isVisible)}
               className="md:hidden p-2 border border-primary bg-primary text-white rounded-lg"
