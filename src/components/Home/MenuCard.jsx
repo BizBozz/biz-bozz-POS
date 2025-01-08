@@ -3,7 +3,6 @@ import { addItemToReceipt } from "./../../redux/receiptSlice";
 import { toast } from "sonner";
 import PropTypes from "prop-types";
 import { CirclePlus } from "lucide-react";
-import { DiVim } from "react-icons/di";
 
 const MenuCard = ({ menu }) => {
   const dispatch = useDispatch();
@@ -47,7 +46,7 @@ MenuCard.propTypes = {
   menu: PropTypes.shape({
     dishImage: PropTypes.string.isRequired,
     dishName: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    // price: PropTypes.string.isRequired,
   }).isRequired,
 };
 

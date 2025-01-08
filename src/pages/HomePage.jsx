@@ -4,9 +4,11 @@ import TableSelection from "../components/Home/TableModel";
 import Receipt from "../components/Home/Receipt";
 import getItems from "../api/Menu/getItems";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
 function HomePage({ isVisible }) {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +20,7 @@ function HomePage({ isVisible }) {
   const getAllCategory = async () => {
     setLoading(true);
     const res = await getItems();
-    // console.log("home", res);
+    console.log("home", res);
     if (res.code === 200) {
       setLoading(false);
       const categoryArray = [
@@ -27,6 +29,9 @@ function HomePage({ isVisible }) {
       // console.log("categoryArray", categoryArray);
       setCategorys(categoryArray);
       setSelectedCategory(categoryArray[0]);
+    } else if (res.status === 401) {
+      window.location.href = "/login";
+      // c327b24a-c464-4880-b6cf-ead3750a3977
     }
   };
 

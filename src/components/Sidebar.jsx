@@ -8,7 +8,7 @@ const Sidebar = ({ closeSidebar }) => {
     { to: "/", icon: Home, label: "Home" },
     { to: "/menu", icon: Menu, label: "Menu" },
     { to: "/orders", icon: Receipt, label: "Orders" },
-    { to: "/dashboard", icon: Receipt, label: "Reports" },
+    // { to: "/dashboard", icon: Receipt, label: "Reports" },
   ];
 
   return (

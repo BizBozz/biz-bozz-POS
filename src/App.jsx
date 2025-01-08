@@ -2,7 +2,6 @@ import Sidebar from "./components/Sidebar";
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
 import { Route, Routes } from "react-router-dom";
-// import TestingPage from "./pages/TestingPage";
 import OrderPage from "./pages/OrderPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuth } from "./hook/auth/AuthContext";
@@ -11,17 +10,18 @@ import PageNotFound from "./components/PageNotFound";
 import { useEffect, useState } from "react";
 import { IoMdMenu } from "react-icons/io";
 import Scoreboard from "./pages/TestingPage";
-import "./App.css";
 import { Receipt } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import Dashboard from "./pages/Dashboard";
 import { FaUser } from "react-icons/fa";
 
+import "./App.css";
+import EnterID from "./pages/EnterID";
+import User from "./components/User";
+
 export default function App() {
   const location = window.location.pathname;
-  console.log(location);
-  const token = sessionStorage.getItem("biz-bozz");
-  const { isAuthenticated, login } = useAuth();
+  const user = JSON.parse(sessionStorage.getItem("bz-user"));
   const [islogin, setIslogin] = useState(false);
   const [isVisible, setisVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
@@ -31,9 +31,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (token) {
-      login();
-    }
     if (location.includes("/login")) {
       setIslogin(false);
     } else {
@@ -55,14 +52,8 @@ export default function App() {
                 <IoMdMenu size={30} />
               </button>
 
-              <div className="flex items-center gap-8 bg-white px-5 py-2 rounded-lg shadow-md">
-                <div>
-                  <p className="font-bold">Anna</p>
-                  <span className="text-gray-400">Cashier</span>
-                </div>
-                <div className="text-gray-400 border border-gray-100 rounded-full p-2">
-                  <FaUser size={25} />
-                </div>
+              <div className="">
+                <User user={user} />
               </div>
               <button
                 onClick={() => setisVisible(!isVisible)}
@@ -101,6 +92,14 @@ export default function App() {
                 }
               />
               <Route
+                path="/login"
+                element={
+                  // <PrivateRoute>
+                  <EnterID />
+                  // </PrivateRoute>
+                }
+              />
+              <Route
                 path="/menu"
                 element={
                   // <PrivateRoute>
@@ -124,14 +123,6 @@ export default function App() {
                   // </PrivateRoute>
                 }
               />
-              {/* <Route
-            path="/order/:id"
-            element={
-              <PrivateRoute>
-                <OrderDetail />
-              </PrivateRoute>
-            }
-          /> */}
               <Route
                 path="/testing"
                 element={

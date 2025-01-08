@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EyeToggle from "../components/EyeToggle";
 import handleSignIn from "../api/auth/signIn";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAuth } from "../hook/auth/AuthContext";
 
 const LoginPage = () => {
@@ -10,7 +10,6 @@ const LoginPage = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const { login } = useAuth();
-  const navigate = useNavigate();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,13 +30,15 @@ const LoginPage = () => {
 
   const handleLogin = async (formData) => {
     const res = await handleSignIn({ formData, id });
-    console.log(res);
     if (res.status === "success") {
-      login();
-      console.log(res.data);
-      navigate("/");
+      const user = {
+        name: email,
+        role: res.data.role,
+      };
+      sessionStorage.setItem("bz-user", JSON.stringify(user));
       sessionStorage.setItem("biz-bozz", res.token);
       localStorage.setItem("biz-bozz-id", id);
+      window.location.href = "/";
     }
   };
 
