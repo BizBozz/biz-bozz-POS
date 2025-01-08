@@ -3,6 +3,7 @@ import EditMenuModel from "./EditMenuModel";
 import { useEffect, useState } from "react";
 import { Edit3Icon } from "lucide-react";
 const MenuCard = ({ menu, refreshMenu }) => {
+  console.log("card", menu);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleAction = () => {

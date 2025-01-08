@@ -3,10 +3,8 @@ const BASE_URL = import.meta.env.VITE_API_URL;
 
 // Create an Axios instance
 axios.defaults.baseURL = BASE_URL;
-// const token = localStorage.getItem("piper-token");
-// const setAuthToken = (token) => {
-//   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-// };
+const token = sessionStorage.getItem("biz-bozz");
+axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 axios.defaults.headers.common["Accept"] = "application/json";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 // axios.defaults.withCredentials = true;

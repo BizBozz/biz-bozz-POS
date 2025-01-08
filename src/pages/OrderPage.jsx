@@ -7,6 +7,7 @@ import Calendar from "../components/Calender";
 import deleteOrders from "../api/Order/deleteOrder";
 import EditOrder from "./EditOrder";
 import getReport from "../api/report/getReport";
+import NoItems from "../components/NoItems";
 
 const OrdersPage = () => {
   const date = new Date();
@@ -50,26 +51,26 @@ const OrdersPage = () => {
     getOrders();
   };
 
-  const handleDownload = async () => {
-    const res = await getReport(dataFromCalendar);
-    console.log(res);
-    // if (res.code === 200) {
-    const blob = new Blob([res], { type: "application/pdf" }); // Convert the response to a Blob
-    const url = window.URL.createObjectURL(blob);
+  // const handleDownload = async () => {
+  //   const res = await getReport(dataFromCalendar);
+  //   console.log(res);
+  //   // if (res.code === 200) {
+  //   const blob = new Blob([res], { type: "application/pdf" }); // Convert the response to a Blob
+  //   const url = window.URL.createObjectURL(blob);
 
-    // Open the PDF in a new tab/window
-    const newWindow = window.open(url);
-    if (newWindow) {
-      // Trigger print once the PDF is opened
-      newWindow.onload = function () {
-        // newWindow.print();
-      };
-    } else {
-      console.error("Failed to open new window for printing");
-    }
+  //   // Open the PDF in a new tab/window
+  //   const newWindow = window.open(url);
+  //   if (newWindow) {
+  //     // Trigger print once the PDF is opened
+  //     newWindow.onload = function () {
+  //       // newWindow.print();
+  //     };
+  //   } else {
+  //     console.error("Failed to open new window for printing");
+  //   }
 
-    // }
-  };
+  //   // }
+  // };
   // console.log(orders.length);
 
   const getOrders = async () => {
@@ -87,25 +88,24 @@ const OrdersPage = () => {
   }, [dataFromCalendar]);
 
   return (
-    <div className="">
-      <div className="p-4">
-        <h1 className="sub-header font-bold mb-6">Orders</h1>
-
+    <div className="p-5">
+      <div className="min-h-screen">
         <div className="flex justify-between mb-3">
+          <h1 className="sub-header font-bold mb-6">Orders Management</h1>
           <Calendar sendDate={handleDataFromCalendar} />
-          <div>
+          {/* <div>
             <button
               className="bg-primary text-white flex items-center gap-3 font-semibold px-4 py-2 rounded-lg"
               onClick={handleDownload}
             >
               <TbReport size={20} /> Report
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="bg-white w-full rounded-lg overflow-hidden">
           {orders && orders.length === 0 ? (
-            <div className="flex justify-center items-center h-full">
-              <p className="text-gray-500">No orders found.</p>
+            <div className="flex justify-center items-center mt-20">
+              <NoItems header={"No Orders"} subHeader={"No orders found"} />
             </div>
           ) : (
             <OrderTable

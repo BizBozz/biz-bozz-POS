@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import CategoryModal from "../components/Menu/CategoryModel";
 import MenuList from "../components/Menu/MenuList";
 import getMenu from "../api/Menu/getMenu";
+import ReactLoading from "react-loading";
 import MenuModel from "../components/Menu/MenuModel";
+import Loading from "../components/Loading";
 
 // export const categorys = [
 //   "Chinese",
@@ -18,21 +20,30 @@ function MenuPage() {
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [categorys, setCategorys] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
+  const [loading, setLoading] = useState(true);
   const [id, setId] = useState("");
 
   const getAllCategory = async () => {
+    setLoading(true);
     const res = await getMenu();
-    // console.log(res.data.categories[0].categories[0]);
-    setCategorys(res.data.categories[0].categories);
-    setId(res.data.categories[0]._id);
-    setSelectedCategory(res.data.categories[0].categories[0]);
+    console.log(res);
+    if (res.code === 200) {
+      setLoading(false);
+      setCategorys(res.data.categories[0].categories);
+      setId(res.data.categories[0]._id);
+      setSelectedCategory(res.data.categories[0].categories[0]);
+    }
   };
 
   useEffect(() => {
     getAllCategory();
   }, [isModalOpen]);
 
-  if (categorys.length === 0) {
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (!loading && categorys.length === 0) {
     return (
       <div className="flex w-full h-screen justify-center items-center overflow-y-auto">
         <div className="text-center">
@@ -56,67 +67,69 @@ function MenuPage() {
     );
   }
 
-  return (
-    <>
-      <div className="p-5">
-        <div className="flex flex-col md:flex-row gap-1">
-          <div className="w-screen md:w-full overflow-x-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
-            <button
-              className="md:hidden text-primary px-5 rounded-md transition duration-20 hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <p className="font-bold text-xl">+</p>
-            </button>
-            {categorys.map((category, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 cursor-pointer"
+  if (!loading && categorys.length > 0) {
+    return (
+      <>
+        <div className="p-5">
+          <div className="flex flex-col md:flex-row gap-1">
+            <div className="w-screen md:w-full overflow-x-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
+              <button
+                className="md:hidden text-primary px-5 rounded-md transition duration-20 hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
               >
-                <button
-                  className={`${
-                    selectedCategory === category
-                      ? "bg-prilight text-primary"
-                      : "bg-white text-black"
-                  } font-bold text-[14px] px-5 py-2 rounded-3xl transition duration-200 hover:bg-prilight hover:text-primary focus:outline-none focus:scale-105`}
-                  onClick={() => setSelectedCategory(category)}
+                <p className="font-bold text-xl">+</p>
+              </button>
+              {categorys.map((category, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 cursor-pointer"
                 >
-                  <p className="font-bold">{category}</p>
-                </button>
-              </div>
-            ))}
-            <button
-              className="hidden bg:block bg-primary text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
-            >
-              <p className="font-bold">+</p>
-            </button>
+                  <button
+                    className={`${
+                      selectedCategory === category
+                        ? "bg-prilight text-primary"
+                        : "bg-white text-black"
+                    } font-bold text-[14px] px-5 py-2 rounded-3xl transition duration-200 hover:bg-prilight hover:text-primary focus:outline-none focus:scale-105`}
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    <p className="font-bold">{category}</p>
+                  </button>
+                </div>
+              ))}
+              <button
+                className="hidden md:block bg-primary text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
+                onClick={() => setIsModalOpen(true)}
+              >
+                <p className="font-bold">+</p>
+              </button>
+            </div>
+            <div className="">
+              <button
+                className="bg-primary w-full md:w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
+                onClick={() => setIsModalOpen2(true)}
+              >
+                <p className="font-bold">Add Menu</p>
+              </button>
+            </div>
           </div>
-          <div className="">
-            <button
-              className="bg-primary w-full md:w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
-              onClick={() => setIsModalOpen2(true)}
-            >
-              <p className="font-bold">Add Menu</p>
-            </button>
+          <div className="overflow-y-auto h-[70vh]">
+            <MenuList category={selectedCategory} />
           </div>
-        </div>
-        <div className="overflow-y-auto h-[70vh]">
-          <MenuList category={selectedCategory} />
-        </div>
 
-        <CategoryModal
-          isOpen={isModalOpen}
-          id={id}
-          onClose={() => setIsModalOpen(false)}
-        />
-        <MenuModel
-          isOpen={isModalOpen2}
-          onClose={() => setIsModalOpen2(false)}
-          category={categorys}
-        />
-      </div>
-    </>
-  );
+          <CategoryModal
+            isOpen={isModalOpen}
+            id={id}
+            onClose={() => setIsModalOpen(false)}
+          />
+          <MenuModel
+            isOpen={isModalOpen2}
+            onClose={() => setIsModalOpen2(false)}
+            category={categorys}
+          />
+        </div>
+      </>
+    );
+  }
 }
 
 export default MenuPage;

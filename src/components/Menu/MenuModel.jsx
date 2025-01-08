@@ -171,7 +171,7 @@ const MenuModel = ({ isOpen, onClose, category }) => {
 MenuModel.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  category: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // category: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MenuModel;

@@ -28,7 +28,7 @@ function OrderDetail() {
       <Link to="/orders" className="text-blue-500 mb-4 inline-block">
         Back to Orders
       </Link>
-      <h1 className="text-3xl font-bold mb-4">Order Details</h1>
+      <h1 className="sub-header font-bold mb-4">Order Details</h1>
       <div className="bg-white shadow-md rounded-lg p-4 text-lg">
         <p>
           <strong>Table:</strong> {order.table}

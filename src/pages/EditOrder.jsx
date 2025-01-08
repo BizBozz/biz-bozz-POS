@@ -5,6 +5,7 @@ import getMenu from "../api/Menu/getMenu";
 import OrderDetail from "./../components/Orders/OrderDetail";
 import "./../components/Orders/model.css";
 import LoadingSpinner from "../components/LoadingSpinner";
+import getItems from "../api/Menu/getItems";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
 function EditOrder({ id, closeOrderDetails, editedOrder }) {
@@ -27,12 +28,15 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
 
   const getAllCategory = async () => {
     setLoading(true); // Set loading to true when fetching data
-    const res = await getMenu();
-    if (res.code === 200 && res.status !== "error") {
-      // console.log(res.data.categories[0].categories[0]);
-      setCategorys(res.data.categories[0].categories);
-      setSelectedCategory(res.data.categories[0].categories[0]);
-      setLoading(false); // Set loading to false when data is fetched
+    const res = await getItems();
+    if (res.code === 200) {
+      const categoryArray = [
+        ...new Set(res.data.map((item) => item.categoryName)),
+      ];
+      // console.log("categoryArray", categoryArray);
+      setCategorys(categoryArray);
+      setSelectedCategory(categoryArray[0]);
+      setLoading(false);
     }
   };
 
@@ -60,7 +64,7 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
               transition={{ duration: 0.3 }} // Duration of the animation
             >
               <div className="flex justify-between items-center">
-                <p className="text-2xl font-bold mb-5">Menu</p>
+                <p className="sub-header font-bold mb-5">Menu</p>
               </div>
               <div className="flex flex-wrap gap-5 me-[200px]">
                 {categorys.map((category, index) => (
@@ -71,9 +75,9 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
                     <button
                       className={`${
                         selectedCategory === category
-                          ? "bg-black text-white"
+                          ? "bg-prilight text-primary"
                           : "bg-white text-black"
-                      } px-4 py-2 rounded-md transition duration-200 border border-black hover:bg-black hover:text-white focus:outline-none focus:scale-105`}
+                      } font-bold text-[14px] px-5 py-2 rounded-3xl transition duration-200 hover:bg-prilight hover:text-primary focus:outline-none focus:scale-105`}
                       onClick={() => setSelectedCategory(category)}
                     >
                       <p className="font-bold">{category}</p>

@@ -1,3 +1,4 @@
+import { CirclePlus } from "lucide-react";
 import PropTypes from "prop-types";
 
 const MenuCard = ({ menu, sentItem }) => {
@@ -10,27 +11,27 @@ const MenuCard = ({ menu, sentItem }) => {
     sentItem(receiptItem);
   };
   return (
-    <div className="max-w-sm bg-white border border-black rounded-lg shadow-lg overflow-hidden">
-      <div className="p-1 rounded-t-lg">
-        <div className="">
-          <img
-            className="w-48 h-32 object-cover"
-            src={menu.dishImage}
-            alt="Food"
-          />
+    <div className="md:w-[200px] overflow-hidden">
+      <div>
+        <img
+          className="w-full h-48 md:h-32 object-cover"
+          src={menu.dishImage}
+          alt="Food"
+        />
+      </div>
+
+      <div className="flex h-[80px] gap-5 justify-between items-center mt-2 mx-2 ">
+        <div className="font-raleway ">
+          <h2 className="font-semibold text-gray-800 multi-line-truncate">
+            {menu.dishName}{" "}
+          </h2>
+          <p className="text-gray-500 text-sm mt-1">{menu.price} MMK</p>
         </div>
-      </div>
-      <div className="p-1 text-center">
-        <h2 className="text-lg font-semibold text-gray-800">
-          {menu.dishName}{" "}
-        </h2>
-      </div>
-      <div className="border-t border-gray-300">
         <button
-          className="w-full text-indigo-700 font-semibold py-2 hover:bg-black hover:text-white focus:scale-105 transition duration-200"
+          className="bg-secondary text-primary px-2 py-3 active:scale-105"
           onClick={() => handleMenuSelect(menu)}
         >
-          +
+          <CirclePlus size={17} />
         </button>
       </div>
     </div>

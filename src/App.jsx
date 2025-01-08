@@ -18,8 +18,11 @@ import Dashboard from "./pages/Dashboard";
 import { FaUser } from "react-icons/fa";
 
 export default function App() {
+  const location = window.location.pathname;
+  console.log(location);
   const token = sessionStorage.getItem("biz-bozz");
   const { isAuthenticated, login } = useAuth();
+  const [islogin, setIslogin] = useState(false);
   const [isVisible, setisVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
@@ -31,6 +34,11 @@ export default function App() {
     if (token) {
       login();
     }
+    if (location.includes("/login")) {
+      setIslogin(false);
+    } else {
+      setIslogin(true);
+    }
   });
 
   return (
@@ -38,34 +46,42 @@ export default function App() {
       <div className="bg-gray-100">
         <div className="flex flex-col">
           {/* Button to open/close the sidebar */}
-          <div className="px-5 pt-5 flex justify-between">
-            <button
-              onClick={toggleSidebar}
-              className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
-            >
-              <IoMdMenu size={30} />
-            </button>
+          {islogin && (
+            <div className="px-5 mt-2 flex justify-between">
+              <button
+                onClick={toggleSidebar}
+                className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
+              >
+                <IoMdMenu size={30} />
+              </button>
 
-            <div className="flex items-center gap-8 bg-white px-5 py-2 rounded-lg shadow-md">
-              <div>
-                <p className="font-bold">Anna</p>
-                <span className="text-gray-400">Cashier</span>
+              <div className="flex items-center gap-8 bg-white px-5 py-2 rounded-lg shadow-md">
+                <div>
+                  <p className="font-bold">Anna</p>
+                  <span className="text-gray-400">Cashier</span>
+                </div>
+                <div className="text-gray-400 border border-gray-100 rounded-full p-2">
+                  <FaUser size={25} />
+                </div>
               </div>
-              <div className="text-gray-400 border border-gray-100 rounded-full p-2">
-                <FaUser size={25} />
-              </div>
+              <button
+                onClick={() => setisVisible(!isVisible)}
+                className="md:hidden p-2 border border-primary bg-primary text-white rounded-lg"
+              >
+                <Receipt size={25} />
+              </button>
             </div>
-            <button
-              onClick={() => setisVisible(!isVisible)}
-              className="md:hidden p-2 border border-primary bg-primary text-white rounded-lg"
-            >
-              <Receipt size={25} />
-            </button>
-          </div>
+          )}
 
           {/* Sidebar Component */}
 
-          <div className="flex-1 bg-white border border-gray-300 m-5 rounded-xl shadow-md overflow-hidden">
+          <div
+            className={`${
+              islogin
+                ? "flex-1 bg-white border border-gray-300 mx-5 mt-2 rounded-xl shadow-md overflow-hidden"
+                : ""
+            }`}
+          >
             {isSidebarVisible && (
               <div className="fixed w-64 bg-opacity-50">
                 <div className="bg-white rounded-lg shadow-xl border border-gray-200 max-w-md w-full p-5">

@@ -37,7 +37,7 @@ function OrderTable({ sendData, orders, deleteOrder }) {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {orders.map((order, index) => (
-            <tr key={order._id}>
+            <tr key={order._id} className="font-bold text-lg">
               <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
               {/* <td className="px-6 py-4 whitespace-nowrap">{order.table}</td> */}
 
@@ -46,7 +46,8 @@ function OrderTable({ sendData, orders, deleteOrder }) {
                 <TimestampFormatter timestamp={order.createdAt} />
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
-                {order.totalQuantity}
+                {order.totalQuantity}{" "}
+                {order.totalQuantity > 1 ? "dishes" : "dish"}
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 {order.finalPrice} MMK
@@ -60,7 +61,7 @@ function OrderTable({ sendData, orders, deleteOrder }) {
                     <MdOutlineRemoveRedEye size={25} />
                   </button>
                   <button
-                    className="text-primary hover:text-gray-700"
+                    className="text-blzck hover:text-gray-700"
                     onClick={() => deleteOrder(order._id)}
                   >
                     <FaRegTrashAlt size={23} />

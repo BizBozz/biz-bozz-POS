@@ -3,6 +3,7 @@ import getAOrders from "./../../api/Order/getAOrder";
 import TimestampFormatter from "./../../components/Orders/TimestampFormatter";
 import editOrderData from "../../api/Order/editOrder";
 import { IoMdTrash } from "react-icons/io";
+import { ArrowLeft } from "lucide-react";
 
 function OrderDetail({
   id,
@@ -57,9 +58,9 @@ function OrderDetail({
       paidPrice: order.paidPrice,
       extraChange: order.extraChange,
     };
-    console.log("updateOrder", updatedOrderData);
+    // console.log("updateOrder", updatedOrderData);
     const res = await editOrderData({ id, orderData: updatedOrderData });
-    console.log("updateOrder", res);
+    // console.log("updateOrder", res);
     if (res.code === 200 && res.status !== "error") {
       getOrder();
       setIsEditing(false);
@@ -122,22 +123,58 @@ function OrderDetail({
       {order && (
         <div className="bg-white min-h-screen shadow-lg duration-300 transition-all transition-transform transform translate-x-0">
           <div className="p-4 border-b">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold my-5">Order Details</h2>
-              <button className="text-xl" onClick={() => closeOrderDetails()}>
-                &times;
-              </button>
+            <div className="flex items-center justify-between">
+              <div>
+                <button
+                  className="text-xl mr-2"
+                  onClick={() => closeOrderDetails()}
+                >
+                  <ArrowLeft />
+                </button>
+                <h2 className="sub-header font-bold my-5">Order Details</h2>
+              </div>
+              {!isEditing && (
+                <button
+                  onClick={() => {
+                    setIsEditing(true);
+                    editClick();
+                  }}
+                  className="bg-primary text-white px-4 py-2 rounded mt-4"
+                >
+                  Edit Order
+                </button>
+              )}
             </div>
-            <p className="my-3 font-semibold">Table Number: {order.table}</p>
-            <div className="flex justify-between">
-              <p className="font-semibold">Order Type: {order.orderType}</p>
-              <p className="font-semibold">
-                Order Time: <TimestampFormatter timestamp={order.createdAt} />
-              </p>
+            <div className="flex grid grid-cols-2 gap-4">
+              <div>
+                <p className="font-semibold">Table Num</p>
+                <p className="border border-gray-300 p-2 rounded-md">
+                  Table {order.table}
+                </p>
+              </div>
+              <div>
+                <p className="font-semibold">Order Type</p>
+                <p className="border border-gray-300 p-2 rounded-md">
+                  {order.orderType}
+                </p>
+              </div>
+              <div>
+                <p className=" font-semibold">Order Time</p>
+                <p className="border border-gray-300 p-2 rounded-md">
+                  <TimestampFormatter timestamp={order.createdAt} />
+                </p>
+              </div>
+              {/* <div>
+                <p className="font-semibold">Quantity</p>
+                <p className="border border-gray-300 p-2 rounded-md">
+                  {console.log("order.orders", order)}
+                </p>
+              </div> */}
             </div>
 
-            <table className="w-full mt-5 border-b">
-              <thead className="bg-black">
+            <p className="mt-5 mb-3 font-bold text-[20px]">Ordered Dished</p>
+            <table className="w-full border-b">
+              {/* <thead className="bg-black">
                 <tr>
                   <th className="p-2 text-left text-md font-semibold text-white tracking-wider">
                     Items
@@ -154,8 +191,8 @@ function OrderDetail({
                     </th>
                   )}
                 </tr>
-              </thead>
-              <tbody>
+              </thead> */}
+              <tbody className="font-semibold">
                 {editedOrder.map((item, index) => (
                   <tr key={item._id}>
                     <td className="p-2 py-2">{item.dishName}</td>
@@ -197,7 +234,7 @@ function OrderDetail({
                 {calculateTotalPrice(editedOrder)} MMK
               </p>
             </div>
-            <div className="flex justify-between w-full my-2 p-2 border-b">
+            <div className="flex justify-between w-full my-2 p-2 border-b border-gray-400">
               <p className="font-semibold">Gov Tax</p>
               {isEditing ? (
                 <input
@@ -233,11 +270,11 @@ function OrderDetail({
               </p>
             </div>
 
-            {isEditing ? (
+            {isEditing && (
               <div className="flex justify-between mt-4">
                 <button
                   onClick={handleEditSubmit}
-                  className="bg-black text-white px-4 py-2 rounded"
+                  className="bg-primary text-white px-4 py-2 rounded"
                 >
                   Save Changes
                 </button>
@@ -247,21 +284,11 @@ function OrderDetail({
                     setIsEditing(false);
                     editClick();
                   }}
-                  className="border border-gray-500 text-gray-500 px-4 py-2 rounded"
+                  className="border border-primary text-primary px-4 py-2 rounded"
                 >
                   Cancel
                 </button>
               </div>
-            ) : (
-              <button
-                onClick={() => {
-                  setIsEditing(true);
-                  editClick();
-                }}
-                className="bg-black text-white px-4 py-2 rounded mt-4"
-              >
-                Edit Order
-              </button>
             )}
           </div>
         </div>
