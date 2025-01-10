@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import NoItems from "../NoItems";
 // import Modal from "./Modal"; // Import the Modal component
 
-const MenuList = ({ category }) => {
+const MenuList = ({ category, isModalOpen2 }) => {
   // console.log(category);
   const [menuLists, setMenuList] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,7 +23,7 @@ const MenuList = ({ category }) => {
 
   useEffect(() => {
     getMenuList();
-  }, [isModalOpen, category]);
+  }, [isModalOpen, category, isModalOpen2]);
 
   if (menuLists.length === 0) {
     return (

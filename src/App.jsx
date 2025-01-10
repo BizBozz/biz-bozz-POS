@@ -74,7 +74,7 @@ export default function App() {
             }`}
           >
             {isSidebarVisible && (
-              <div className="fixed w-64 bg-opacity-50">
+              <div className="fixed z-10 w-64 bg-opacity-50">
                 <div className="bg-white rounded-lg shadow-xl border border-gray-200 max-w-md w-full p-5">
                   <Sidebar closeSidebar={toggleSidebar} />
                 </div>

@@ -112,7 +112,7 @@ function MenuPage() {
             </div>
           </div>
           <div className="overflow-y-auto h-[70vh]">
-            <MenuList category={selectedCategory} />
+            <MenuList category={selectedCategory} isModalOpen2={isModalOpen2} />
           </div>
 
           <CategoryModal
