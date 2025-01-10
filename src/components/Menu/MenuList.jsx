@@ -27,19 +27,12 @@ const MenuList = ({ category }) => {
 
   if (menuLists.length === 0) {
     return (
-      <div className="flex w-full h-screen justify-center items-center">
-        <div className="text-center">
+      <div className="flex w-full justify-center items-center">
+        <div className="text-center mt-20">
           <NoItems
             header="No Menu at the Moment!"
             subHeader="Set Up your Shop Menu"
           />
-          <button
-            className=" mt-5 bg-primary text-xl text-white py-2 px-10 rounded-md
-                     transition duration-200 hover:text-primary hover:bg-black hover:border hover:border-primary"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Create Menu
-          </button>
         </div>
         <div className="">
           <MenuModel

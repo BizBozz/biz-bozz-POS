@@ -2,11 +2,11 @@ import { toast } from "sonner";
 import axios from "../axios";
 
 // Generate code
-const addCategories = async (data) => {
+const pushCategories = async (data) => {
   const toastId = toast.loading("Adding New Category list...");
   try {
-    const res = await axios.post(`api/v1/categories/list`, {
-      categories: [data.categoryName],
+    const res = await axios.post(`api/v1/categories/list/${data.id}`, {
+      categories: [data.categories],
     });
     toast.success("Category Added Successfully", {
       id: toastId,
@@ -22,4 +22,4 @@ const addCategories = async (data) => {
   }
 };
 
-export default addCategories;
+export default pushCategories;

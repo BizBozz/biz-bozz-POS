@@ -1,22 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import addCategories from "../../api/Menu/addCategory";
 import PropTypes from "prop-types";
+import getMenu from "../../api/Menu/getMenu";
+import pushCategories from "../../api/Menu/pushCategory";
 
-const CategoryModal = ({ isOpen, onClose, id }) => {
+const CategoryModal = ({ isOpen, onClose }) => {
   // console.log(id);
   const [categoryName, setCategoryName] = useState("");
+  const [id, setId] = useState("");
 
   const handleCreate = async () => {
-    const data = {
-      categoryName: categoryName,
-      categoryId: id,
-    };
-    const res = await addCategories(data);
-    console.log(res.code);
-    if (res.code === 200) {
-      onClose();
+    if (id) {
+      console.log(categoryName);
+      const data = {
+        categories: categoryName,
+        id: id,
+      };
+      const res = await pushCategories(data);
+      console.log("push", res);
+      if (res.status === "success") {
+        onClose();
+      }
+    } else {
+      const data = {
+        categoryName: categoryName,
+      };
+      const res = await addCategories(data);
+      console.log(res);
+      if (res.status === "success") {
+        onClose();
+      }
     }
   };
+
+  const getCategoryId = async () => {
+    const res = await getMenu();
+    console.log("id", res);
+    if (res.code === 200) {
+      setId(res.data.categories[0]._id);
+    }
+  };
+
+  useEffect(() => {
+    getCategoryId();
+  }, []);
 
   if (!isOpen) return null;
 

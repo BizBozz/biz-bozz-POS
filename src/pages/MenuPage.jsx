@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import CategoryModal from "../components/Menu/CategoryModel";
 import MenuList from "../components/Menu/MenuList";
 import getMenu from "../api/Menu/getMenu";
-import ReactLoading from "react-loading";
 import MenuModel from "../components/Menu/MenuModel";
 import Loading from "../components/Loading";
 
@@ -21,7 +20,7 @@ function MenuPage() {
   const [categorys, setCategorys] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
   const [loading, setLoading] = useState(true);
-  const [id, setId] = useState("");
+  // const [id, setId] = useState("");
 
   const getAllCategory = async () => {
     setLoading(true);
@@ -30,7 +29,7 @@ function MenuPage() {
     if (res.code === 200) {
       setLoading(false);
       setCategorys(res.data.categories[0].categories);
-      setId(res.data.categories[0]._id);
+      // setId(res.data.categories[0]._id);
       setSelectedCategory(res.data.categories[0].categories[0]);
     }
   };
@@ -118,7 +117,6 @@ function MenuPage() {
 
           <CategoryModal
             isOpen={isModalOpen}
-            id={id}
             onClose={() => setIsModalOpen(false)}
           />
           <MenuModel

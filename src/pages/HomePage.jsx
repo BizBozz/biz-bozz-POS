@@ -4,11 +4,12 @@ import TableSelection from "../components/Home/TableModel";
 import Receipt from "../components/Home/Receipt";
 import getItems from "../api/Menu/getItems";
 import Loading from "../components/Loading";
-import { useNavigate } from "react-router-dom";
+import NoItems from "../components/NoItems";
+// import { useNavigate } from "react-router-dom";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
 function HomePage({ isVisible }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -41,6 +42,17 @@ function HomePage({ isVisible }) {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (!loading && categorys.length === 0) {
+    return (
+      <div className="flex w-full h-screen justify-center items-center overflow-y-auto">
+        <NoItems
+          header={"No Menu at the Moment!"}
+          subHeader="Set Up your Shop Menu"
+        />
+      </div>
+    );
   }
 
   if (!loading && categorys.length > 0) {
