@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
+import { useAuth } from "../hook/auth/AuthContext";
 
 const User = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const id = localStorage.getItem("biz-bozz-id");
+  const { logout } = useAuth();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleClose = () => {
-    setIsOpen(false);
+    window.location.href = `/login/${id}`;
+    logout();
   };
 
   return (
@@ -37,13 +41,12 @@ const User = ({ user }) => {
         } bg-white absolute right-0 mt-2 w-[160px] py-5 rounded-md shadow-lg flex justify-center items-center gap-2`}
       >
         <GoSignOut size={25} className="text-primary" />
-        <a
-          href="#"
+        <button
           className="bg-white text-primary font-futura text-xl font-semibold rounded-md px-4 py-2"
           onClick={handleClose}
         >
           Logout
-        </a>
+        </button>
       </div>
     </div>
   );

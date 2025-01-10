@@ -36,7 +36,7 @@ export default function App() {
     } else {
       setIslogin(true);
     }
-  });
+  }, [location]);
 
   return (
     <AnimatePresence>

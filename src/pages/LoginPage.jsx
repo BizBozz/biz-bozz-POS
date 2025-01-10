@@ -1,11 +1,12 @@
 import { useState } from "react";
 import EyeToggle from "../components/EyeToggle";
 import handleSignIn from "../api/auth/signIn";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../hook/auth/AuthContext";
 
 const LoginPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   // Regular expression for email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -35,9 +36,11 @@ const LoginPage = () => {
         name: email,
         role: res.data.role,
       };
+      console.log("login", res.data.UUID);
       sessionStorage.setItem("bz-user", JSON.stringify(user));
       sessionStorage.setItem("biz-bozz", res.token);
-      localStorage.setItem("biz-bozz-id", id);
+      localStorage.setItem("biz-bozz-id", res.data.UUID);
+      // navigate("/");
       window.location.href = "/";
     }
   };
