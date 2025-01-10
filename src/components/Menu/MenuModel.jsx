@@ -4,10 +4,11 @@ import addMenu from "../../api/Menu/addMenu";
 import PropTypes from "prop-types";
 
 const MenuModel = ({ isOpen, onClose, category }) => {
-  const [dishCategory, setDishCategory] = useState("Western");
+  const [dishCategory, setDishCategory] = useState();
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
+  console.log(dishCategory);
 
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
@@ -19,7 +20,7 @@ const MenuModel = ({ isOpen, onClose, category }) => {
 
   const handleAddDish = async () => {
     const formData = new FormData();
-    formData.append("categoryName", dishCategory);
+    formData.append("categoryName", dishCategory || category[0]);
     formData.append("dishName", dishName);
     formData.append("price", price);
     formData.append("dishImage", image);
@@ -108,17 +109,19 @@ const MenuModel = ({ isOpen, onClose, category }) => {
                 Select Dish Category
               </label>
 
-              <select
-                value={dishCategory}
-                onChange={(e) => setDishCategory(e.target.value)}
-                className="outline-primary border border-primary bg-white rounded-md p-2 w-full"
-              >
-                {category.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
+              {category && (
+                <select
+                  value={dishCategory}
+                  onChange={(e) => setDishCategory(e.target.value)}
+                  className="outline-primary border border-primary bg-white rounded-md p-2 w-full"
+                >
+                  {category.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">
@@ -171,7 +174,7 @@ const MenuModel = ({ isOpen, onClose, category }) => {
 MenuModel.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  // category: PropTypes.arrayOf(PropTypes.string).isRequired,
+  category: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MenuModel;

@@ -23,6 +23,7 @@ function OrderDetail({
     const res = await getAOrders(id);
     if (res.code === 200 && res.status !== "error") {
       setOrder(res.data);
+      console.log("order", res.data);
       setEditedOrder(res.data.orders);
       // setOriginalOrder(res.data.orders);
       setTaxRate(res.data.tax * 100); // Set initial tax rate in percentage
