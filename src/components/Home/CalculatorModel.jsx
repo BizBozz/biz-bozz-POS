@@ -48,7 +48,7 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
 
   return (
     <div className="fixed inset-0 flex justify-end items-start bg-black bg-opacity-70">
-      <div className="bg-white rounded-lg shadow-lg px-4 py-6 md:p-6 w-[400px] md:mt-10 md:me-10">
+      <div className="bg-white rounded-lg shadow-lg px-4 py-6 md:p-6 w-[380px] md:w-[450px] md:mt-10 md:me-10">
         <div className="flex justify-between items-center mb-4">
           <h2 className="sub-header">Calculator</h2>
           <button

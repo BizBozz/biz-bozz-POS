@@ -41,7 +41,11 @@ function HomePage({ isVisible }) {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="flex w-full h-screen justify-center items-center overflow-y-auto">
+        <Loading />
+      </div>
+    );
   }
 
   if (!loading && categorys.length === 0) {
@@ -96,7 +100,7 @@ function HomePage({ isVisible }) {
             <Receipt />
           </div>
           <div
-            className={`md:hidden rounded-lg border border-gray-300 fixed h-screen bg-white text-white transition-transform duration-300 transform ${
+            className={`md:hidden border border-gray-300 rounded-lg fixed h-screen bg-white text-white transition-transform duration-300 transform ${
               isVisible ? "translate-y-0" : "translate-y-full"
             }`}
           >

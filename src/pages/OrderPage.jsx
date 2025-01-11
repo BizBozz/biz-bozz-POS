@@ -36,7 +36,7 @@ const OrdersPage = () => {
     // console.log(childData);
     setOrderIds(childData);
   };
-  console.log(orderIds);
+  // console.log(orderIds);
 
   // console.log("dataFromChild", dataFromChild);
 
@@ -53,7 +53,7 @@ const OrdersPage = () => {
   };
 
   const handleDeleteOrder = async (id) => {
-    console.log("delete", id);
+    // console.log("delete", id);
 
     const res = await deleteOrders(id);
     // console.log(res.code);
@@ -61,6 +61,7 @@ const OrdersPage = () => {
       setLoading(false);
       getOrders();
       closeOrderDetails();
+      setIsDeleteOpen(false);
     }
   };
 
@@ -115,7 +116,12 @@ const OrdersPage = () => {
             <Calendar sendDate={handleDataFromCalendar} />
             <div>
               <button
-                className="p-4 rounded-md text-white bg-red-500 hover:scale-95 active:scale-105"
+                disabled={orderIds.length == 0}
+                className={`p-4 rounded-md text-white bg-red-500  transition-all duration-300 ease-in-out ${
+                  orderIds.length == 0
+                    ? "opacity-50"
+                    : "hover:scale-95 active:scale-105"
+                }`}
                 onClick={() => setIsDeleteOpen(true)}
               >
                 <Trash2Icon size={20} />
@@ -156,7 +162,10 @@ const OrdersPage = () => {
         <DeleteModel
           isOpen={isDeleteOpen}
           onClose={() => setIsDeleteOpen(false)}
-          submit={() => handleDeleteOrder(orderIds)}
+          text="Deleted Orders Cannot be Recovered!"
+          submit={() => {
+            handleDeleteOrder(orderIds);
+          }}
         />
       </div>
     </div>
