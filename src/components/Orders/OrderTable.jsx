@@ -1,58 +1,111 @@
 import TimestampFormatter from "./TimestampFormatter";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import DeleteModel from "../DeleteModel";
 
-function OrderTable({ sendData, orders, deleteOrder }) {
-  // const [orderId, setOrderId] = useState("");
-  console.log(orders);
+function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
+  // console.log(orders);
+  const [selectedOrders, setselectedOrders] = useState([]); // For selected mail _IDs
+  const [orderId, setOrderId] = useState([]);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false); // For selected mail _IDs
   const handleSendData = (orderId) => {
-    // Send data to the parent using the callback function
     sendData(orderId);
+  };
+
+  useEffect(() => {
+    setOrderIds(selectedOrders);
+  }, [selectedOrders]);
+
+  const selectAllOrders = (event) => {
+    if (event.target.checked) {
+      // Select all mail _IDs
+      const allorderIds = orders.map((order) => order._id); // Use _id instead of id
+      setselectedOrders(allorderIds);
+    } else {
+      // Clear selection
+      setselectedOrders([]);
+    }
   };
 
   return (
     <div className="shadow-lg h-[75vh] overflow-y-auto border border-gray-200">
-      <table className="min-w-full divide-y bg-primary divide-gray-200 py-10 ">
+      <table className="min-w-full divide-y bg-primary divide-gray-200">
         <thead className="bg-primary">
-          <tr>
-            <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
+          <tr className="font-bold text-sm md:text-lg">
+            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+              <input
+                type="checkbox"
+                className="mr-2"
+                onChange={selectAllOrders}
+                checked={
+                  orders.length > 0 && selectedOrders.length === orders.length
+                } // Check if all are selected
+              />
+            </th>
+            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               No
             </th>
-            <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
+            <th className="hidden lg:block p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               Order Type
             </th>
-            <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
+            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               Order Time
             </th>
-            <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
+            <th className="hidden md:block p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               Quantity
             </th>
-            <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
+            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               Total Price
             </th>
-            <th className="px-6 py-3 text-left text-md font-semibold text-white tracking-wider">
+            <th className="hidden sm:block p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               Action
             </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {orders.map((order, index) => (
-            <tr key={order._id} className="font-bold text-lg">
-              <td className="px-6 py-4 whitespace-nowrap">{index + 1}</td>
-              {/* <td className="px-6 py-4 whitespace-nowrap">{order.table}</td> */}
-
-              <td className="px-6 py-4 whitespace-nowrap">{order.orderType}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
+            <tr
+              key={order._id}
+              className="font-bold text-sm md:text-lg"
+              onClick={() => handleSendData(order._id)}
+            >
+              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+                <input
+                  type="checkbox"
+                  className="mail-checkbox"
+                  checked={selectedOrders.includes(order._id)} // Check if mail _ID is selected
+                  onChange={() => {
+                    if (selectedOrders.includes(order._id)) {
+                      // If already selected, remove from the selection
+                      setselectedOrders(
+                        selectedOrders.filter((id) => id !== order._id)
+                      );
+                    } else {
+                      // If not selected, add to selection
+                      setselectedOrders([...selectedOrders, order._id]);
+                    }
+                  }}
+                  onClick={(e) => e.stopPropagation()} // Prevent row click
+                />
+              </td>
+              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+                {index + 1}
+              </td>
+              <td className="hidden lg:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+                {order.orderType}
+              </td>
+              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
                 <TimestampFormatter timestamp={order.createdAt} />
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="hidden md:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
                 {order.totalQuantity}{" "}
                 {order.totalQuantity > 1 ? "dishes" : "dish"}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {order.finalPrice} MMK
+              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+                {order.finalPrice.toLocaleString()} MMK
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="hidden sm:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
                 <div className="flex space-x-4 items-center">
                   <button
                     className="text-blue-500 font-bold hover:text-blue-700"
@@ -62,7 +115,12 @@ function OrderTable({ sendData, orders, deleteOrder }) {
                   </button>
                   <button
                     className="text-blzck hover:text-gray-700"
-                    onClick={() => deleteOrder(order._id)}
+                    onClick={(e) => {
+                      setOrderId([order._id]);
+                      setIsDeleteOpen(true);
+                      e.stopPropagation();
+                      // deleteOrder([order._id]);
+                    }}
                   >
                     <FaRegTrashAlt size={23} />
                   </button>
@@ -72,6 +130,11 @@ function OrderTable({ sendData, orders, deleteOrder }) {
           ))}
         </tbody>
       </table>
+      <DeleteModel
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        submit={() => deleteOrder(orderId)}
+      />
     </div>
   );
 }

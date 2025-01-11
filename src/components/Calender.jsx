@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // Main CSS file
 import "react-date-range/dist/theme/default.css"; // Default theme CSS file
@@ -35,10 +35,10 @@ const Calendar = ({ sendDate }) => {
   };
 
   return (
-    <div className="">
+    <div className="text-sm">
       {/* Button to toggle the calendar */}
       <button
-        className="bg-white border border-gray-300 flex gap-2 items-center text-primary font-semibold px-8 py-3 rounded-sm hover:bg-primary hover:text-white hover:border-primary transition-colors duration-300"
+        className="bg-white border border-gray-300 flex gap-2 items-center text-primary font-semibold px-4 md:px-8 py-4 rounded-sm hover:bg-primary hover:text-white hover:border-primary transition-colors duration-300"
         onClick={toggleCalendar}
       >
         <CalendarIcon className="h-4 w-4" />
@@ -60,7 +60,7 @@ const Calendar = ({ sendDate }) => {
           onChange={(item) => setState([item.selection])}
           moveRangeOnFirstSelection={false}
           ranges={state}
-          className="mt-4 rounded-lg"
+          className="mt-4 rounded-lg absolute right-7 md:right-10"
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.jsx";
@@ -9,7 +9,7 @@ import { Toaster } from "sonner";
 import { AuthProvider } from "./hook/auth/AuthContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <Suspense>
     <AuthProvider>
       <Router>
         <Provider store={store}>
@@ -18,5 +18,5 @@ createRoot(document.getElementById("root")).render(
         </Provider>
       </Router>
     </AuthProvider>
-  </StrictMode>
+  </Suspense>
 );

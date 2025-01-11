@@ -35,19 +35,17 @@ const User = ({ user }) => {
       </div>
 
       {/* Dropdown menu */}
-      <div
+      <button
+        onClick={handleClose}
         className={`${
-          isOpen ? "z-10" : "hidden"
-        } bg-white absolute right-0 mt-2 w-[160px] py-5 rounded-md shadow-lg flex justify-center items-center gap-2`}
+          isOpen ? "z-1" : "hidden"
+        } bg-white absolute right-0 mt-2 w-[162px] py-5 rounded-md shadow-lg flex justify-center items-center gap-2`}
       >
         <GoSignOut size={25} className="text-primary" />
-        <button
-          className="bg-white text-primary font-futura text-xl font-semibold rounded-md px-4 py-2"
-          onClick={handleClose}
-        >
+        <p className="bg-white text-primary font-futura text-xl font-semibold rounded-md px-4 py-2">
           Logout
-        </button>
-      </div>
+        </p>
+      </button>
     </div>
   );
 };

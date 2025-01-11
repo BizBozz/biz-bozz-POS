@@ -36,7 +36,7 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80">
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-80 z-10">
       <div className="border border-gray-300 shadow-lg py-5 px-10 rounded-md bg-white h-full md:h-auto overflow-y-auto">
         {/* <h2 className="text-xl font-semibold mb-4">Create Menu</h2>
         <div className="flex justify-between gap-5 me-5 mt-4 absolute top-0 right-0">
@@ -73,9 +73,9 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
         <div className="flex flex-col md:flex-row gap-5 mt-5">
           <div className="w-full md:w-1/2">
             <div className="mb-4">
-              <div className="relative md:w-[300px] h-48 border border-primary rounded-md mb-2 flex items-center justify-center">
+              <div className="">
                 {image ? (
-                  <>
+                  <div className="relative md:w-[300px] h-48 border border-primary rounded-md mb-2 flex items-center justify-center">
                     <img
                       src={URL.createObjectURL(image)}
                       alt="Dish"
@@ -89,9 +89,9 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
                     >
                       ×
                     </button>
-                  </>
+                  </div>
                 ) : (
-                  <div>
+                  <div className="relative md:w-[300px] h-48 border border-primary rounded-md mb-2 flex items-center justify-center overflow-hidden">
                     {menu.dishImage ? (
                       <img
                         src={menu.dishImage}

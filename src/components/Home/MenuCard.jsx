@@ -15,10 +15,10 @@ const MenuCard = ({ menu }) => {
     }
   };
   return (
-    <div className="md:w-[200px] overflow-hidden">
+    <div className="sm:w-[200px] overflow-hidden">
       <div>
         <img
-          className="w-full h-48 md:h-32 object-cover"
+          className="w-full h-48 sm:h-32 object-cover"
           src={menu.dishImage}
           alt="Food"
         />

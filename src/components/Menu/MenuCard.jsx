@@ -3,9 +3,11 @@ import EditMenuModel from "./EditMenuModel";
 import { useEffect, useState } from "react";
 import { Edit3Icon, Trash2Icon } from "lucide-react";
 import Deleteitems from "../../api/Menu/deleteItem";
+import DeleteModel from "../DeleteModel";
 const MenuCard = ({ menu, refreshMenu }) => {
-  console.log("card", menu);
+  // console.log("card", menu);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const handleAction = () => {
     refreshMenu();
@@ -23,10 +25,10 @@ const MenuCard = ({ menu, refreshMenu }) => {
   }, [isModalOpen]);
   // console.log(menu);
   return (
-    <div className="md:w-[200px] bg-white shadow-lg overflow-hidden relative">
+    <div className="sm:w-[200px] bg-white shadow-lg overflow-hidden relative">
       <div>
         <img
-          className="w-full h-48 md:h-32 object-cover"
+          className="w-full h-48 sm:h-32 object-cover"
           src={menu.dishImage}
           alt="Food"
         />
@@ -49,7 +51,7 @@ const MenuCard = ({ menu, refreshMenu }) => {
 
       <button
         className="absolute top-0 right-0 m-2 bg-red-500 text-white p-2 rounded-md hover:scale-95 active:scale-105"
-        onClick={() => deleteItems(menu._id)}
+        onClick={() => setIsDeleteOpen(true)}
       >
         <Trash2Icon size={17} />
       </button>
@@ -58,6 +60,12 @@ const MenuCard = ({ menu, refreshMenu }) => {
         isOpen={isModalOpen}
         menu={menu}
         onClose={() => setIsModalOpen(false)}
+      />
+
+      <DeleteModel
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        submit={() => deleteItems(menu._id)}
       />
     </div>
   );
@@ -68,7 +76,7 @@ MenuCard.propTypes = {
     dishImage: PropTypes.string.isRequired,
     dishName: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    _id: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
   refreshMenu: PropTypes.func.isRequired,
 };

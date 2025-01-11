@@ -35,7 +35,7 @@ const CategoryModal = ({ isOpen, onClose }) => {
 
   const getCategoryId = async () => {
     const res = await getMenu();
-    console.log("id", res);
+    // console.log("id", res);
     if (res.code === 200) {
       setId(res.data.categories[0]._id);
     }

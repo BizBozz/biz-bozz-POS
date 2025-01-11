@@ -6,12 +6,6 @@ import { motion } from "framer-motion";
 import Loading from "../Loading";
 import NoItems from "../NoItems";
 
-// const animationVariants = {
-//   hidden: { opacity: 0, y: 20 },
-//   visible: { opacity: 1, y: 0 },
-//   exit: { opacity: 0, y: 20 },
-// };
-
 const MenuList = ({ category, getItem }) => {
   const [menuLists, setMenuList] = useState([]);
   const [loading, setLoading] = useState(true);

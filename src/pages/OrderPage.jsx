@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import getAllOrders from "../api/Order/getAllOrders";
 import OrderTable from "../components/Orders/OrderTable";
-import { TbReport } from "react-icons/tb";
+// import { TbReport } from "react-icons/tb";
 import Calendar from "../components/Calender";
 import deleteOrders from "../api/Order/deleteOrder";
 import EditOrder from "./EditOrder";
-import getReport from "../api/report/getReport";
+// import getReport from "../api/report/getReport";
 import NoItems from "../components/NoItems";
+import Loading from "../components/Loading";
+import { Trash2Icon } from "lucide-react";
+import DeleteModel from "../components/DeleteModel";
 
 const OrdersPage = () => {
   const date = new Date();
@@ -19,12 +22,23 @@ const OrdersPage = () => {
   });
   const [orders, setOrders] = useState([]);
   const [open, setOpen] = useState(false);
+  const [orderIds, setOrderIds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   // Callback function to receive data from child
   const handleDataFromChild = (childData) => {
     setDataFromChild(childData);
     openOrderDetails();
   };
+
+  const getOerderIds = (childData) => {
+    // console.log(childData);
+    setOrderIds(childData);
+  };
+  console.log(orderIds);
+
+  // console.log("dataFromChild", dataFromChild);
 
   const handleDataFromCalendar = (childData) => {
     setDataFromCalendar(childData);
@@ -40,10 +54,13 @@ const OrdersPage = () => {
 
   const handleDeleteOrder = async (id) => {
     console.log("delete", id);
+
     const res = await deleteOrders(id);
-    console.log(res.code);
+    // console.log(res.code);
     if (res.code === 200) {
+      setLoading(false);
       getOrders();
+      closeOrderDetails();
     }
   };
 
@@ -77,8 +94,10 @@ const OrdersPage = () => {
     const res = await getAllOrders(dataFromCalendar);
 
     if (res.code === 200 && res.status !== "error") {
+      setLoading(false);
       setOrders(res.data);
     } else {
+      setLoading(false);
       setOrders([]);
     }
   };
@@ -90,31 +109,40 @@ const OrdersPage = () => {
   return (
     <div className="p-5">
       <div className="min-h-screen">
-        <div className="flex justify-between mb-3">
+        <div className="md:flex justify-between mb-3">
           <h1 className="sub-header font-bold mb-6">Orders Management</h1>
-          <Calendar sendDate={handleDataFromCalendar} />
-          {/* <div>
-            <button
-              className="bg-primary text-white flex items-center gap-3 font-semibold px-4 py-2 rounded-lg"
-              onClick={handleDownload}
-            >
-              <TbReport size={20} /> Report
-            </button>
-          </div> */}
-        </div>
-        <div className="bg-white w-full rounded-lg overflow-hidden">
-          {orders && orders.length === 0 ? (
-            <div className="flex justify-center items-center mt-20">
-              <NoItems header={"No Orders"} subHeader={"No orders found"} />
+          <div className="flex gap-4">
+            <Calendar sendDate={handleDataFromCalendar} />
+            <div>
+              <button
+                className="p-4 rounded-md text-white bg-red-500 hover:scale-95 active:scale-105"
+                onClick={() => setIsDeleteOpen(true)}
+              >
+                <Trash2Icon size={20} />
+              </button>
             </div>
-          ) : (
-            <OrderTable
-              orders={orders}
-              sendData={handleDataFromChild}
-              deleteOrder={handleDeleteOrder}
-            />
-          )}
+          </div>
         </div>
+        {loading ? (
+          <div>
+            <Loading />
+          </div>
+        ) : (
+          <div className="bg-white w-full rounded-lg overflow-hidden">
+            {orders && orders.length === 0 ? (
+              <div className="flex justify-center items-center mt-20">
+                <NoItems header={"No Orders"} subHeader={"No orders found"} />
+              </div>
+            ) : (
+              <OrderTable
+                orders={orders}
+                sendData={handleDataFromChild}
+                setOrderIds={getOerderIds}
+                deleteOrder={handleDeleteOrder}
+              />
+            )}
+          </div>
+        )}
         {open && (
           <div className="fixed inset-0 flex items-center justify-end z-50">
             <EditOrder
@@ -124,6 +152,12 @@ const OrdersPage = () => {
             />
           </div>
         )}
+
+        <DeleteModel
+          isOpen={isDeleteOpen}
+          onClose={() => setIsDeleteOpen(false)}
+          submit={() => handleDeleteOrder(orderIds)}
+        />
       </div>
     </div>
   );

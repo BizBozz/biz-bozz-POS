@@ -48,7 +48,7 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
 
   return (
     <div className="fixed inset-0 flex justify-end items-start bg-black bg-opacity-70">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-[400px] mt-10 me-10">
+      <div className="bg-white rounded-lg shadow-lg px-4 py-6 md:p-6 w-[400px] md:mt-10 md:me-10">
         <div className="flex justify-between items-center mb-4">
           <h2 className="sub-header">Calculator</h2>
           <button
@@ -59,11 +59,11 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
           </button>
         </div>
         <div className="mb-4">
-          <div className="flex justify-between mb-2 px-4">
+          <div className="flex justify-between mb-2 text-sm md:text-lg px-4">
             <label className="font-medium">Total Price</label>
             <span>{totalPrice.toLocaleString()} MMK</span>
           </div>
-          <div className="flex justify-between items-center mb-2 border border-primary rounded-md px-4 py-2">
+          <div className="flex justify-between text-sm md:text-lg items-center mb-2 border border-primary rounded-md px-4 py-2">
             <label className="font-medium">Paid Price</label>
             <div>
               <input

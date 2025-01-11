@@ -51,8 +51,8 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
 
   return (
     <div className="">
-      <div className="flex w-screen h-screen">
-        <div className="w-2/3 overflow-hidden h-screen bg-opacity-0">
+      <div className="flex w-screen h-screen justify-end">
+        <div className=" lg:w-2/3 overflow-hidden h-screen bg-opacity-0">
           {/* Menu*/}
           {isModalOpen && !loading && (
             <motion.div
@@ -66,7 +66,7 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
               <div className="flex justify-between items-center">
                 <p className="sub-header font-bold mb-5">Menu</p>
               </div>
-              <div className="flex flex-wrap gap-5 me-[200px]">
+              <div className="flex flex-wrap gap-5">
                 {categorys.map((category, index) => (
                   <div
                     key={index}
@@ -92,7 +92,7 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
         </div>
         {/* Receipt */}
         <div
-          className="w-1/3 border-l bor-gray-300"
+          className=" lg:w-1/3 border-l bor-gray-300"
           // className={`${
           //   isModalOpen ? "w-1/3" : "w-96"
           // } border-l border-gray-300`}

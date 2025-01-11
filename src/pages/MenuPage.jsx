@@ -5,15 +5,6 @@ import getMenu from "../api/Menu/getMenu";
 import MenuModel from "../components/Menu/MenuModel";
 import Loading from "../components/Loading";
 
-// export const categorys = [
-//   "Chinese",
-//   "Thai",
-//   "Myanmar",
-//   "Western",
-//   "Snack",
-//   "Drinks",
-// ];
-
 function MenuPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
@@ -25,7 +16,7 @@ function MenuPage() {
   const getAllCategory = async () => {
     setLoading(true);
     const res = await getMenu();
-    console.log(res);
+    // console.log(res);
     if (res.code === 200) {
       setLoading(false);
       setCategorys(res.data.categories[0].categories);
@@ -71,7 +62,7 @@ function MenuPage() {
       <>
         <div className="p-5">
           <div className="flex flex-col md:flex-row gap-1">
-            <div className="w-screen md:w-full overflow-x-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
+            <div className="w-full overflow-x-auto md:overflow-hidden flex md:flex-wrap gap-5 me-[200px] md:me-[0] hide-scrollbar">
               <button
                 className="md:hidden text-primary px-5 rounded-md transition duration-20 hover:bg-white hover:text-primary focus:outline-none focus:scale-105 cursor-pointer"
                 onClick={() => setIsModalOpen(true)}

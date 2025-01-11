@@ -8,7 +8,7 @@ const MenuModel = ({ isOpen, onClose, category }) => {
   const [dishName, setDishName] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
-  console.log(dishCategory);
+  // console.log(dishCategory);
 
   const handleImageUpload = (e) => {
     setImage(e.target.files[0]);
@@ -24,9 +24,9 @@ const MenuModel = ({ isOpen, onClose, category }) => {
     formData.append("dishName", dishName);
     formData.append("price", price);
     formData.append("dishImage", image);
-    console.log(formData);
+    // console.log(formData);
     const res = await addMenu(formData);
-    console.log(res);
+    // console.log(res);
     onClose();
     // setDishCategory("");
     setDishName("");
@@ -174,7 +174,7 @@ const MenuModel = ({ isOpen, onClose, category }) => {
 MenuModel.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  category: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // category: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default MenuModel;

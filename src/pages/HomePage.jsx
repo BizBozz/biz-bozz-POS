@@ -21,7 +21,7 @@ function HomePage({ isVisible }) {
   const getAllCategory = async () => {
     setLoading(true);
     const res = await getItems();
-    console.log("home", res);
+    // console.log("home", res);
     if (res.code === 200) {
       setLoading(false);
       const categoryArray = [
@@ -60,7 +60,7 @@ function HomePage({ isVisible }) {
       <div className="">
         <div className="flex flex-col md:flex-row">
           {/* Menu*/}
-          <div className="w-full md:w-2/3 overflow-y-auto h-screen px-5 pt-2 overflow-x-hidden">
+          <div className="lg:w-2/3 overflow-y-auto h-screen px-5 pt-2 overflow-x-hidden">
             <div className="flex justify-between items-center">
               <p className="sub-header mb-5">Menu</p>
               <button
@@ -70,7 +70,7 @@ function HomePage({ isVisible }) {
                 Select Table
               </button>
             </div>
-            <div className="w-screen md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-5 md:me-[200px] hide-scrollbar">
+            <div className="w-screen md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-5 me-[200px] md:me-0 hide-scrollbar">
               {categorys.map((category, index) => (
                 <div
                   key={index}
@@ -92,11 +92,11 @@ function HomePage({ isVisible }) {
             <MenuList category={selectedCategory} />
           </div>
           {/* Receipt */}
-          <div className="hidden md:block w-full md:w-1/3 border-l border-gray-300 ">
+          <div className="hidden md:block lg:w-1/3 border-l border-gray-300 ">
             <Receipt />
           </div>
           <div
-            className={`md:hidden fixed h-screen bg-primary text-white transition-transform duration-300 transform ${
+            className={`md:hidden rounded-lg border border-gray-300 fixed h-screen bg-white text-white transition-transform duration-300 transform ${
               isVisible ? "translate-y-0" : "translate-y-full"
             }`}
           >

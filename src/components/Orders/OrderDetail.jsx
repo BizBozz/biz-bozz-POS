@@ -12,18 +12,19 @@ function OrderDetail({
   editClick,
   editedOrderClick,
 }) {
-  // console.log("add menuItem", menuItem);
+  // console.log("id", id);
   const [order, setOrder] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedOrder, setEditedOrder] = useState([]);
+  // console.log(editedOrder);
   // State for new item
   const [taxRate, setTaxRate] = useState(order ? order.tax * 100 : 0); // Initialize with order tax if available
-  console.log("taxRate", taxRate);
+  // console.log("taxRate", taxRate);
   const getOrder = async () => {
     const res = await getAOrders(id);
     if (res.code === 200 && res.status !== "error") {
       setOrder(res.data);
-      console.log("order", res.data);
+      // console.log("order", res.data);
       setEditedOrder(res.data.orders);
       // setOriginalOrder(res.data.orders);
       setTaxRate(res.data.tax * 100); // Set initial tax rate in percentage
@@ -124,7 +125,7 @@ function OrderDetail({
       {order && (
         <div className="bg-white min-h-screen shadow-lg duration-300 transition-all transition-transform transform translate-x-0">
           <div className="p-4 border-b">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4 justify-between">
               <div>
                 <button
                   className="text-xl mr-2"
@@ -175,27 +176,9 @@ function OrderDetail({
 
             <p className="mt-5 mb-3 font-bold text-[20px]">Ordered Dished</p>
             <table className="w-full border-b">
-              {/* <thead className="bg-black">
-                <tr>
-                  <th className="p-2 text-left text-md font-semibold text-white tracking-wider">
-                    Items
-                  </th>
-                  <th className="p-2 text-left text-md font-semibold text-white tracking-wider">
-                    Quantity
-                  </th>
-                  <th className="p-2 text-left text-right text-md font-semibold text-white tracking-wider">
-                    Price
-                  </th>
-                  {isEditing && (
-                    <th className="p-2 text-left text-right text-md font-semibold text-white tracking-wider">
-                      Action
-                    </th>
-                  )}
-                </tr>
-              </thead> */}
               <tbody className="font-semibold">
                 {editedOrder.map((item, index) => (
-                  <tr key={item._id}>
+                  <tr key={index}>
                     <td className="p-2 py-2">{item.dishName}</td>
                     <td className="p-2 ps-4">
                       {isEditing ? (
@@ -267,7 +250,7 @@ function OrderDetail({
             <div className="flex justify-between w-full mt-2 p-2">
               <p className="font-semibold">Final Total</p>
               <p className="font-semibold">
-                {calculateFinalPrice(editedOrder).toFixed(2)} MMK
+                {calculateFinalPrice(editedOrder).toLocaleString()} MMK
               </p>
             </div>
 

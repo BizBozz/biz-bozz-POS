@@ -79,7 +79,7 @@ function Receipt() {
   const { counts, total, tax, totalWithTax } = calculateTotalAndCounts();
 
   return (
-    <div className="bg-white text-black h-screen overflow-y-auto pt-2 pb-40">
+    <div className="text-black h-screen overflow-y-auto pt-2 pb-40">
       <div className="px-5">
         <p className="sub-header font-bold mb-5">Receipt</p>
         {!selectedTable && (
@@ -120,7 +120,7 @@ function Receipt() {
               ))}
               <div className="font-medium mb-5 flex border-b-4"></div>
               <div className="flex justify-between items-center font-bold text-md">
-                <span>Subtotal</span> <span>{total.toFixed(2)} MMK</span>
+                <span>Subtotal</span> <span>{total.toLocaleString()} MMK</span>
               </div>
               <div className="flex justify-between items-center font-bold text-md">
                 <div className="flex w-2/3">
@@ -134,11 +134,14 @@ function Receipt() {
                     max="100"
                   />
                 </div>
-                <span className="w-1/3 text-right">{tax.toFixed(2)} MMK</span>
+                <span className="w-1/3 text-right">
+                  {tax.toLocaleString()} MMK
+                </span>
               </div>
               <div className="font-medium mt-5 flex border-b-4"></div>
               <div className="flex justify-between items-center mt-5 font-bold text-xl">
-                <span>Total</span> <span>{totalWithTax.toFixed(2)} MMK</span>
+                <span>Total</span>{" "}
+                <span>{totalWithTax.toLocaleString()} MMK</span>
               </div>
             </div>
             <div className="flex gap-5 mt-5">

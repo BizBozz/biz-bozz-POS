@@ -4,7 +4,7 @@ import MenuPage from "./pages/MenuPage";
 import { Route, Routes } from "react-router-dom";
 import OrderPage from "./pages/OrderPage";
 import LoginPage from "./pages/LoginPage";
-import { useAuth } from "./hook/auth/AuthContext";
+// import { useAuth } from "./hook/auth/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import PageNotFound from "./components/PageNotFound";
 import { useEffect, useState } from "react";
@@ -13,18 +13,24 @@ import Scoreboard from "./pages/TestingPage";
 import { Receipt } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import Dashboard from "./pages/Dashboard";
-import { FaUser } from "react-icons/fa";
+// import { FaUser } from "react-icons/fa";
 
 import "./App.css";
 import EnterID from "./pages/EnterID";
 import User from "./components/User";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
+  const dispatch = useDispatch();
+  const selectedTable = useSelector((state) => state.receipts.selectedTable);
+  const receipts = useSelector((state) => state.receipts.receipts);
+  // console.log("app.js", receipts[selectedTable].items.length);
   const location = window.location.pathname;
   const user = JSON.parse(sessionStorage.getItem("bz-user"));
   const [islogin, setIslogin] = useState(false);
   const [isVisible, setisVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -37,6 +43,17 @@ export default function App() {
       setIslogin(true);
     }
   }, [location]);
+
+  useEffect(() => {
+    if (receipts[selectedTable]?.items.length > 0) {
+      setAnimate(true);
+      const timeout = setTimeout(() => {
+        setAnimate(false); // Reset animation class after it finishes
+      }, 300); // Match this duration with the CSS animation duration
+
+      return () => clearTimeout(timeout);
+    }
+  }, [receipts[selectedTable]?.items.length]);
 
   return (
     <AnimatePresence>
@@ -56,10 +73,20 @@ export default function App() {
                 <User user={user} />
               </div>
               <button
+                type="button"
+                className="relative md:hidden inline-flex items-center p-3 text-sm font-medium text-center text-white bg-primary rounded-lg"
                 onClick={() => setisVisible(!isVisible)}
-                className="md:hidden p-2 border border-primary bg-primary text-white rounded-lg"
               >
                 <Receipt size={25} />
+                {receipts[selectedTable]?.items.length > 0 && (
+                  <div
+                    className={`absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-primary bg-white border-2 border-white rounded-full -top-2 -right-2 ${
+                      animate ? "badge-animate" : ""
+                    }`}
+                  >
+                    {receipts[selectedTable]?.items.length}
+                  </div>
+                )}
               </button>
             </div>
           )}
