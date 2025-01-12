@@ -35,9 +35,9 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
         extraChange: parseFloat(extraChange),
       };
 
-      console.log("data", data);
+      // console.log("data", data);
       const res = await confirmOrder(data);
-      console.log("res", res);
+      // console.log("res", res);
       if (res.code === 201) {
         setIsModalOpen(true);
       }

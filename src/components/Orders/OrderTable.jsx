@@ -133,7 +133,10 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
       <DeleteModel
         isOpen={isDeleteOpen}
         onClose={() => setIsDeleteOpen(false)}
-        submit={() => deleteOrder(orderId)}
+        submit={() => {
+          deleteOrder(orderId);
+          setIsDeleteOpen(false);
+        }}
       />
     </div>
   );

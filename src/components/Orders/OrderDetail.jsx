@@ -180,8 +180,8 @@ function OrderDetail({
               <tbody className="font-semibold">
                 {editedOrder.map((item, index) => (
                   <tr key={index}>
-                    <td className="p-2 py-2">{item.dishName}</td>
-                    <td className="p-2 ps-4">
+                    <td className="p-2">{item.dishName}</td>
+                    <td className="p-2 ">
                       {isEditing ? (
                         <input
                           type="number"
@@ -232,7 +232,7 @@ function OrderDetail({
                   className="border border-gray-300 rounded p-1 w-20"
                 />
               ) : (
-                <p className="font-semibold">{order.tax * 100}%</p>
+                <p className="font-semibold ms-10">{order.tax * 100}%</p>
               )}
               <p className="font-semibold">
                 {calculateTotalPrice(editedOrder) * (taxRate / 100)} MMK
