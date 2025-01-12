@@ -4,6 +4,7 @@ import TimestampFormatter from "./../../components/Orders/TimestampFormatter";
 import editOrderData from "../../api/Order/editOrder";
 import { IoMdTrash } from "react-icons/io";
 import { ArrowLeft } from "lucide-react";
+import DeleteModel from "../DeleteModel";
 
 function OrderDetail({
   id,
@@ -12,14 +13,12 @@ function OrderDetail({
   editClick,
   editedOrderClick,
 }) {
-  // console.log("id", id);
   const [order, setOrder] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedOrder, setEditedOrder] = useState([]);
-  // console.log(editedOrder);
-  // State for new item
+  const [deleteIndex, setDeleteIndex] = useState(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [taxRate, setTaxRate] = useState(order ? order.tax * 100 : 0); // Initialize with order tax if available
-  // console.log("taxRate", taxRate);
   const getOrder = async () => {
     const res = await getAOrders(id);
     if (res.code === 200 && res.status !== "error") {
@@ -118,6 +117,8 @@ function OrderDetail({
   const handleRemoveItem = (index) => {
     const updatedItems = editedOrder.filter((_, i) => i !== index);
     setEditedOrder(updatedItems);
+    setIsDeleteModalOpen(false);
+    setDeleteIndex(null);
   };
 
   return (
@@ -201,7 +202,9 @@ function OrderDetail({
                     {isEditing && (
                       <td className="p-2 text-right">
                         <button
-                          onClick={() => handleRemoveItem(index)}
+                          onClick={() => (
+                            setDeleteIndex(index), setIsDeleteModalOpen(true)
+                          )}
                           className="text-red-500"
                         >
                           <IoMdTrash size={20} />
@@ -277,6 +280,11 @@ function OrderDetail({
           </div>
         </div>
       )}
+      <DeleteModel
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        submit={() => handleRemoveItem(deleteIndex)}
+      />
     </div>
   );
 }
