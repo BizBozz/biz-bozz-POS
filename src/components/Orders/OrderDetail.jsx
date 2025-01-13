@@ -12,6 +12,7 @@ function OrderDetail({
   menuItem,
   editClick,
   editedOrderClick,
+  mobileEditClick,
 }) {
   const [order, setOrder] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -175,7 +176,17 @@ function OrderDetail({
               </div> */}
             </div>
 
-            <p className="mt-5 mb-3 font-bold text-[20px]">Ordered Dished</p>
+            <div className="flex justify-between items-center mt-5">
+              <p className="mt-5 mb-3 font-bold text-[20px]">Ordered Dished</p>
+              {isEditing && (
+                <button
+                  className="bg-primary text-white px-4 py-2 rounded"
+                  onClick={() => mobileEditClick()}
+                >
+                  Add Dish
+                </button>
+              )}
+            </div>
             <table className="w-full border-b">
               <tbody className="font-semibold">
                 {editedOrder.map((item, index) => (

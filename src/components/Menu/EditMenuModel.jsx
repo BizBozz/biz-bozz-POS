@@ -113,7 +113,7 @@ const EditMenuModel = ({ isOpen, onClose, menu }) => {
               />
               <div className="flex justify-between items-center border border-primary rounded-md">
                 <p className="ms-2 font-medium text-primary">
-                  Uplaod Dish Image
+                  Upload Dish Image
                 </p>
                 <label
                   htmlFor="file-upload"
