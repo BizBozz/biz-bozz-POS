@@ -3,7 +3,7 @@ import axios from "../axios";
 
 // Generate code
 const editOrderData = async (data) => {
-  console.log("data", data);
+  // console.log("data", data);
   const toastId = toast.loading("Pls Wait...");
   try {
     const res = await axios.put(`api/v1/orders/${data.id}`, data.orderData);

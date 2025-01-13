@@ -110,14 +110,14 @@ const OrdersPage = () => {
   return (
     <div className="p-5">
       <div className="min-h-screen">
-        <div className="md:flex justify-between mb-3">
-          <h1 className="sub-header font-bold mb-6">Orders Management</h1>
+        <div className="md:flex justify-between mb-5">
+          <h1 className="sub-header font-bold">Orders Management</h1>
           <div className="flex gap-4">
             <Calendar sendDate={handleDataFromCalendar} />
             <div>
               <button
                 disabled={orderIds.length == 0}
-                className={`p-4 rounded-md text-white bg-red-500  transition-all duration-300 ease-in-out ${
+                className={`p-2 md:p-4 rounded-md text-white bg-red-500 transition-all duration-300 ease-in-out ${
                   orderIds.length == 0
                     ? "opacity-50"
                     : "hover:scale-95 active:scale-105"

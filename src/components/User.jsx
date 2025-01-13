@@ -38,7 +38,7 @@ const User = ({ user }) => {
       <button
         onClick={handleClose}
         className={`${
-          isOpen ? "z-1" : "hidden"
+          isOpen ? "z-10" : "hidden"
         } bg-white absolute right-0 mt-2 w-[162px] py-5 rounded-md shadow-lg flex justify-center items-center gap-2`}
       >
         <GoSignOut size={25} className="text-primary" />

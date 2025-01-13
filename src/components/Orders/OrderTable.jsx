@@ -17,8 +17,8 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
     setOrderIds(selectedOrders);
   }, [selectedOrders]);
 
-  const selectAllOrders = (event) => {
-    if (event.target.checked) {
+  const selectAllOrders = () => {
+    if (selectedOrders.length !== orders.length) {
       // Select all mail _IDs
       const allorderIds = orders.map((order) => order._id); // Use _id instead of id
       setselectedOrders(allorderIds);
@@ -33,7 +33,13 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
       <table className="min-w-full divide-y bg-primary divide-gray-200">
         <thead className="bg-primary">
           <tr className="font-bold text-sm md:text-lg">
-            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th
+              className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent row click
+                selectAllOrders();
+              }}
+            >
               <input
                 type="checkbox"
                 className="mr-2"
@@ -63,14 +69,28 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-gray-200 ">
           {orders.map((order, index) => (
             <tr
               key={order._id}
-              className="font-bold text-sm md:text-lg"
+              className="font-bold text-sm md:text-lg cursor-pointer hover:bg-gray-100"
               onClick={() => handleSendData(order._id)}
             >
-              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td
+                className="p-2 lg:px-6 lg:py-4 whitespace-nowrap"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent row click
+                  if (selectedOrders.includes(order._id)) {
+                    // If already selected, remove from the selection
+                    setselectedOrders(
+                      selectedOrders.filter((id) => id !== order._id)
+                    );
+                  } else {
+                    // If not selected, add to selection
+                    setselectedOrders([...selectedOrders, order._id]);
+                  }
+                }}
+              >
                 <input
                   type="checkbox"
                   className="mail-checkbox"
@@ -96,6 +116,9 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
                 {order.orderType}
               </td>
               <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+                <span className="hidden lg:inline">
+                  {new Date(order.createdAt).toLocaleDateString("en-GB")}{" "}
+                </span>
                 <TimestampFormatter timestamp={order.createdAt} />
               </td>
               <td className="hidden md:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
@@ -105,7 +128,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
               <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
                 {order.finalPrice.toLocaleString()} MMK
               </td>
-              <td className="hidden sm:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td className="hidden sm:block p-2 lg:px-6 lg:py-4 whitespace-nowrap ">
                 <div className="flex space-x-4 items-center">
                   <button
                     className="text-blue-500 font-bold hover:text-blue-700"
@@ -113,7 +136,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
                   >
                     <MdOutlineRemoveRedEye size={25} />
                   </button>
-                  <button
+                  {/* <button
                     className="text-blzck hover:text-gray-700"
                     onClick={(e) => {
                       setOrderId([order._id]);
@@ -123,7 +146,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
                     }}
                   >
                     <FaRegTrashAlt size={23} />
-                  </button>
+                  </button> */}
                 </div>
               </td>
             </tr>

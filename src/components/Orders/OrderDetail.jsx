@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import getAOrders from "./../../api/Order/getAOrder";
 import TimestampFormatter from "./../../components/Orders/TimestampFormatter";
 import editOrderData from "../../api/Order/editOrder";
@@ -15,16 +16,28 @@ function OrderDetail({
   mobileEditClick,
 }) {
   const [order, setOrder] = useState(null);
+  const [date, setDate] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedOrder, setEditedOrder] = useState([]);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [taxRate, setTaxRate] = useState(order ? order.tax * 100 : 0); // Initialize with order tax if available
+
   const getOrder = async () => {
     const res = await getAOrders(id);
     if (res.code === 200 && res.status !== "error") {
       setOrder(res.data);
-      // console.log("order", res.data);
+      // console.log("order", res.data?.createdAt);
+      const date = new Date(res.data?.createdAt);
+      if (!isNaN(date.getTime())) {
+        // Check if the date is valid
+        const formatDate = date.toLocaleDateString("en-GB"); // Format date to dd-mm-yyyy
+        setDate(formatDate);
+      } else {
+        // console.error("Invalid date");
+        setDate("");
+      }
+      // console.log(formatDate);
       setEditedOrder(res.data.orders);
       // setOriginalOrder(res.data.orders);
       setTaxRate(res.data.tax * 100); // Set initial tax rate in percentage
@@ -168,26 +181,24 @@ function OrderDetail({
                   <TimestampFormatter timestamp={order.createdAt} />
                 </p>
               </div>
-              {/* <div>
-                <p className="font-semibold">Quantity</p>
-                <p className="border border-gray-300 p-2 rounded-md">
-                  {console.log("order.orders", order)}
-                </p>
-              </div> */}
+              <div>
+                <p className=" font-semibold">Order Date</p>
+                <p className="border border-gray-300 p-2 rounded-md">{date}</p>
+              </div>
             </div>
 
             <div className="flex justify-between items-center mt-5">
               <p className="mt-5 mb-3 font-bold text-[20px]">Ordered Dished</p>
               {isEditing && (
                 <button
-                  className="bg-primary text-white px-4 py-2 rounded"
+                  className="bg-primary md:hidden text-white px-4 py-2 rounded"
                   onClick={() => mobileEditClick()}
                 >
                   Add Dish
                 </button>
               )}
             </div>
-            <table className="w-full border-b">
+            <table className="w-full border-b border-gray-500">
               <tbody className="font-semibold">
                 {editedOrder.map((item, index) => (
                   <tr key={index}>
@@ -208,31 +219,59 @@ function OrderDetail({
                       )}
                     </td>
                     <td className="p-2 text-right">
-                      {calculateItemPrice(item)} MMK
+                      <div className="flex justify-end">
+                        {calculateItemPrice(item)} MMK
+                        {isEditing && (
+                          // <td className="p-2 text-right">
+                          <button
+                            onClick={() => (
+                              setDeleteIndex(index), setIsDeleteModalOpen(true)
+                            )}
+                            className="text-red-500 ms-1"
+                          >
+                            <IoMdTrash size={20} />
+                          </button>
+                          // </td>
+                        )}
+                      </div>
                     </td>
-                    {isEditing && (
-                      <td className="p-2 text-right">
-                        <button
-                          onClick={() => (
-                            setDeleteIndex(index), setIsDeleteModalOpen(true)
-                          )}
-                          className="text-red-500"
-                        >
-                          <IoMdTrash size={20} />
-                        </button>
-                      </td>
-                    )}
                   </tr>
                 ))}
+                <tr className="border-t border-gray-300">
+                  <td className="p-2 font-semibold">SubTotal</td>
+                  <td className="p-2 font-semibold"></td>
+                  <td className="p-2 font-semibold text-right">
+                    {calculateTotalPrice(editedOrder).toLocaleString()} MMK
+                  </td>
+                </tr>
+                <tr className="border-t border-gray-300">
+                  <td className="p-2 font-semibold">Gov Taxl</td>
+                  <td className="p-2 font-semibold">
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        value={taxRate}
+                        min={0}
+                        onChange={(e) => setTaxRate(e.target.value)}
+                        className="border border-gray-300 rounded p-1 w-20"
+                      />
+                    ) : (
+                      <p className="font-semibold">{order.tax * 100}%</p>
+                    )}
+                  </td>
+                  <td className="p-2 font-semibold text-right">
+                    {calculateTotalPrice(editedOrder) * (taxRate / 100)} MMK
+                  </td>
+                </tr>
               </tbody>
             </table>
-            <div className="flex justify-between w-full mt-2 px-2">
+            {/* <div className="flex justify-between w-full mt-2 px-2">
               <p className="font-semibold">Sub Total</p>
               <p className="font-semibold">
                 {calculateTotalPrice(editedOrder)} MMK
               </p>
-            </div>
-            <div className="flex justify-between w-full my-2 p-2 border-b border-gray-400">
+            </div> */}
+            {/* <div className="flex justify-between w-full my-2 p-2 border-b border-gray-400">
               <p className="font-semibold">Gov Tax</p>
               {isEditing ? (
                 <input
@@ -248,7 +287,7 @@ function OrderDetail({
               <p className="font-semibold">
                 {calculateTotalPrice(editedOrder) * (taxRate / 100)} MMK
               </p>
-            </div>
+            </div> */}
             {/* <div>
               <label htmlFor="taxRate">Tax Rate (%): </label>
               <input
@@ -299,5 +338,13 @@ function OrderDetail({
     </div>
   );
 }
+OrderDetail.propTypes = {
+  id: PropTypes.string.isRequired,
+  closeOrderDetails: PropTypes.func.isRequired,
+  menuItem: PropTypes.object,
+  editClick: PropTypes.func.isRequired,
+  editedOrderClick: PropTypes.func.isRequired,
+  mobileEditClick: PropTypes.func.isRequired,
+};
 
 export default OrderDetail;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import MenuList from "../components/Orders/MenuList";
 import { motion } from "framer-motion";
-import getMenu from "../api/Menu/getMenu";
 import OrderDetail from "./../components/Orders/OrderDetail";
-import "./../components/Orders/model.css";
 import LoadingSpinner from "../components/LoadingSpinner";
 import getItems from "../api/Menu/getItems";
+
+import "./../components/Orders/model.css";
 // import { selectTable, addItemToReceipt } from "./../redux/receiptS
 
 function EditOrder({ id, closeOrderDetails, editedOrder }) {

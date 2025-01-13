@@ -65,16 +65,16 @@ function HomePage({ isVisible }) {
         <div className="flex flex-col md:flex-row">
           {/* Menu*/}
           <div className="lg:w-2/3 overflow-y-auto h-screen px-5 pt-2 overflow-x-hidden">
-            <div className="flex justify-between items-center">
-              <p className="sub-header mb-5">Menu</p>
+            <div className="flex justify-between items-center mb-5">
+              <span className="sub-header">Menu</span>
               <button
-                className="bg-primary font-bold text-white px-4 py-2 me-5 rounded-md border border-primary transition duration-200 hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
+                className="bg-primary font-bold text-white px-4 py-2 md:me-5 rounded-md border border-primary transition duration-200 hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
                 onClick={() => setIsOpen(true)}
               >
                 Select Table
               </button>
             </div>
-            <div className="w-screen md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-5 me-[200px] md:me-0 hide-scrollbar">
+            <div className="w-full md:w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-1 md:gap-5 me-[200px] md:me-0 hide-scrollbar">
               {categorys.map((category, index) => (
                 <div
                   key={index}

@@ -18,10 +18,10 @@ import Dashboard from "./pages/Dashboard";
 import "./App.css";
 import EnterID from "./pages/EnterID";
 import User from "./components/User";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
   // console.log("app.js", receipts[selectedTable].items.length);
@@ -61,7 +61,7 @@ export default function App() {
         <div className="flex flex-col">
           {/* Button to open/close the sidebar */}
           {islogin && (
-            <div className="px-5 mt-2 flex justify-between">
+            <div className="px-1 md:px-5 mt-2 flex justify-between">
               <button
                 onClick={toggleSidebar}
                 className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
@@ -96,7 +96,7 @@ export default function App() {
           <div
             className={`${
               islogin
-                ? "flex-1 bg-white border border-gray-300 mx-5 mt-2 rounded-xl shadow-md overflow-hidden"
+                ? "flex-1 bg-white border border-gray-300 mx-1 md:mx-5 mt-2 rounded-xl shadow-md overflow-hidden"
                 : ""
             }`}
           >

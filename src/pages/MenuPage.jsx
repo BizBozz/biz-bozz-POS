@@ -61,6 +61,9 @@ function MenuPage() {
     return (
       <>
         <div className="p-5">
+          <div className="mb-5">
+            <p className="sub-header">Menu Management</p>
+          </div>
           <div className="flex flex-col md:flex-row gap-1">
             <div className="w-full overflow-x-auto md:overflow-hidden flex md:flex-wrap gap-5 me-[200px] md:me-[0] hide-scrollbar">
               <button

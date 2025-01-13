@@ -101,15 +101,17 @@ function Receipt() {
                 <div key={itemName} className="font-medium mb-2 flex">
                   <span className="me-2">{index + 1}.</span>{" "}
                   <span className="w-1/3 font-bold">{itemName}</span>{" "}
-                  <span className="w-1/3 flex items-center font-semibold">
-                    {counts[itemName]} pcs{" "}
-                    <button
-                      className="mx-5"
-                      onClick={() => handleRemoveItem(itemName)}
-                    >
-                      <CiSquareMinus />
-                    </button>
-                  </span>
+                  <div className="w-1/3 flex font-semibold">
+                    <span> {counts[itemName]} pcs</span>
+                    <div>
+                      <button
+                        className="ms-3"
+                        onClick={() => handleRemoveItem(itemName)}
+                      >
+                        <CiSquareMinus size={20} />
+                      </button>
+                    </div>
+                  </div>
                   <span className="w-1/3 text-right">
                     {counts[itemName] *
                       currentReceipt.find((item) => item.dishName === itemName)
@@ -122,6 +124,7 @@ function Receipt() {
               <div className="flex justify-between items-center font-bold text-md">
                 <span>Subtotal</span> <span>{total.toLocaleString()} MMK</span>
               </div>
+              <div className="font-medium my-5 flex border-b-4"></div>
               <div className="flex justify-between items-center font-bold text-md">
                 <div className="flex w-2/3">
                   <label className="font-semibold text-md w-1/2">Gov Tax</label>
@@ -146,15 +149,15 @@ function Receipt() {
             </div>
             <div className="flex gap-5 mt-5">
               <button
-                className="bg-white w-full text-primary text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-gray-300 focus:outline-none focus:scale-105"
+                className="bg-white w-full text-primary md:text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-gray-300 focus:outline-none focus:scale-105"
                 onClick={() => cancelAllItem()}
               >
-                Cancel
+                Delete All Orders
               </button>
 
               <button
                 onClick={() => confirmOrderClick()}
-                className="bg-primary w-full text-white text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-primary focus:outline-none focus:scale-105"
+                className="bg-primary w-full text-white md:text-xl font-bold px-4 py-2 rounded-md transition duration-200 border border-primary focus:outline-none focus:scale-105"
               >
                 Confirm Order
               </button>
