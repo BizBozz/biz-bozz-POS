@@ -96,7 +96,7 @@ function EditOrder({ id, closeOrderDetails, editedOrder }) {
         </div>
         {/* Mobile */}
         <div
-          className={`w-full md:hidden overflow-hidden h-screen bg-opacity-0 ${
+          className={`w-full overflow-hidden h-screen bg-opacity-0 ${
             isEditMobileOpen ? "block" : "hidden"
           }`}
         >

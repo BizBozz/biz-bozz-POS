@@ -13,6 +13,9 @@ const receiptSlice = createSlice({
     removeTable(state, action) {
       const tableToRemove = action.payload;
       delete state.receipts[tableToRemove];
+      if (state.selectedTable === tableToRemove) {
+        state.selectedTable = null;
+      }
     },
     addItemToReceipt(state, action) {
       const { table, item } = action.payload;

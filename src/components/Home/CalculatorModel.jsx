@@ -59,11 +59,11 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
           </button>
         </div>
         <div className="mb-4">
-          <div className="flex justify-between mb-2 text-sm md:text-lg px-4">
+          <div className="flex justify-between mb-2 text-sm md:text-lg px-1 md:px-4">
             <label className="font-medium">Total Price</label>
             <span>{totalPrice.toLocaleString()} MMK</span>
           </div>
-          <div className="flex justify-between text-sm md:text-lg items-center mb-2 border border-primary rounded-md px-4 py-2">
+          <div className="flex justify-between text-sm md:text-lg items-center mb-2 border border-primary rounded-md px-1 md:px-4 py-2">
             <label className="font-medium">Paid Price</label>
             <div>
               <input
@@ -76,7 +76,7 @@ const CalculatorModal = ({ totalPrice, table, onClose, orderData }) => {
               <span> MMK</span>
             </div>
           </div>
-          <div className="flex justify-between mb-2 px-4">
+          <div className="flex justify-between mb-2 px-1 md:px-4">
             <label className="font-medium">Extra Change</label>
             <span>{extraChange.toLocaleString()} MMK</span>
           </div>

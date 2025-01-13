@@ -13,7 +13,7 @@ const MenuCard = ({ menu, sentItem }) => {
     sentItem(receiptItem);
   };
   return (
-    <div className="sm:w-[200px] overflow-hidden">
+    <div className="w-full sm:w-[200px] overflow-hidden">
       <div>
         <img
           className="w-full h-48 sm:h-32 object-cover"
