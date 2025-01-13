@@ -77,7 +77,7 @@ function OrderDetail({
 
   const calculateFinalPrice = (orders) => {
     const totalPrice = calculateTotalPrice(orders);
-    const taxAmount = totalPrice * order.tax;
+    const taxAmount = (totalPrice * taxRate) / 100;
     return totalPrice + taxAmount;
   };
 

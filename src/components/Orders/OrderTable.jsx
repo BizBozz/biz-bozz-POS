@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import DeleteModel from "../DeleteModel";
 
 function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
-  // console.log(orders);
+  // console.log(orders[0].tax);
   const [selectedOrders, setselectedOrders] = useState([]); // For selected mail _IDs
   const [orderId, setOrderId] = useState([]);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false); // For selected mail _IDs

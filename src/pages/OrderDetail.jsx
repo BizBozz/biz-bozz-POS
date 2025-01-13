@@ -13,7 +13,7 @@ function OrderDetail() {
     }
   };
 
-  console.log(order.orders);
+  console.log("details", order.orders);
 
   useEffect(() => {
     getOrders();
