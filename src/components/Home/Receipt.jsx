@@ -86,7 +86,7 @@ function Receipt() {
           <div className="flex flex-col items-center justify-center h-[70vh]">
             <img src={box} alt="box" />
             <p className="sub-header">There is no order yet!</p>
-            <span className="text-gray-500">
+            <span className="text-gray-500 text-center">
               Please select table and take order from customer.
             </span>
           </div>
@@ -164,14 +164,16 @@ function Receipt() {
             </div>
           </div>
         )}
-        {isModalOpen && (
-          <CalculatorModal
-            totalPrice={totalWithTax}
-            table={selectedTable}
-            orderData={orderData}
-            onClose={() => setIsModalOpen(false)}
-          />
-        )}
+        <div className="">
+          {isModalOpen && (
+            <CalculatorModal
+              totalPrice={totalWithTax}
+              table={selectedTable}
+              orderData={orderData}
+              onClose={() => setIsModalOpen(false)}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

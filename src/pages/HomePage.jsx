@@ -100,7 +100,7 @@ function HomePage({ isVisible }) {
             <Receipt />
           </div>
           <div
-            className={`md:hidden border border-gray-300 rounded-lg fixed h-screen bg-white text-white transition-transform duration-300 transform ${
+            className={`md:hidden w-full rounded-lg fixed h-screen bg-white text-white transition-transform duration-300 transform ${
               isVisible ? "translate-y-0" : "translate-y-full"
             }`}
           >
