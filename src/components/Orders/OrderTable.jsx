@@ -32,7 +32,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
     <div className="shadow-lg h-[75vh] overflow-y-auto border border-gray-200">
       <table className="min-w-full divide-y bg-primary divide-gray-200">
         <thead className="bg-primary">
-          <tr className="font-bold text-sm md:text-lg">
+          <tr className="font-bold text-md md:text-lg">
             <th
               className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider"
               onClick={(e) => {
@@ -73,7 +73,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
           {orders.map((order, index) => (
             <tr
               key={order._id}
-              className="font-bold text-sm md:text-lg cursor-pointer hover:bg-gray-100"
+              className="font-bold text-md md:text-lg cursor-pointer hover:bg-gray-100"
               onClick={() => handleSendData(order._id)}
             >
               <td

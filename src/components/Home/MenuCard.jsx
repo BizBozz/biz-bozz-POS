@@ -7,6 +7,8 @@ import { CirclePlus } from "lucide-react";
 const MenuCard = ({ menu }) => {
   const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
+  const receipts = useSelector((state) => state.receipts.receipts);
+  console.log(receipts[selectedTable]);
   const handleMenuSelect = (item) => {
     if (selectedTable !== null) {
       dispatch(addItemToReceipt({ table: selectedTable, item }));
@@ -32,7 +34,7 @@ const MenuCard = ({ menu }) => {
           <p className="text-gray-500 text-sm mt-1">{menu.price} MMK</p>
         </div>
         <button
-          className="bg-secondary text-primary px-2 py-3 active:scale-105"
+          className="bg-secondary text-primary px-2 py-3 active:scale-105 active:bg-primary active:text-white rounded-lg"
           onClick={() => handleMenuSelect(menu)}
         >
           <CirclePlus size={17} />

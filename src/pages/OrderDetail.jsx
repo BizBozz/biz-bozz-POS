@@ -25,7 +25,7 @@ function OrderDetail() {
 
   return (
     <div className="container mx-auto pt-10 px-20">
-      <Link to="/orders" className="text-blue-500 mb-4 inline-block">
+      <Link to="/orders" className="text-blue-500 md:mb-4 inline-block">
         Back to Orders
       </Link>
       <h1 className="sub-header font-bold mb-4">Order Details</h1>

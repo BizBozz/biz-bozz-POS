@@ -138,29 +138,29 @@ function OrderDetail({
   return (
     <div className="h-screen overflow-y-auto">
       {order && (
-        <div className="bg-white min-h-screen shadow-lg duration-300 transition-all transition-transform transform translate-x-0">
+        <div className="bg-white py-10 md:py-0 min-h-screen shadow-lg duration-300 transition-all transition-transform transform translate-x-0">
           <div className="p-4 border-b">
-            <div className="flex items-center gap-4 justify-between">
-              <div>
-                <button
-                  className="text-xl mr-2"
-                  onClick={() => closeOrderDetails()}
-                >
-                  <ArrowLeft />
-                </button>
+            <div className="">
+              <button
+                className="text-xl mr-2"
+                onClick={() => closeOrderDetails()}
+              >
+                <ArrowLeft />
+              </button>
+              <div className="flex justify-between items-center">
                 <h2 className="sub-header font-bold my-5">Order Details</h2>
+                {!isEditing && (
+                  <button
+                    onClick={() => {
+                      setIsEditing(true);
+                      editClick();
+                    }}
+                    className="bg-primary text-white px-4 py-2 rounded mt-4"
+                  >
+                    Edit Order
+                  </button>
+                )}
               </div>
-              {!isEditing && (
-                <button
-                  onClick={() => {
-                    setIsEditing(true);
-                    editClick();
-                  }}
-                  className="bg-primary text-white px-4 py-2 rounded mt-4"
-                >
-                  Edit Order
-                </button>
-              )}
             </div>
             <div className="flex grid grid-cols-2 gap-4">
               <div>

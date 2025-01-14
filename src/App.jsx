@@ -61,7 +61,7 @@ export default function App() {
         <div className="flex flex-col">
           {/* Button to open/close the sidebar */}
           {islogin && (
-            <div className="px-1 md:px-5 mt-2 flex justify-between">
+            <div className="px-4 md:px-5 mt-3 md:mt-2 flex justify-between">
               <button
                 onClick={toggleSidebar}
                 className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
