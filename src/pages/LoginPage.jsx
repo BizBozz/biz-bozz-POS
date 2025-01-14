@@ -1,16 +1,16 @@
 import { useState } from "react";
 import EyeToggle from "../components/EyeToggle";
 import handleSignIn from "../api/auth/signIn";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../hook/auth/AuthContext";
+import { useParams } from "react-router-dom";
+// import { useAuth } from "../hook/auth/AuthContext";
 
 const LoginPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // Regular expression for email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const { login } = useAuth();
+  // const { login } = useAuth();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
