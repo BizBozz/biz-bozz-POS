@@ -1,6 +1,7 @@
 // CreateMenu.js
 import { useState } from "react";
 import addMenu from "../../api/Menu/addMenu";
+import defaultMenu from "./../../assets/defaultMenu.jpg";
 import PropTypes from "prop-types";
 
 const MenuModel = ({ isOpen, onClose, category }) => {
@@ -24,17 +25,17 @@ const MenuModel = ({ isOpen, onClose, category }) => {
     formData.append("dishName", dishName);
     formData.append("price", price);
     formData.append("dishImage", image);
-    // console.log(formData);
+    // console.log(image);
     const res = await addMenu(formData);
-    // console.log(res);
-    onClose();
-    // setDishCategory("");
-    setDishName("");
-    setPrice("");
-    setImage(null);
-    // Handle adding the dish here
-    // console.log("Dish Added:", { dishCategory, dishName, price, image });
-    onClose(); // Close the modal after adding the dish
+    console.log(res);
+    if (res.code === 201) {
+      onClose();
+      // setDishCategory("");
+      setDishName("");
+      setPrice("");
+      setImage(null);
+      onClose(); // Close the modal after adding the dish
+    }
   };
 
   if (!isOpen) return null;
@@ -80,7 +81,11 @@ const MenuModel = ({ isOpen, onClose, category }) => {
                     </button>
                   </>
                 ) : (
-                  <span className="text-gray-400">No Image Uploaded</span>
+                  <img
+                    src={defaultMenu}
+                    alt="Dish"
+                    className="w-full h-full object-cover"
+                  />
                 )}
               </div>
               <input

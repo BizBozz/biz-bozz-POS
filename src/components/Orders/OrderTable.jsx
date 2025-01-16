@@ -34,7 +34,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
         <thead className="bg-primary">
           <tr className="font-bold text-md md:text-lg">
             <th
-              className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider"
+              className="px-2 lg:px-6 py-4 text-left text-md font-semibold text-white tracking-wider"
               onClick={(e) => {
                 e.stopPropagation(); // Prevent row click
                 selectAllOrders();
@@ -49,22 +49,22 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
                 } // Check if all are selected
               />
             </th>
-            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th className="px-2 lg:px-6 py-4 text-left text-md font-semibold text-white tracking-wider">
               No
             </th>
-            <th className="hidden lg:block p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th className="hidden lg:block px-2 lg:px-6 py-4 text-left text-md font-semibold text-white tracking-wider">
               Order Type
             </th>
-            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th className="px-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
               Order Time
             </th>
-            <th className="hidden md:block p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th className="hidden md:block px-2 lg:px-6 py-4 text-left text-md font-semibold text-white tracking-wider">
               Quantity
             </th>
-            <th className="p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th className="px-2 lg:px-6 py-4 text-left text-md font-semibold text-white tracking-wider">
               Total Price
             </th>
-            <th className="hidden sm:block p-2 lg:px-6 lg:py-4 text-left text-md font-semibold text-white tracking-wider">
+            <th className="hidden sm:block px-2 lg:px-6 py-4 text-left text-md font-semibold text-white tracking-wider">
               Action
             </th>
           </tr>
@@ -77,7 +77,7 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
               onClick={() => handleSendData(order._id)}
             >
               <td
-                className="p-2 lg:px-6 lg:py-4 whitespace-nowrap"
+                className="px-2 lg:px-6 py-4 whitespace-nowrap"
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent row click
                   if (selectedOrders.includes(order._id)) {
@@ -109,26 +109,26 @@ function OrderTable({ sendData, orders, deleteOrder, setOrderIds }) {
                   onClick={(e) => e.stopPropagation()} // Prevent row click
                 />
               </td>
-              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td className="px-2 lg:px-6 py-4 whitespace-nowrap">
                 {index + 1}
               </td>
-              <td className="hidden lg:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td className="hidden lg:block px-2 lg:px-6 py-4 whitespace-nowrap">
                 {order.orderType}
               </td>
-              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td className="px-2 lg:px-6 lg:py-4 whitespace-nowrap">
                 <span className="hidden lg:inline">
                   {new Date(order.createdAt).toLocaleDateString("en-GB")}{" "}
                 </span>
                 <TimestampFormatter timestamp={order.createdAt} />
               </td>
-              <td className="hidden md:block p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td className="hidden md:block px-2 lg:px-6 py-4 whitespace-nowrap">
                 {order.totalQuantity}{" "}
                 {order.totalQuantity > 1 ? "dishes" : "dish"}
               </td>
-              <td className="p-2 lg:px-6 lg:py-4 whitespace-nowrap">
+              <td className="px-2 lg:px-6 py-4 whitespace-nowrap">
                 {order.finalPrice.toLocaleString()} MMK
               </td>
-              <td className="hidden sm:block p-2 lg:px-6 lg:py-4 whitespace-nowrap ">
+              <td className="hidden sm:block px-2 lg:px-6 py-4 whitespace-nowrap ">
                 <div className="flex space-x-4 items-center">
                   <button
                     className="text-blue-500 font-bold hover:text-blue-700"
