@@ -26,7 +26,7 @@ export default function App() {
   const receipts = useSelector((state) => state.receipts.receipts);
   // console.log("app.js", receipts[selectedTable].items.length);
   const location = window.location.pathname;
-  const user = JSON.parse(sessionStorage.getItem("bz-user"));
+  const user = JSON.parse(localStorage.getItem("bz-user"));
   const [islogin, setIslogin] = useState(false);
   const [isVisible, setisVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);

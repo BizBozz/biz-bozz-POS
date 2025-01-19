@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { GoSignOut } from "react-icons/go";
-import { useAuth } from "../hook/auth/AuthContext";
+// import { useAuth } from "../hook/auth/AuthContext";
 
 const User = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const id = localStorage.getItem("biz-bozz-id");
-  const { logout } = useAuth();
+  // const { logout } = useAuth();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -14,7 +14,9 @@ const User = ({ user }) => {
 
   const handleClose = () => {
     window.location.href = `/login/${id}`;
-    logout();
+    localStorage.removeItem("biz-bozz-token");
+    localStorage.removeItem("bz-user");
+    // logout();
   };
 
   return (

@@ -37,8 +37,9 @@ const LoginPage = () => {
         role: res.data.role,
       };
       console.log("login", res.data.UUID);
-      sessionStorage.setItem("bz-user", JSON.stringify(user));
+      localStorage.setItem("bz-user", JSON.stringify(user));
       sessionStorage.setItem("biz-bozz", res.token);
+      localStorage.setItem("biz-bozz-token", res.token);
       localStorage.setItem("biz-bozz-id", res.data.UUID);
       // navigate("/");
       window.location.href = "/";
