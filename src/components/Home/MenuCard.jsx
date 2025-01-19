@@ -3,6 +3,7 @@ import { addItemToReceipt } from "./../../redux/receiptSlice";
 import { toast } from "sonner";
 import PropTypes from "prop-types";
 import { CirclePlus } from "lucide-react";
+import defaultImage from "./../../assets/defaultMenu.jpg";
 
 const MenuCard = ({ menu }) => {
   const dispatch = useDispatch();
@@ -17,11 +18,11 @@ const MenuCard = ({ menu }) => {
     }
   };
   return (
-    <div className="sm:w-[200px] overflow-hidden">
-      <div>
+    <div className="sm:w-[200px] overflow-hidden border border-gray-200 rounded-lg shadow-md">
+      <div className="hidden md:block">
         <img
           className="w-full h-48 sm:h-32 object-cover"
-          src={menu.dishImage}
+          src={menu.dishImage || defaultImage}
           alt="Food"
         />
       </div>

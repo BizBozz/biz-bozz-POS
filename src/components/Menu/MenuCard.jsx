@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Edit3Icon, Trash2Icon } from "lucide-react";
 import Deleteitems from "../../api/Menu/deleteItem";
 import DeleteModel from "../DeleteModel";
+import defaultImage from "../../assets/defaultMenu.jpg";
+
 const MenuCard = ({ menu, refreshMenu }) => {
   // console.log("card", menu);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,10 +28,10 @@ const MenuCard = ({ menu, refreshMenu }) => {
   // console.log(menu);
   return (
     <div className="sm:w-[200px] bg-white shadow-lg overflow-hidden relative">
-      <div>
+      <div className="hidden md:block">
         <img
           className="w-full h-48 sm:h-32 object-cover"
-          src={menu.dishImage}
+          src={menu.dishImage || defaultImage}
           alt="Food"
         />
       </div>
@@ -41,16 +43,24 @@ const MenuCard = ({ menu, refreshMenu }) => {
           </h2>
           <p className="text-gray-500 text-sm mt-1">{menu.price} MMK</p>
         </div>
-        <button
-          className="bg-secondary text-primary px-2 py-3 active:scale-105"
-          onClick={() => setIsModalOpen(true)}
-        >
-          <Edit3Icon size={17} />
-        </button>
+        <div className="flex gap-2 items-center">
+          <button
+            className="block md:hidden m-2 bg-red-500 text-white p-2 rounded-md hover:scale-95 active:scale-105"
+            onClick={() => setIsDeleteOpen(true)}
+          >
+            <Trash2Icon size={17} />
+          </button>
+          <button
+            className="bg-secondary text-primary p-2 rounded-md border border-primary active:scale-105"
+            onClick={() => setIsModalOpen(true)}
+          >
+            <Edit3Icon size={17} />
+          </button>
+        </div>
       </div>
 
       <button
-        className="absolute top-0 right-0 m-2 bg-red-500 text-white p-2 rounded-md hover:scale-95 active:scale-105"
+        className="hidden md:block absolute top-0 right-0 m-2 bg-red-500 text-white p-2 rounded-md hover:scale-95 active:scale-105"
         onClick={() => setIsDeleteOpen(true)}
       >
         <Trash2Icon size={17} />

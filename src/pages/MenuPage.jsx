@@ -30,7 +30,11 @@ function MenuPage() {
   }, [isModalOpen]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="flex w-full h-screen justify-center items-center overflow-y-auto">
+        <Loading />
+      </div>
+    );
   }
 
   if (!loading && categorys.length === 0) {
@@ -96,7 +100,7 @@ function MenuPage() {
                 <p className="font-bold">+</p>
               </button>
             </div>
-            <div className="">
+            <div className="py-2 md:py-0">
               <button
                 className="bg-primary w-full md:w-48 text-white px-4 py-2 rounded-md transition duration-200 border border-primary hover:bg-white hover:text-primary focus:outline-none focus:scale-105"
                 onClick={() => setIsModalOpen2(true)}
