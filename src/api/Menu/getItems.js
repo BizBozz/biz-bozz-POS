@@ -4,6 +4,7 @@ import axios from "../axios";
 const getItems = async () => {
   try {
     const res = await axios.get("api/v1/menu");
+    // console.log(res.data);
     return res.data;
   } catch (error) {
     return error;

@@ -19,6 +19,8 @@ import "./App.css";
 import EnterID from "./pages/EnterID";
 import User from "./components/User";
 import { useSelector } from "react-redux";
+import SetupShop from "./pages/SetupShop";
+import Welcome from "./pages/Welcome";
 
 export default function App() {
   // const dispatch = useDispatch();
@@ -37,7 +39,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (location.includes("/login")) {
+    if (
+      location.includes("/login") ||
+      location.includes("/signup") ||
+      location.includes("/setup") ||
+      location.includes("/welcome")
+    ) {
       setIslogin(false);
     } else {
       setIslogin(true);
@@ -109,7 +116,7 @@ export default function App() {
             )}
 
             <Routes>
-              <Route path="/login/:id" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage />} />
               <Route
                 path="/"
                 element={
@@ -119,10 +126,26 @@ export default function App() {
                 }
               />
               <Route
-                path="/login"
+                path="/signup"
                 element={
                   // <PrivateRoute>
                   <EnterID />
+                  // </PrivateRoute>
+                }
+              />
+              <Route
+                path="/welcome"
+                element={
+                  // <PrivateRoute>
+                  <Welcome />
+                  // </PrivateRoute>
+                }
+              />
+              <Route
+                path="/setup"
+                element={
+                  // <PrivateRoute>
+                  <SetupShop />
                   // </PrivateRoute>
                 }
               />

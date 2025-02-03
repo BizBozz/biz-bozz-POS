@@ -25,7 +25,7 @@ body {
 }
 
 .sub-header {
-  @apply text-[36px] font-medium font-futura;
+  @apply text-[28px] font-medium font-futura;
 }
 
 input[type="radio"] {
