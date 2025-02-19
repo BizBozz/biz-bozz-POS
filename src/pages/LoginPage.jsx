@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EyeToggle from "../components/EyeToggle";
 import handleSignIn from "../api/auth/signIn";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import logo from "./../assets/lgoo.png";
 // import { useAuth } from "../hook/auth/AuthContext";
 
@@ -42,11 +42,11 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex w-full justify-center items-center h-screen">
+    <div className="flex w-full justify-center mt-20 md:mt-0 h-screen">
       <div className="absolute top-0 left-0">
         <img src={logo} alt="logo" className="w-20 h-20" />
       </div>
-      <div className="w-full mx-5 md:w-[450px] bg-white shadow-md rounded-lg p-6 border border-gray-100">
+      <div className="w-full mx-0 md:w-[450px] bg-white mdshadow-md rounded-lg p-6 border border-gray-100">
         <h2 className="sub-header font-bold mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -61,7 +61,7 @@ const LoginPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email or username"
               required
-              className="block w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="block w-full px-3 py-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
           <div className="mb-4 relative">
@@ -76,10 +76,10 @@ const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password or pin"
               required
-              className="block w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="block w-full px-3 py-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
             {/* Use the reusable EyeToggle component */}
-            <div className="absolute top-[50%] justify-center right-3 flex items-center">
+            <div className="absolute top-[55%] justify-center right-3 flex items-center">
               <EyeToggle onToggle={togglePasswordVisibility} />
             </div>
           </div>
@@ -93,12 +93,12 @@ const LoginPage = () => {
         </form>
         <div className="border-b border-gray-500 mt-5"></div>
         <h2 className="sub-header font-bold mt-5">Don't Have Account?</h2>
-        <button
-          onClick={() => (window.location.href = "/signup")}
-          className="w-full mt-4 bg-prilight border border-primary text-primary font-bold py-4 rounded hover:bg-blue-600 transition duration-200"
+        <Link
+          to="/signup"
+          className="w-full block text-center mt-4 bg-prilight border border-primary text-primary font-bold py-4 rounded hover:bg-pridark transition duration-200"
         >
           Sign Up Biz Bozz
-        </button>
+        </Link>
       </div>
     </div>
   );

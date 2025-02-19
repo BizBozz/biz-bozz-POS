@@ -13,7 +13,7 @@ const User = ({ user }) => {
   };
 
   const handleClose = () => {
-    window.location.href = `/login/${id}`;
+    window.location.href = `/login`;
     localStorage.removeItem("biz-bozz-token");
     localStorage.removeItem("bz-user");
     // logout();
@@ -25,14 +25,13 @@ const User = ({ user }) => {
         id="avatarButton"
         type="button"
         onClick={toggleDropdown}
-        className="cursor-pointer flex items-center gap-8 bg-white px-5 py-2 rounded-lg shadow-md"
+        className="cursor-pointer flex items-center gap-4 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-md"
       >
-        <div>
-          <p className="font-bold">{user?.name}</p>
-          <span className="text-gray-400">{user?.role}</span>
+        <div className="text-primary border border-primary rounded-full p-2">
+          <FaUser size={20} />
         </div>
-        <div className="text-gray-400 border border-gray-100 rounded-full p-2">
-          <FaUser size={25} />
+        <div>
+          <p className="font-bold text-primary">{user?.name}</p>
         </div>
       </div>
 

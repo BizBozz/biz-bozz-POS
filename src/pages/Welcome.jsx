@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "./../assets/lgoo.png";
 import welcome from "./../assets/welcome.svg";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 function Welcome() {
   const navigate = useNavigate();
@@ -15,6 +16,12 @@ function Welcome() {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
+  }, []);
 
   return (
     <div>
@@ -38,12 +45,12 @@ function Welcome() {
           <img src={welcome} alt="welcome" className="" />
           <p className="sub-header">Congratulation!</p>
           <p>Your Shop is now open in BIZ BOZZ!</p>
-          <button
-            onClick={() => navigate("/")}
+          {/* <button
+            onClick={() => navigate("/login")}
             className="w-full mt-4 bg-primary text-white font-bold py-4 rounded hover:bg-blue-600 transition duration-200"
           >
-            Manage Shop
-          </button>
+            
+          </button> */}
         </motion.div>
       </div>
     </div>
