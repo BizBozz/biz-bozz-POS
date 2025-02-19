@@ -170,8 +170,8 @@ function Receipt({ onClose }) {
                     <p className="text-gray-600">Gov Tax</p>
                     <div className="relative">
                       <input
-                        type="number"
-                        value={taxRate}
+                        type="text"
+                        value={taxRate === 0 ? "" : taxRate}
                         onChange={handleTaxChange}
                         className="w-16 px-2 py-1 border border-gray-300 rounded-md text-center focus:outline-none focus:border-primary"
                         min="0"
