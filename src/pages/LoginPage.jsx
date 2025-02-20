@@ -59,7 +59,7 @@ const LoginPage = () => {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email or username"
+              placeholder="Enter your phone number"
               required
               className="block w-full px-3 py-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
