@@ -68,7 +68,7 @@ function HomePage() {
       <div className="">
         {/* <TablePage tables={tables} /> */}
         <div className="flex flex-col md:flex-row">
-          <div className="w-full lg:w-2/3 overflow-y-auto min-h-screen px-5 pt-2 overflow-x-hidden">
+          <div className="w-screen md:w-1/2 lg:w-2/3 overflow-y-auto min-h-screen px-5 pt-2 overflow-x-hidden">
             <div className="flex gap-10 items-center mb-5 ">
               <span className="sub-header">Menu</span>
               <span className="text-gray-500">
@@ -81,7 +81,7 @@ function HomePage() {
                 Select Table
               </button> */}
             </div>
-            <div className="w-full overflow-y-auto md:overflow-hidden flex md:flex-wrap gap-1 md:gap-5 me-[200px] md:me-0 ">
+            <div className="w-full overflow-y-auto lg:overflow-hidden flex lg:flex-wrap gap-1 md:gap-5 me-[200px] md:me-0">
               {categorys.map((category, index) => (
                 <div
                   key={index}
@@ -112,7 +112,7 @@ function HomePage() {
             </div>
           </div>
 
-          <div className="hidden md:block lg:w-1/3 border-l border-gray-300">
+          <div className="hidden md:block md:w-1/2 lg:w-1/3 border-l border-gray-300">
             <Receipt />
           </div>
           <div

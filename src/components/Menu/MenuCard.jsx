@@ -36,7 +36,7 @@ const MenuCard = ({ menu, refreshMenu }) => {
         />
       </div>
 
-      <div className="flex h-[80px] gap-5 justify-between items-center mt-2 mx-2  ">
+      <div className="flex h-[80px] gap-2 justify-between items-center mt-2 mx-1  ">
         <div className="font-raleway ">
           <h2 className="font-semibold text-gray-800 multi-line-truncate">
             {menu.dishName}{" "}
@@ -83,7 +83,7 @@ const MenuCard = ({ menu, refreshMenu }) => {
 
 MenuCard.propTypes = {
   menu: PropTypes.shape({
-    dishImage: PropTypes.string.isRequired,
+    dishImage: PropTypes.string,
     dishName: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     _id: PropTypes.string.isRequired,

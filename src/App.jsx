@@ -66,7 +66,7 @@ export default function App() {
         <div className="flex flex-col min-h-screen">
           {/* Horizontal Navbar */}
           {islogin && (
-            <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-10">
+            <div className="fixed top-0 left-0 right-0 shadow-sm z-10">
               <div className="px-2 md:px-3 h-20 flex items-center justify-between">
                 <button
                   onClick={toggleSidebar}
@@ -75,11 +75,7 @@ export default function App() {
                   <Menu size={25} />
                 </button>
 
-                <div className="flex items-center gap-4">
-                  <div className="">
-                    <User user={user} />
-                  </div>
-                </div>
+                <User user={user} />
               </div>
             </div>
           )}
@@ -95,9 +91,10 @@ export default function App() {
                   <div className="space-y-1">
                     <NavLink
                       to="/"
+                      onClick={toggleSidebar}
                       className={({ isActive }) =>
                         `flex items-center gap-2 p-3 rounded-lg hover:bg-gray-50 ${
-                          isActive || location.includes("/order")
+                          isActive
                             ? "text-primary font-medium"
                             : "text-gray-700"
                         }`
@@ -106,6 +103,7 @@ export default function App() {
                       <span>Home</span>
                     </NavLink>
                     <NavLink
+                      onClick={toggleSidebar}
                       to="/menu"
                       className={({ isActive }) =>
                         `flex items-center gap-2 p-3 rounded-lg hover:bg-gray-50 ${
@@ -119,6 +117,7 @@ export default function App() {
                     </NavLink>
                     <NavLink
                       to="/orders"
+                      onClick={toggleSidebar}
                       className={({ isActive }) =>
                         `flex items-center gap-2 p-3 rounded-lg hover:bg-gray-50 ${
                           isActive
@@ -131,6 +130,7 @@ export default function App() {
                     </NavLink>
                     <NavLink
                       to="/dashboard"
+                      onClick={toggleSidebar}
                       className={({ isActive }) =>
                         `flex items-center gap-2 p-3 rounded-lg hover:bg-gray-50 ${
                           isActive

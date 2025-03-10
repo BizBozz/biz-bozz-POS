@@ -82,7 +82,7 @@ function Receipt({ onClose }) {
         <div className="flex justify-between w-full items-center mb-5">
           <p className="sub-header font-bold">Receipt</p>
           <button
-            className="bg-white text-primary py-2 px-6 border border-primary rounded-full hover:bg-primary hover:text-white transition-colors"
+            className="md:hidden bg-white text-primary py-2 px-6 border border-primary rounded-full hover:bg-primary hover:text-white transition-colors"
             onClick={() => navigate("/")}
           >
             Save
@@ -156,7 +156,7 @@ function Receipt({ onClose }) {
               ))}
             </div>
 
-            <div className="sticky bottom-[-80px] bg-white border-t pt-4">
+            <div className="sticky bottom-[0px] bg-white border-t pt-4">
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between items-center">
                   <p className="text-gray-600">Subtotal</p>

@@ -24,7 +24,7 @@ const TablePage = ({ tables }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex pt-5 bg-white">
+    <div className="fixed inset-0 flex pt-20 bg-white">
       <div className="w-full px-5">
         <div className="flex justify-between items-center mb-2">
           <h2 className="sub-header">Tables</h2>

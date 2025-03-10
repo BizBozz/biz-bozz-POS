@@ -44,8 +44,8 @@ const MenuCard = ({ menu }) => {
   };
 
   return (
-    <div className="sm:w-[200px] overflow-hidden border border-gray-200 rounded-lg shadow-md">
-      <div className="hidden md:block">
+    <div className="w-auto lg:w-[200px] overflow-hidden border border-gray-200 rounded-lg shadow-md">
+      <div className="hidden lg:block">
         <img
           className="w-full h-48 sm:h-32 object-cover"
           src={menu.dishImage || defaultImage}
@@ -53,14 +53,14 @@ const MenuCard = ({ menu }) => {
         />
       </div>
 
-      <div className="flex h-[80px] gap-5 justify-between items-center mt-2 mx-2 ">
-        <div className="font-raleway ">
-          <h2 className="font-semibold text-gray-800 multi-line-truncate">
+      <div className="flex h-[80px] gap-2 justify-between items-center mt-2 mx-1 ">
+        <div className="font-raleway overflow-hidden ">
+          <h2 className="font-semibold multi-line-truncate text-gray-800">
             {menu.dishName}{" "}
           </h2>
-          <p className="text-gray-500 text-sm mt-1">{menu.price} MMK</p>
+          <p className="text-gray-500 truncate text-sm mt-1">{menu.price} MMK</p>
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-1 items-center">
           <button
             className="bg-secondary text-primary px-2 py-3 active:scale-105 active:bg-primary active:text-white rounded-lg"
             onClick={handleDecrement}
@@ -84,7 +84,7 @@ const MenuCard = ({ menu }) => {
 
 MenuCard.propTypes = {
   menu: PropTypes.shape({
-    dishImage: PropTypes.string.isRequired,
+    dishImage: PropTypes.string,
     dishName: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
