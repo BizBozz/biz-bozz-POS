@@ -11,7 +11,7 @@ import NoItems from "../components/NoItems";
 function HomePage({ isVisible }) {
   // const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const [categorys, setCategorys] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +19,9 @@ function HomePage({ isVisible }) {
   const tables = [1, 2, 3, 4, 5];
 
   const getAllCategory = async () => {
-    setLoading(true);
+    setLoading(false);
     const res = await getItems();
-    // console.log("home", res);
+
     if (res.code === 200) {
       setLoading(false);
       const categoryArray = [
@@ -32,7 +32,6 @@ function HomePage({ isVisible }) {
       setSelectedCategory(categoryArray[0]);
     } else if (res.status === 401) {
       window.location.href = "/login";
-      // c327b24a-c464-4880-b6cf-ead3750a3977
     }
   };
 

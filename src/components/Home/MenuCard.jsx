@@ -22,7 +22,7 @@ const MenuCard = ({ menu }) => {
       <div className="hidden md:block">
         <img
           className="w-full h-48 sm:h-32 object-cover"
-          src={menu.dishImage || defaultImage}
+          src={menu.stockImagesUrl[0].url || defaultImage}
           alt="Food"
         />
       </div>
@@ -30,7 +30,7 @@ const MenuCard = ({ menu }) => {
       <div className="flex h-[80px] gap-5 justify-between items-center mt-2 mx-2 ">
         <div className="font-raleway ">
           <h2 className="font-semibold text-gray-800 multi-line-truncate">
-            {menu.dishName}{" "}
+            {menu.name}{" "}
           </h2>
           <p className="text-gray-500 text-sm mt-1">{menu.price} MMK</p>
         </div>

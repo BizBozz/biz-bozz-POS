@@ -21,13 +21,11 @@ import User from "./components/User";
 import { useSelector } from "react-redux";
 
 export default function App() {
-  // const dispatch = useDispatch();
   const selectedTable = useSelector((state) => state.receipts.selectedTable);
   const receipts = useSelector((state) => state.receipts.receipts);
-  // console.log("app.js", receipts[selectedTable].items.length);
   const location = window.location.pathname;
   const user = JSON.parse(localStorage.getItem("bz-user"));
-  const [islogin, setIslogin] = useState(false);
+  const [islogin, setIslogin] = useState(true);
   const [isVisible, setisVisible] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [animate, setAnimate] = useState(false);
@@ -60,39 +58,35 @@ export default function App() {
       <div className="bg-gray-100">
         <div className="flex flex-col">
           {/* Button to open/close the sidebar */}
-          {islogin && (
-            <div className="px-4 md:px-5 mt-3 md:mt-2 flex justify-between">
-              <button
-                onClick={toggleSidebar}
-                className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
-              >
-                <IoMdMenu size={30} />
-              </button>
+          <div className="px-4 md:px-5 mt-3 md:mt-2 flex justify-between">
+            <button
+              onClick={toggleSidebar}
+              className="px-5 border bg-white border-gary-300 text-primary rounded-lg focus:outline-none"
+            >
+              <IoMdMenu size={30} />
+            </button>
 
-              <div className="">
-                <User user={user} />
-              </div>
-              <button
-                type="button"
-                className="relative md:hidden inline-flex items-center p-3 text-sm font-medium text-center text-white bg-primary rounded-lg"
-                onClick={() => setisVisible(!isVisible)}
-              >
-                <Receipt size={25} />
-                {receipts[selectedTable]?.items.length > 0 && (
-                  <div
-                    className={`absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-primary bg-white border-2 border-white rounded-full -top-2 -right-2 ${
-                      animate ? "badge-animate" : ""
-                    }`}
-                  >
-                    {receipts[selectedTable]?.items.length}
-                  </div>
-                )}
-              </button>
+            <div className="">
+              <User user={user} />
             </div>
-          )}
-
+            <button
+              type="button"
+              className="relative md:hidden inline-flex items-center p-3 text-sm font-medium text-center text-white bg-primary rounded-lg"
+              onClick={() => setisVisible(!isVisible)}
+            >
+              <Receipt size={25} />
+              {receipts[selectedTable]?.items.length > 0 && (
+                <div
+                  className={`absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-primary bg-white border-2 border-white rounded-full -top-2 -right-2 ${
+                    animate ? "badge-animate" : ""
+                  }`}
+                >
+                  {receipts[selectedTable]?.items.length}
+                </div>
+              )}
+            </button>
+          </div>
           {/* Sidebar Component */}
-
           <div
             className={`${
               islogin

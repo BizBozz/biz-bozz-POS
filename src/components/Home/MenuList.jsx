@@ -12,10 +12,13 @@ const MenuList = ({ category }) => {
 
   const getMenuList = async () => {
     const res = await getItems();
-    if (res.code === 200) {
+    if (res.status === "success") {
+      console.log("menuLists", res.data);
       setLoading(false);
-      // console.log("item List", res.data[0].categoryName);
       setMenuList(res.data);
+    } else {
+      setLoading(false);
+      setMenuList([]);
     }
   };
 
@@ -60,12 +63,9 @@ const MenuList = ({ category }) => {
   if (!loading && menuLists.length > 0) {
     return (
       <div className="flex flex-col sm:flex-row lg:flex-wrap gap-5 mt-5 pb-40">
-        {menuLists.map((menu) => {
-          return (
-            menu.categoryName === category &&
-            menu.items.map((item) => <MenuCard key={item._id} menu={item} />)
-          );
-        })}
+        {menuLists.map((menu) => (
+          <MenuCard key={menu._id} menu={menu} />
+        ))}
       </div>
     );
   }
